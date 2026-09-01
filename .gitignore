@@ -47,6 +47,7 @@ hc_output/
 *.jou
 *.str
 *.wdb
+*.dcp
 
 # Simulation output
 work/
@@ -61,4 +62,3 @@ vsim.wlf
 __pycache__/
 *.py[cod]
 .pytest_cache/
-

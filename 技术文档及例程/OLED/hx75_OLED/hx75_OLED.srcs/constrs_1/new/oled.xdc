@@ -1,0 +1,13 @@
+set_property PACKAGE_PIN T4 [get_ports sck]
+set_property IOSTANDARD LVCMOS33 [get_ports sck]
+set_property PACKAGE_PIN T5 [get_ports miso]
+set_property IOSTANDARD LVCMOS33 [get_ports miso]
+set_property PACKAGE_PIN U5 [get_ports reset_oled]
+set_property IOSTANDARD LVCMOS33 [get_ports reset_oled]
+set_property PACKAGE_PIN W6 [get_ports dc]
+set_property IOSTANDARD LVCMOS33 [get_ports dc]
+set_property PACKAGE_PIN Y18 [get_ports clk]
+set_property IOSTANDARD LVCMOS33 [get_ports clk]
+
+set_property PACKAGE_PIN W5 [get_ports cs]
+set_property IOSTANDARD LVCMOS33 [get_ports cs]
