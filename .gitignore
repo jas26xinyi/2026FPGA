@@ -1,0 +1,64 @@
+# Microsoft Office temporary and lock files
+~$*
+*.tmp
+
+# Windows metadata
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Editor and IDE settings
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Quartus generated files and directories
+db/
+incremental_db/
+output_files/
+simulation/
+greybox_tmp/
+hc_output/
+*.qws
+*.qdf
+*.rpt
+*.summary
+*.smsg
+*.chg
+*.done
+*.jdi
+*.pin
+*.sof
+*.pof
+*.rbf
+*.rpd
+*.cdf
+
+# Vivado generated files and directories
+.Xil/
+*.cache/
+*.hw/
+*.ip_user_files/
+*.runs/
+*.sim/
+*.gen/
+*.jou
+*.str
+*.wdb
+
+# Simulation output
+work/
+transcript
+vsim.wlf
+*.vcd
+*.fst
+*.ghw
+*.log
+
+# Python caches used by build/helper scripts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
