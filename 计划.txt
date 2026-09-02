@@ -1,0 +1,85 @@
+# FPGA 密码锁、报警拍照与 HDMI 显示实施计划
+
+## Summary
+
+- 面向 `HX7A75A / XC7A75T-FGG484-2`，使用 Vivado 2023.2，完成题目规定的密码锁全部功能：默认密码 `1234`、管理员改密、确认/退格、四次错误报警、管理员解除报警、8 秒与 16 秒超时。题目依据：:codex-file-citation{path="E:/26FPGA/数字系统课程设计-题目新.docx" purpose="source" artifact_kind="document"}
+- 扩展功能采用已确认方案：4×4 矩阵键盘输入；第四次错误时立即报警并抓取四张 `160×120 RGB565` 图像，存入片上 BRAM，以 `640×480` HDMI 四宫格显示。
+- 管理员密码使用板载独立 W25Q64 用户 Flash 永久保存；不占用 FPGA 配置使用的 N25Q128。
+- 新建独立、可复现的 Vivado 工程，保留现有 OLED/矩阵键盘例程作为参考，不直接修改其原始文件。
+
+## Implementation Changes
+
+1. **工程与代码规范**
+
+   - 建立 `password_lock_system/`，分为 RTL、仿真、约束、Vivado/Tcl 构建与第三方 HDMI 源码。
+   - 课程逻辑统一使用 Verilog-2001：时序块非阻塞赋值、组合块提供完整默认值、Moore 型两段式 FSM、主逻辑统一运行于 50 MHz。
+   - 提供可直接打开的 `.xpr`，同时提供从零重建工程、运行仿真、综合、实现和生成 bitstream 的批处理 Tcl/PowerShell 脚本。
+   - 将当前未跟踪的 `readme.txt` 纳入版本控制，并生成 `COURSEWARE_NOTES.md`、设计说明、验证报告和使用手册。
+
+2. **密码锁与人机交互**
+
+   - 状态固定为：启动初始化、等待、用户输入、错误提示、开锁、管理员改密、Flash 保存、报警。
+   - 矩阵键盘映射：`0–9` 输入数字，`A` 确认，`B` 退格，`C` 取消；`D–F` 保留。
+   - 板载控制：SW1 上升沿进入开锁输入；KEY1 进入管理员改密；KEY2 是唯一报警解除键；其他输入在报警状态均不能停警。
+   - 管理员改密无需旧密码，物理 KEY1 视为管理员专用键；输入四位后按 `A`，Flash 写入并回读成功后才启用新密码。
+   - 输入不足四位时确认无效；超过四位不再接收数字。每次有效输入重置活动计时。
+   - 锁未打开时 8 秒无操作返回等待；开锁后 16 秒无操作自动上锁；开锁状态按 `A` 可立即上锁。
+   - 第 1–3 次错误显示约 1 秒 `ErrN` 后重新输入；第 4 次错误立即启动蜂鸣器、报警 LED 和四帧捕获。
+   - 数码管右侧四位显示密码输入，左侧显示 `PASS/SEt/ErrN/OPEN/ALAr/SAVE/FErr` 等状态近似字形；独立 LED 分别表示就绪、输入、开锁、报警/故障。
+
+3. **矩阵键盘、显示与永久密码**
+
+   - 重写示例扫描器为“列扫描 + 20 ms 按下/释放消抖 + 单周期事件”，长按只产生一个键事件，多键同时按下时忽略直到全部释放。消抖方法遵循课程 FSM 规范：:codex-file-citation{path="E:/26FPGA/课件/4.有限状态机设计基础.pptx" purpose="source" artifact_kind="presentation" slide_number="39"}
+   - J2 键盘约束固定为行 `T3/T1/U1/U2`、列 `V2/R3/R2/W2`，对应现有实验接线：:codex-file-citation{path="E:/26FPGA/技术文档及例程/矩阵键盘/矩阵键盘实验.pptx" purpose="source" artifact_kind="presentation" slide_number="16"}
+   - 数码管按共阳、段码低有效、位选高有效实现动态扫描；SW6 置于数码管档。报警使用独立 LED 与低有效蜂鸣器，SW5 必须置于接通档。
+   - W25Q64 使用 SPI Mode 0、12.5 MHz，支持 `JEDEC ID / READ / WREN / RDSR / Sector Erase / Page Program`。
+   - 保留扇区 `0x000000` 和 `0x001000`，每个扇区写一份 16 字节记录：魔数、32 位版本、16 位 BCD 密码、密码反码、CRC16、提交标记。
+   - 更新时擦除旧版本较低的扇区，写入、轮询完成并回读验证后才切换密码；掉电中断时启动阶段选择另一份有效记录。两份都无效则使用 `1234`。
+   - Flash 写入失败时继续使用旧密码并显示 `FErr`，不把未验证的新密码投入使用。指令和掉电策略依据 [Winbond W25Q64 官方资料](https://www.winbond.com/hq/support/documentation/?__locale=en&category=%2F.categories%2Fresources%2Fdatasheet%2F&family=%2Fproduct%2Fcode-storage-flash-memory%2Fserial-nor-flash%2Findex.html&line=%2Fproduct%2Fcode-storage-flash-memory%2Findex.html&pno=W25Q64FV)。
+
+4. **OV5640、四帧 BRAM 与 HDMI**
+
+   - 生成 24 MHz OV5640 XCLK；SCCB 以 100 kHz 初始化 `160×120、RGB565、DVP 8-bit、30 fps`，每个寄存器 NACK 最多重试三次。
+   - 初始化表从固定版本的 [ST OV5640 驱动](https://github.com/STMicroelectronics/stm32-ov5640/tree/52c727ac10a427fe7a400d3a4783adc814ee075e) 转换为 Verilog ROM，并以 [Linux OV5640 DVP/RGB565 定义](https://github.com/torvalds/linux/blob/786262be6048deab760f68c8acc2c85607165894/drivers/media/i2c/ov5640.c) 交叉核对字节顺序和极性。
+   - 第四次错误后，从下一次有效 VSYNC 开始抓取连续四个完整帧；每帧必须正好收到 `160×120×2` 字节，否则丢弃并重试当前帧，整体捕获超时为 2 秒。
+   - 使用四个独立双时钟 BRAM，每个 `19,200×16 bit`；总计 `1,228.8 Kbit`，低于 XC7A75T 的 `3,780 Kbit` BRAM 容量。[AMD DS180](https://docs.amd.com/api/khub/documents/2LByHkO~nSZXcei2D55fTg/content)
+   - 捕获触发后即使管理员先解除声音报警，也继续完成四帧；图像保留到下一次报警或重新上电。
+   - HDMI 使用接口 B，输出 `640×480`、25 MHz 像素时钟；四帧分别放大 2 倍显示于四个 `320×240` 象限。未捕获或摄像头故障时显示测试色条/红色故障背景。
+   - HDMI 发送层固定纳入 [Digilent rgb2dvi，提交 f4613fff](https://github.com/Digilent/vivado-library/tree/f4613fff005b098065fd5d619a2b88e55720a423/ip/rgb2dvi)，保留 BSD-3-Clause 许可证；使用 25/125 MHz 相关时钟并输出 DVI 兼容 TMDS，无音频。
+   - 摄像头写时钟与 HDMI 读时钟通过双口 BRAM隔离；所有跨域启动、完成和错误信号采用同步器/翻转握手。
+
+5. **专用约束与接口**
+
+   - 不导入现有通用 `7A75_FPGA_IO.xdc`，因为它含重复 HDMI/HPD 和大量无关接口；新建项目专用 XDC。
+   - 关键引脚固定为：
+     - 时钟 `Y18`；矩阵键盘行列如上。
+     - OV5640：SCL `F15`、SDA `F13`、D0–D7 `F14/F16/E17/C14/C15/E13/E14/E16`、PWDN `D16`、XCLK `D14`、VSYNC `D15`、HREF `B15`、RESET `B16`、PCLK `C13`。
+     - HDMI-B：数据 P `T14/W15/T16`、数据 N `T15/W16/U16`、时钟 P/N `V13/V14`，全部 `TMDS_33`。
+     - W25Q64：CS `M20`、HOLD `K13`、MISO `M13`、SCLK `K14`、WP `K17`、MOSI `L13`。
+   - 其余按键、开关、独立 LED、数码管和蜂鸣器严格采用板卡手册管脚：:codex-file-citation{path="E:/26FPGA/技术文档及例程/开发板/HX7A75A开发板手册-HDL版2307(旧版).pdf" purpose="source"}
+   - 为 50 MHz、25 MHz、125 MHz、24 MHz 和摄像头 PCLK 建立时钟约束；摄像头域与系统/HDMI 域声明异步并执行 CDC 报告。
+
+## Public Interfaces and Stored Format
+
+- 顶层端口按功能分组：系统时钟；板载按键/开关；矩阵键盘行列；数码管/LED/蜂鸣器；W25Q64 SPI；OV5640 DVP/SCCB；HDMI TMDS。
+- 可复用内部事件接口统一为 `event_valid + event_code[3:0]`；密码控制器参数包括默认密码、8/16 秒超时和 1 秒错误提示，仿真时允许缩短。
+- 摄像头捕获接口为 `capture_start / capture_busy / capture_done / capture_error`，完成后四个 BRAM bank 原子标记有效。
+- Flash 存储地址和 16 字节记录格式写入设计说明，后续版本不得占用两个保留扇区或改变格式而不提升记录版本。
+
+## Test and Acceptance Plan
+
+- **单元仿真**：时钟使能、20 ms 消抖、单次按键事件、数码管扫描、密码输入/退格、管理员改密、8/16 秒边界、四次错误、报警解除权限。
+- **Flash 仿真**：空 Flash 默认 `1234`、正常保存、回读失败、NACK/超时、单扇区损坏、写入中断电后旧密码恢复、版本选择和 CRC 拒绝。
+- **视频仿真**：模拟 OV5640 DVP 数据，验证 RGB565 字节拼接、四个完整帧分别写入四个 bank、坏帧重试、2 秒超时和四宫格像素地址映射。
+- **集成仿真**：缩短计时参数，完成“错误四次→报警→抓取四帧→HDMI 四宫格→KEY2 解除→图像保留”的端到端流程。
+- **Vivado 门禁**：所有 testbench 通过；综合/实现无错误；无意外锁存、多驱动、未约束 I/O 或严重 CDC；DRC 通过；所有时钟 WNS≥0；BRAM 使用率低于 60%；成功生成 `.bit`。
+- **实机验收**：核对 J2 键盘方向、OV5640 排母第 1 脚 3.3 V、HDMI-B、SW5 蜂鸣器接通、SW6 数码管档；逐项验证密码、改密掉电保持、超时、四次报警、四帧拼图及管理员解除。
+- 硬件未连接前只标注“本地仿真/综合/实现通过”，不得宣称摄像头、Flash、蜂鸣器或 HDMI 已实机验证。
+- 完成后更新详细接线与操作手册、保存 Vivado 报告，分阶段提交 Git，最后推送 `main` 到 `https://github.com/jas26xinyi/2026FPGA.git` 并比较本地/远端提交哈希。
+
+## Assumptions
+
+- 目标板确定为 HX7A75A，器件 `xc7a75tfgg484-2`；矩阵键盘接 J2，摄像头接板载 18 针 OV5640 座，显示器接 HDMI-B。
+- 四帧采用已确认的 BRAM 四宫格方案，不引入 DDR3/MIG。
+- 管理员修改密码要求掉电永久保存；W25Q64 两个保留扇区当前未被其他工程使用。
+- 题目 DOCX 已完成结构化文字读取；本机缺少 LibreOffice，因此未完成 DOCX 页面 PNG 视觉核查，但不影响已提取的功能要求。
