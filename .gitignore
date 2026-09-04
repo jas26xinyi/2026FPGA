@@ -66,3 +66,7 @@ tmp/
 __pycache__/
 *.py[cod]
 .pytest_cache/
+
+# Raspberry Pi local configuration and captured evidence
+raspberry_pi5_camera/config.json
+raspberry_pi5_camera/captures/

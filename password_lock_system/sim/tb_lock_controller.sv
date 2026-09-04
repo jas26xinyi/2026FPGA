@@ -1,9 +1,11 @@
 `timescale 1ns/1ps
 module tb_lock_controller;
     reg test_pass=0;
-    reg clk=0,rst=1,init_done=0,flash_fault=0,sw1=0,admin=0,clear=0,key_valid=0;
+    reg clk=0,rst=1,init_done=0,flash_fault=0,sw1=0,admin=0,clear=0,temp_event=0,key_valid=0;
     reg [3:0] key_code=0;
     reg [15:0] stored_password=16'h1234;
+    reg [15:0] temporary_password=16'h0000;
+    reg temporary_valid=0;
     reg save_done=0,save_success=0;
     wire save_request,capture_start,unlocked,alarm_active,display_fault;
     wire [15:0] save_password,entry_digits;
@@ -13,13 +15,15 @@ module tb_lock_controller;
     lock_controller #(.CLOCK_HZ(1000),.LOCK_TIMEOUT_S(1),.OPEN_TIMEOUT_S(2),.ERROR_DISPLAY_MS(2)) dut(
         .clk(clk),.rst(rst),.flash_init_done(init_done),.stored_password(stored_password),
         .flash_fault(flash_fault),.sw1_event(sw1),.admin_event(admin),.alarm_clear_event(clear),
+        .temporary_event(temp_event),.temporary_password(temporary_password),.temporary_valid(temporary_valid),
         .key_valid(key_valid),.key_code(key_code),.save_done(save_done),.save_success(save_success),
         .save_request(save_request),.save_password(save_password),.capture_start(capture_start),
         .unlocked(unlocked),.alarm_active(alarm_active),.state(state),.entry_digits(entry_digits),
         .entry_count(entry_count),.error_count(error_count),.display_fault(display_fault));
     task pulse(input integer which);
       begin @(negedge clk); if(which==0)sw1=1; if(which==1)admin=1; if(which==2)clear=1;
-            @(negedge clk); sw1=0;admin=0;clear=0; end
+            if(which==3)temp_event=1;
+            @(negedge clk); sw1=0;admin=0;clear=0;temp_event=0; end
     endtask
     task key(input [3:0] code);
       begin @(negedge clk);key_code=code;key_valid=1;@(negedge clk);key_valid=0; end
@@ -37,6 +41,23 @@ module tb_lock_controller;
       pulse(0); digits(16'h1234); key(4'hA); repeat(2) @(negedge clk);
       check(unlocked,"correct password unlocks");
       key(4'hA); repeat(2) @(negedge clk); check(state==1,"A locks immediately");
+      temporary_password=16'h2468;temporary_valid=1;pulse(3);repeat(2)@(negedge clk);
+      check(state==8,"KEY3 displays temporary password");
+      pulse(0);digits(16'h2468);key(4'hA);repeat(2)@(negedge clk);
+      check(unlocked,"temporary password unlocks");
+      key(4'hA);repeat(2)@(negedge clk);
+      pulse(3);temporary_password=16'h1357;
+      @(negedge clk);temp_event=1;sw1=1;
+      @(negedge clk);temp_event=0;sw1=0;repeat(2)@(negedge clk);
+      check(state==8,"replacement request wins over simultaneous SW1");
+      pulse(0);digits(16'h2468);key(4'hA);
+      check(state==3,"old temporary password is rejected");
+      repeat(4)@(negedge clk);digits(16'h1357);key(4'hA);repeat(2)@(negedge clk);
+      check(unlocked,"replacement temporary password unlocks");
+      key(4'hA);repeat(2)@(negedge clk);
+      pulse(0);digits(16'h1234);key(4'hA);repeat(2)@(negedge clk);
+      check(unlocked,"fixed password remains valid with temporary password enabled");
+      key(4'hA);repeat(2)@(negedge clk);
       pulse(1); digits(16'h5678); key(4'hA);
       check(state==6 && save_password==16'h5678,"admin save request");
       stored_password=16'h5678; save_success=1; save_done=1;
@@ -47,6 +68,7 @@ module tb_lock_controller;
         digits(16'h1111);key(4'hA);repeat(4)@(negedge clk);
       end
       check(alarm_active,"fourth error alarms");
+      pulse(3);repeat(2)@(negedge clk);check(alarm_active,"KEY3 cannot bypass alarm");
       pulse(1);repeat(2)@(negedge clk);check(alarm_active,"admin entry key cannot clear alarm");
       key(4'hA);repeat(2)@(negedge clk);check(alarm_active,"keypad cannot clear alarm");
       pulse(2);repeat(2)@(negedge clk);

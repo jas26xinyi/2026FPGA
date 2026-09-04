@@ -1,0 +1,13 @@
+{
+  "serial_port": "/dev/ttyAMA0",
+  "baud_rate": 115200,
+  "capture_width": 640,
+  "capture_height": 480,
+  "mosaic_width": 640,
+  "mosaic_height": 480,
+  "capture_count": 4,
+  "capture_interval_seconds": 0.1,
+  "capture_timeout_seconds": 2.0,
+  "output_directory": "captures",
+  "fullscreen": true
+}

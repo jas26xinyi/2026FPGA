@@ -9,16 +9,18 @@ module sevenseg_display #(
     input  wire [15:0] entry_digits,
     input  wire [2:0]  entry_count,
     input  wire [2:0]  error_count,
+    input  wire [15:0] temporary_password,
     input  wire        display_fault,
     output reg  [7:0]  seg_n,
     output reg  [7:0]  digit_sel
 );
     localparam [3:0] ST_BOOT=0, ST_WAIT=1, ST_USER=2, ST_ERROR=3,
-                     ST_OPEN=4, ST_ADMIN=5, ST_SAVE=6, ST_ALARM=7;
+                     ST_OPEN=4, ST_ADMIN=5, ST_SAVE=6, ST_ALARM=7,
+                     ST_TEMP=8;
     localparam [4:0] CH_BLANK=5'h10, CH_P=5'h11, CH_A=5'h12, CH_S=5'h13,
                      CH_E=5'h14, CH_T=5'h15, CH_R=5'h16, CH_O=5'h17,
                      CH_N=5'h18, CH_L=5'h19, CH_F=5'h1A, CH_I=5'h1B,
-                     CH_U=5'h1C;
+                     CH_U=5'h1C, CH_M=5'h1D;
     reg [18:0] refresh_count;
     reg [2:0] scan;
     reg [4:0] chars [0:7];
@@ -40,6 +42,7 @@ module sevenseg_display #(
                 CH_L: encode=8'b11000111; CH_F: encode=8'b10001110;
                 CH_I: encode=8'b11111001;
                 CH_U: encode=8'b11000001;
+                CH_M: encode=8'b10101010;
                 default: encode=8'b11111111;
             endcase
         end
@@ -58,12 +61,21 @@ module sevenseg_display #(
             ST_ADMIN: begin chars[7]=CH_S; chars[6]=CH_E; chars[5]=CH_T; chars[4]=CH_BLANK; end
             ST_SAVE: begin chars[7]=CH_S; chars[6]=CH_A; chars[5]=CH_U; chars[4]=CH_E; end
             ST_ALARM: begin chars[7]=CH_A; chars[6]=CH_L; chars[5]=CH_A; chars[4]=CH_R; end
+            ST_TEMP: begin
+                chars[7]=CH_T; chars[6]=CH_E; chars[5]=CH_M; chars[4]=CH_P;
+                chars[3]=temporary_password[15:12];
+                chars[2]=temporary_password[11:8];
+                chars[1]=temporary_password[7:4];
+                chars[0]=temporary_password[3:0];
+            end
             default: ;
         endcase
-        if (entry_count > 0) chars[0] = entry_digits[3:0];
-        if (entry_count > 1) chars[1] = entry_digits[7:4];
-        if (entry_count > 2) chars[2] = entry_digits[11:8];
-        if (entry_count > 3) chars[3] = entry_digits[15:12];
+        if (state != ST_TEMP) begin
+            if (entry_count > 0) chars[0] = entry_digits[3:0];
+            if (entry_count > 1) chars[1] = entry_digits[7:4];
+            if (entry_count > 2) chars[2] = entry_digits[11:8];
+            if (entry_count > 3) chars[3] = entry_digits[15:12];
+        end
     end
 
     always @(posedge clk) begin

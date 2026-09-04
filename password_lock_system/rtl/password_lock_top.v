@@ -1,70 +1,48 @@
 `timescale 1ns/1ps
 
 module password_lock_top #(
-    // Set to 1 only after the OV5640 is connected and camera verification is
-    // required. The default keypad-first build removes all camera capture
-    // logic and keeps the camera control pins in a safe, inactive state.
-    parameter integer ENABLE_CAMERA = 0
+    // The Raspberry Pi link is harmless when no Pi is connected: TX remains
+    // idle high and RX has an external pull-up constraint. Set to 0 to remove
+    // the UART protocol logic from synthesis.
+    parameter integer ENABLE_RPI_CAMERA = 1
 ) (
-    input wire sys_clk,
-    input wire [3:0] key_n,
-    input wire [3:0] sw,
-    input wire [3:0] keypad_row_n,
+    input  wire       sys_clk,
+    input  wire [3:0] key_n,
+    input  wire [3:0] sw,
+    input  wire [3:0] keypad_row_n,
     output wire [3:0] keypad_col_n,
     output wire [7:0] seg_n,
     output wire [7:0] seg_sel,
     output wire [3:0] led,
-    output wire buzzer_n,
-    output wire flash_cs_n,
-    output wire flash_sclk,
-    output wire flash_mosi,
-    input  wire flash_miso,
-    output wire flash_wp_n,
-    output wire flash_hold_n,
-    output wire camera_xclk,
-    output wire camera_pwdn,
-    output wire camera_reset_n,
-    output wire camera_scl,
-    inout  wire camera_sda,
-    input  wire camera_pclk,
-    input  wire camera_vsync,
-    input  wire camera_href,
-    input  wire [7:0] camera_data,
-    output wire hdmi_clk_p,
-    output wire hdmi_clk_n,
-    output wire [2:0] hdmi_data_p,
-    output wire [2:0] hdmi_data_n
+    output wire       buzzer_n,
+    output wire       flash_cs_n,
+    output wire       flash_sclk,
+    output wire       flash_mosi,
+    input  wire       flash_miso,
+    output wire       flash_wp_n,
+    output wire       flash_hold_n,
+    output wire       rpi_uart_tx,
+    input  wire       rpi_uart_rx
 );
-    wire clk25,clk125,clk24,clocks_locked;
-    wire sys_rst,pclk_rst,pixel_rst;
-    wire sw1_event,admin_event,alarm_clear_event;
+    wire sys_rst;
+    wire sw1_event,admin_event,alarm_clear_event,temporary_key_event;
+    wire temporary_generate_event,temporary_valid;
     wire keypad_event;
     wire [3:0] keypad_code;
     wire flash_init_done,flash_fault,save_done,save_success;
-    wire [15:0] stored_password,save_password,entry_digits;
-    wire save_request,capture_start,unlocked,alarm_active,display_fault;
+    wire [15:0] stored_password,save_password,entry_digits,temporary_password;
+    wire save_request,photo_trigger,unlocked,alarm_active,display_fault;
     wire alarm_indicator;
     wire [3:0] lock_state;
     wire [2:0] entry_count,error_count;
-    wire camera_init_done,camera_init_error;
-    wire cap_wr_en;
-    wire [1:0] cap_wr_bank;
-    wire [14:0] cap_wr_addr,video_rd_addr;
-    wire [15:0] cap_wr_data,rd0,rd1,rd2,rd3;
-    wire capture_busy,frames_valid,capture_error;
-    wire [9:0] video_x,video_y;
-    wire timing_active,timing_hsync,timing_vsync;
-    wire [23:0] video_rgb,dvi_data;
-    wire video_active,video_hsync,video_vsync;
+    wire rpi_link_waiting;
 
-    clock_gen #(.ENABLE_CAMERA(ENABLE_CAMERA)) u_clocks(.clk50(sys_clk),.reset(~key_n[3]),.clk25(clk25),
-        .clk125(clk125),.clk24(clk24),.locked(clocks_locked));
-    reset_sync u_sys_reset(.clk(sys_clk),.arst(~key_n[3]|~clocks_locked),.rst(sys_rst));
-    reset_sync u_pixel_reset(.clk(clk25),.arst(sys_rst),.rst(pixel_rst));
+    reset_sync u_sys_reset(.clk(sys_clk),.arst(~key_n[3]),.rst(sys_rst));
 
     debounce_event #(.ACTIVE_LOW(0)) u_sw1(.clk(sys_clk),.rst(sys_rst),.async_in(sw[0]),.level(),.rise_event(sw1_event));
     debounce_event u_admin(.clk(sys_clk),.rst(sys_rst),.async_in(key_n[0]),.level(),.rise_event(admin_event));
     debounce_event u_clear(.clk(sys_clk),.rst(sys_rst),.async_in(key_n[1]),.level(),.rise_event(alarm_clear_event));
+    debounce_event u_temporary(.clk(sys_clk),.rst(sys_rst),.async_in(key_n[2]),.level(),.rise_event(temporary_key_event));
     keypad_scanner u_keypad(.clk(sys_clk),.rst(sys_rst|alarm_clear_event),.row_n(keypad_row_n),
         .col_n(keypad_col_n),.event_valid(keypad_event),.event_code(keypad_code));
 
@@ -75,84 +53,47 @@ module password_lock_top #(
         .init_done(flash_init_done),.current_password(stored_password),
         .save_done(save_done),.save_success(save_success),.flash_fault(flash_fault));
 
+    // KEY3 is accepted only while waiting or already displaying a temporary
+    // password. It cannot interrupt entry, saving, errors, or an alarm.
+    assign temporary_generate_event = temporary_key_event &&
+        (lock_state == 4'd1 || lock_state == 4'd8);
+    temporary_password_generator u_temporary_password(
+        .clk(sys_clk),.rst(sys_rst),.generate_event(temporary_generate_event),
+        .stored_password(stored_password),.temporary_password(temporary_password),
+        .temporary_valid(temporary_valid));
+
     lock_controller u_lock(
         .clk(sys_clk),.rst(sys_rst),.flash_init_done(flash_init_done),
         .stored_password(stored_password),.flash_fault(flash_fault),
         .sw1_event(sw1_event),.admin_event(admin_event),.alarm_clear_event(alarm_clear_event),
+        .temporary_event(temporary_generate_event),.temporary_password(temporary_password),
+        .temporary_valid(temporary_valid),
         .key_valid(keypad_event),.key_code(keypad_code),.save_done(save_done),.save_success(save_success),
-        .save_request(save_request),.save_password(save_password),.capture_start(capture_start),
+        .save_request(save_request),.save_password(save_password),.capture_start(photo_trigger),
         .unlocked(unlocked),.alarm_active(alarm_active),.state(lock_state),
         .entry_digits(entry_digits),.entry_count(entry_count),.error_count(error_count),
         .display_fault(display_fault));
 
     sevenseg_display u_display(.clk(sys_clk),.rst(sys_rst),.state(lock_state),
         .entry_digits(entry_digits),.entry_count(entry_count),.error_count(error_count),
-        .display_fault(display_fault),.seg_n(seg_n),.digit_sel(seg_sel));
+        .temporary_password(temporary_password),.display_fault(display_fault),
+        .seg_n(seg_n),.digit_sel(seg_sel));
     assign led[0]=(lock_state==1);
     assign led[1]=(lock_state==2)||(lock_state==5);
     assign led[2]=unlocked;
     alarm_buzzer u_alarm_buzzer(.clk(sys_clk),.rst(sys_rst),.alarm_active(alarm_active),
         .buzzer_n(buzzer_n),.indicator(alarm_indicator));
-    assign led[3]=alarm_active ? alarm_indicator :
-                  (flash_fault|camera_init_error|capture_error);
+    assign led[3]=alarm_active ? alarm_indicator : flash_fault;
 
     generate
-        if (ENABLE_CAMERA != 0) begin : g_camera
-            reset_sync u_pclk_reset(.clk(camera_pclk),.arst(sys_rst),.rst(pclk_rst));
-            assign camera_xclk=clk24;
-            ov5640_initializer u_camera_init(.clk(sys_clk),.rst(sys_rst),.sccb_scl(camera_scl),
-                .sccb_sda(camera_sda),.camera_pwdn(camera_pwdn),.camera_reset_n(camera_reset_n),
-                .init_done(camera_init_done),.init_error(camera_init_error));
-            capture_manager u_capture_manager(.sys_clk(sys_clk),.sys_rst(sys_rst),
-                .pclk(camera_pclk),.pclk_rst(pclk_rst),.start(capture_start),
-                .camera_init_error(camera_init_error),.vsync(camera_vsync),.href(camera_href),
-                .pixel_data(camera_data),.wr_en(cap_wr_en),.wr_bank(cap_wr_bank),
-                .wr_addr(cap_wr_addr),.wr_data(cap_wr_data),.busy(capture_busy),
-                .frames_valid(frames_valid),.capture_error(capture_error));
-            frame_buffer_4 u_buffers(.wr_clk(camera_pclk),.wr_en(cap_wr_en),.wr_bank(cap_wr_bank),
-                .wr_addr(cap_wr_addr),.wr_data(cap_wr_data),.rd_clk(clk25),.rd_addr(video_rd_addr),
-                .rd_data0(rd0),.rd_data1(rd1),.rd_data2(rd2),.rd_data3(rd3));
-        end else begin : g_camera_disabled
-            assign pclk_rst          = 1'b1;
-            assign camera_init_done  = 1'b0;
-            assign camera_init_error = 1'b0;
-            assign cap_wr_en         = 1'b0;
-            assign cap_wr_bank       = 2'b00;
-            assign cap_wr_addr       = 15'd0;
-            assign cap_wr_data       = 16'h0000;
-            assign capture_busy      = 1'b0;
-            assign frames_valid      = 1'b0;
-            assign capture_error     = 1'b0;
-            assign rd0               = 16'h0000;
-            assign rd1               = 16'h0000;
-            assign rd2               = 16'h0000;
-            assign rd3               = 16'h0000;
-
-            // OV5640 is held powered down/reset. SDA is released so an
-            // unconnected camera header cannot contend with FPGA logic.
-            assign camera_xclk       = 1'b0;
-            assign camera_pwdn       = 1'b1;
-            assign camera_reset_n    = 1'b0;
-            assign camera_scl        = 1'b1;
-            assign camera_sda        = 1'bz;
+        if (ENABLE_RPI_CAMERA != 0) begin : g_rpi_camera
+            rpi_camera_link u_rpi_camera_link(
+                .clk(sys_clk),.rst(sys_rst),.photo_trigger(photo_trigger),
+                .uart_rx(rpi_uart_rx),.uart_tx(rpi_uart_tx),
+                .link_waiting(rpi_link_waiting));
+        end else begin : g_no_rpi_camera
+            assign rpi_uart_tx = 1'b1;
+            assign rpi_link_waiting = 1'b0;
         end
     endgenerate
-
-    video_timing_640x480 u_timing(.pixel_clk(clk25),.rst(pixel_rst),.x(video_x),.y(video_y),
-        .active(timing_active),.hsync(timing_hsync),.vsync(timing_vsync));
-    mosaic_renderer u_renderer(.pixel_clk(clk25),.rst(pixel_rst),.x(video_x),.y(video_y),
-        .active(timing_active),.hsync(timing_hsync),.vsync(timing_vsync),
-        .frames_valid(frames_valid),.camera_error(camera_init_error|capture_error),
-        .read_address(video_rd_addr),.read_data0(rd0),.read_data1(rd1),
-        .read_data2(rd2),.read_data3(rd3),.rgb(video_rgb),.video_active(video_active),
-        .video_hsync(video_hsync),.video_vsync(video_vsync));
-
-    // rgb2dvi expects the byte order R,B,G on vid_pData.
-    assign dvi_data={video_rgb[23:16],video_rgb[7:0],video_rgb[15:8]};
-    rgb2dvi #(.kGenerateSerialClk(0),.kRstActiveHigh(1)) u_dvi(
-        .TMDS_Clk_p(hdmi_clk_p),.TMDS_Clk_n(hdmi_clk_n),
-        .TMDS_Data_p(hdmi_data_p),.TMDS_Data_n(hdmi_data_n),
-        .aRst(pixel_rst),.aRst_n(~pixel_rst),.vid_pData(dvi_data),
-        .vid_pVDE(video_active),.vid_pHSync(video_hsync),.vid_pVSync(video_vsync),
-        .PixelClk(clk25),.SerialClk(clk125));
 endmodule

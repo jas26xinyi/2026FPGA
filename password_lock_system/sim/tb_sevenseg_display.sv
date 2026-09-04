@@ -6,13 +6,15 @@ module tb_sevenseg_display;
     reg [15:0] entry_digits=16'h0000;
     reg [2:0] entry_count=0, error_count=0;
     reg display_fault=0;
+    reg [15:0] temporary_password=16'h2468;
     wire [7:0] seg_n, digit_sel;
     reg test_pass=0;
 
     sevenseg_display #(.CLOCK_HZ(8000)) dut(
         .clk(clk),.rst(rst),.state(state),.entry_digits(entry_digits),
         .entry_count(entry_count),.error_count(error_count),
-        .display_fault(display_fault),.seg_n(seg_n),.digit_sel(digit_sel));
+        .temporary_password(temporary_password),.display_fault(display_fault),
+        .seg_n(seg_n),.digit_sel(digit_sel));
 
     always #5 clk=~clk;
 
@@ -33,6 +35,10 @@ module tb_sevenseg_display;
         if(count_zeroes(digit_sel)!=1) $fatal(1,"digit select must be one-hot active-low");
         @(negedge clk);
         if(count_zeroes(digit_sel)!=1) $fatal(1,"digit scan enabled multiple digits");
+        state=8;#1;
+        if(dut.chars[3]!==4'd2 || dut.chars[2]!==4'd4 ||
+           dut.chars[1]!==4'd6 || dut.chars[0]!==4'd8)
+            $fatal(1,"temporary password digits are not displayed");
         test_pass=1;
         $display("PASS tb_sevenseg_display");
         $finish;

@@ -14,6 +14,9 @@ module lock_controller #(
     input  wire        sw1_event,
     input  wire        admin_event,
     input  wire        alarm_clear_event,
+    input  wire        temporary_event,
+    input  wire [15:0] temporary_password,
+    input  wire        temporary_valid,
     input  wire        key_valid,
     input  wire [3:0]  key_code,
     input  wire        save_done,
@@ -36,7 +39,8 @@ module lock_controller #(
                      ST_OPEN  = 4'd4,
                      ST_ADMIN = 4'd5,
                      ST_SAVE  = 4'd6,
-                     ST_ALARM = 4'd7;
+                     ST_ALARM = 4'd7,
+                     ST_TEMP  = 4'd8;
     localparam integer LOCK_TICKS  = CLOCK_HZ * LOCK_TIMEOUT_S;
     localparam integer OPEN_TICKS  = CLOCK_HZ * OPEN_TIMEOUT_S;
     localparam integer ERROR_TICKS = (CLOCK_HZ / 1000) * ERROR_DISPLAY_MS;
@@ -54,12 +58,15 @@ module lock_controller #(
         next_state = state;
         case (state)
             ST_BOOT:  if (flash_init_done) next_state = ST_WAIT;
-            ST_WAIT:  if (admin_event) next_state = ST_ADMIN;
+            ST_WAIT:  if (temporary_event) next_state = ST_TEMP;
+                      else if (admin_event) next_state = ST_ADMIN;
                       else if (sw1_event) next_state = ST_USER;
             ST_USER:  if (key_valid && key_code == 4'hC) next_state = ST_WAIT;
                       else if ((timer_count >= LOCK_TICKS-1) && !activity) next_state = ST_WAIT;
                       else if (key_valid && key_code == 4'hA && entry_count == 3'd4) begin
-                          if (entry_digits == stored_password) next_state = ST_OPEN;
+                          if (entry_digits == stored_password ||
+                              (temporary_valid && entry_digits == temporary_password))
+                              next_state = ST_OPEN;
                           else if (error_count == 3'd3) next_state = ST_ALARM;
                           else next_state = ST_ERROR;
                       end
@@ -72,6 +79,13 @@ module lock_controller #(
                       else if (key_valid && key_code == 4'hA && entry_count == 3'd4)
                           next_state = ST_SAVE;
             ST_SAVE:  if (save_done) next_state = ST_WAIT;
+            // A replacement request wins over timeout or simultaneous input,
+            // so the new password always remains visible for a full interval.
+            ST_TEMP:  if (temporary_event) next_state = ST_TEMP;
+                      else if (sw1_event) next_state = ST_USER;
+                      else if (key_valid && (key_code == 4'hA || key_code == 4'hC))
+                          next_state = ST_WAIT;
+                      else if (timer_count >= LOCK_TICKS-1) next_state = ST_WAIT;
             // KEY2 completes the administrator's alarm handling and starts a
             // clean input session.  No SW1 toggle is required afterward.
             ST_ALARM: if (alarm_clear_event) next_state = ST_USER;
@@ -122,9 +136,11 @@ module lock_controller #(
                 if (state == ST_SAVE && next_state == ST_WAIT)
                     display_fault <= ~save_success;
             end else begin
-                if (activity && (state == ST_USER || state == ST_ADMIN || state == ST_OPEN))
+                if ((activity || temporary_event) &&
+                    (state == ST_USER || state == ST_ADMIN || state == ST_OPEN || state == ST_TEMP))
                     timer_count <= {TW{1'b0}};
-                else if (state == ST_USER || state == ST_ADMIN || state == ST_OPEN || state == ST_ERROR)
+                else if (state == ST_USER || state == ST_ADMIN || state == ST_OPEN ||
+                         state == ST_ERROR || state == ST_TEMP)
                     timer_count <= timer_count + 1'b1;
 
                 if ((state == ST_USER || state == ST_ADMIN) && key_valid) begin
@@ -136,7 +152,7 @@ module lock_controller #(
                         entry_count  <= entry_count - 1'b1;
                     end
                 end
-                if (display_fault && (sw1_event || admin_event))
+                if (display_fault && (sw1_event || admin_event || temporary_event))
                     display_fault <= 1'b0;
                 if (flash_fault)
                     display_fault <= 1'b1;

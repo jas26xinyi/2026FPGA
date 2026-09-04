@@ -1,0 +1,6 @@
+# Raspberry Pi OS should install these with apt; this list is for mock-mode
+# development on another computer. Picamera2 itself must not be installed by pip.
+pyserial>=3.5,<4
+Pillow>=9
+numpy>=1.24
+opencv-python>=4.6
