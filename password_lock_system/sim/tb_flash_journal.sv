@@ -3,8 +3,18 @@ module tb_flash_journal;
  reg test_pass=0;
  reg clk=0,rst=1,save=0;reg[15:0]new_password=0;
  wire sclk,mosi,miso,cs,wp,hold,init_done,save_done,save_ok,fault;wire[15:0]password;
+ integer cs_high_cycles=0;
+ reg enforce_cs_gap=0;
  always #5 clk=~clk;
- w25q64_password_store #(.CLOCK_HZ(1000),.SPI_HALF_DIV(2),.ERASE_TIMEOUT_CYCLES(2000),.PROGRAM_TIMEOUT_CYCLES(1000)) dut(
+ always @(posedge clk) begin
+   if(cs) cs_high_cycles=cs_high_cycles+1;
+ end
+ always @(negedge cs) begin
+   if(enforce_cs_gap && cs_high_cycles<4)
+     $fatal(1,"flash CS high interval too short: %0d clocks",cs_high_cycles);
+   cs_high_cycles=0;
+ end
+ w25q64_password_store #(.CLOCK_HZ(1000),.SPI_HALF_DIV(2),.CS_HIGH_CYCLES(4),.ERASE_TIMEOUT_CYCLES(2000),.PROGRAM_TIMEOUT_CYCLES(1000)) dut(
   .clk(clk),.rst(rst),.save_request(save),.save_password(new_password),.flash_miso(miso),
   .flash_sclk(sclk),.flash_mosi(mosi),.flash_cs_n(cs),.flash_wp_n(wp),.flash_hold_n(hold),
   .init_done(init_done),.current_password(password),.save_done(save_done),.save_success(save_ok),.flash_fault(fault));
@@ -17,6 +27,7 @@ module tb_flash_journal;
  initial begin
    repeat(4)@(negedge clk);rst=0;wait(init_done);@(negedge clk);
    if(password!==16'h1234)$fatal(1,"default wrong");
+   enforce_cs_gap=1;
    do_save(16'h5678);do_save(16'h2468);reboot();
    if(password!==16'h2468)$fatal(1,"highest generation not selected: %h",password);
    // The second update targets sector 0. Corrupt its commit marker to model

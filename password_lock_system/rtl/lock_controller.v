@@ -72,7 +72,9 @@ module lock_controller #(
                       else if (key_valid && key_code == 4'hA && entry_count == 3'd4)
                           next_state = ST_SAVE;
             ST_SAVE:  if (save_done) next_state = ST_WAIT;
-            ST_ALARM: if (alarm_clear_event) next_state = ST_WAIT;
+            // KEY2 completes the administrator's alarm handling and starts a
+            // clean input session.  No SW1 toggle is required afterward.
+            ST_ALARM: if (alarm_clear_event) next_state = ST_USER;
             default: next_state = ST_BOOT;
         endcase
     end
@@ -108,6 +110,11 @@ module lock_controller #(
                     error_count   <= 3'd4;
                     capture_start <= 1'b1;
                 end
+                // An acknowledged alarm starts a new four-attempt window.
+                // Without this reset the three-bit counter would display
+                // Err5..Err7 and wrap, which is not a valid attempt policy.
+                if (state == ST_ALARM && alarm_clear_event)
+                    error_count <= 3'd0;
                 if (next_state == ST_SAVE) begin
                     save_password <= entry_digits;
                     save_request  <= 1'b1;

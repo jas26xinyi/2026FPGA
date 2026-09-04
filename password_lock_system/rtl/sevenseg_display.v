@@ -77,7 +77,9 @@ module sevenseg_display #(
     end
 
     always @(*) begin
-        digit_sel = 8'b00000001 << scan;
+        // HX7A75A digit enables are active low: exactly one digit is enabled
+        // during each multiplexing slot.
+        digit_sel = ~(8'b00000001 << scan);
         seg_n = encode(chars[scan]);
     end
 endmodule

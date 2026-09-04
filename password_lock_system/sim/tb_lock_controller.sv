@@ -49,7 +49,13 @@ module tb_lock_controller;
       check(alarm_active,"fourth error alarms");
       pulse(1);repeat(2)@(negedge clk);check(alarm_active,"admin entry key cannot clear alarm");
       key(4'hA);repeat(2)@(negedge clk);check(alarm_active,"keypad cannot clear alarm");
-      pulse(2);repeat(2)@(negedge clk);check(!alarm_active && state==1,"KEY2 clears alarm");
+      pulse(2);repeat(2)@(negedge clk);
+      check(!alarm_active && state==2,"KEY2 starts a fresh input session");
+      check(error_count==0,"KEY2 resets the four-attempt window");
+      digits(16'h1111);key(4'hA);
+      check(state==3 && error_count==1,"first post-alarm error is Err1");
+      repeat(4)@(negedge clk);key(4'hC);repeat(2)@(negedge clk);
+      check(state==1,"cancel returns wait");
       pulse(0);repeat(1005)@(negedge clk);check(state==1,"locked input timeout");
       test_pass=1;$display("PASS tb_lock_controller");$finish;
     end

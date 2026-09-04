@@ -1,6 +1,11 @@
 `timescale 1ns/1ps
 
-module password_lock_top (
+module password_lock_top #(
+    // Set to 1 only after the OV5640 is connected and camera verification is
+    // required. The default keypad-first build removes all camera capture
+    // logic and keeps the camera control pins in a safe, inactive state.
+    parameter integer ENABLE_CAMERA = 0
+) (
     input wire sys_clk,
     input wire [3:0] key_n,
     input wire [3:0] sw,
@@ -38,6 +43,7 @@ module password_lock_top (
     wire flash_init_done,flash_fault,save_done,save_success;
     wire [15:0] stored_password,save_password,entry_digits;
     wire save_request,capture_start,unlocked,alarm_active,display_fault;
+    wire alarm_indicator;
     wire [3:0] lock_state;
     wire [2:0] entry_count,error_count;
     wire camera_init_done,camera_init_error;
@@ -51,16 +57,15 @@ module password_lock_top (
     wire [23:0] video_rgb,dvi_data;
     wire video_active,video_hsync,video_vsync;
 
-    clock_gen u_clocks(.clk50(sys_clk),.reset(~key_n[3]),.clk25(clk25),
+    clock_gen #(.ENABLE_CAMERA(ENABLE_CAMERA)) u_clocks(.clk50(sys_clk),.reset(~key_n[3]),.clk25(clk25),
         .clk125(clk125),.clk24(clk24),.locked(clocks_locked));
     reset_sync u_sys_reset(.clk(sys_clk),.arst(~key_n[3]|~clocks_locked),.rst(sys_rst));
-    reset_sync u_pclk_reset(.clk(camera_pclk),.arst(sys_rst),.rst(pclk_rst));
     reset_sync u_pixel_reset(.clk(clk25),.arst(sys_rst),.rst(pixel_rst));
 
     debounce_event #(.ACTIVE_LOW(0)) u_sw1(.clk(sys_clk),.rst(sys_rst),.async_in(sw[0]),.level(),.rise_event(sw1_event));
     debounce_event u_admin(.clk(sys_clk),.rst(sys_rst),.async_in(key_n[0]),.level(),.rise_event(admin_event));
     debounce_event u_clear(.clk(sys_clk),.rst(sys_rst),.async_in(key_n[1]),.level(),.rise_event(alarm_clear_event));
-    keypad_scanner u_keypad(.clk(sys_clk),.rst(sys_rst),.row_n(keypad_row_n),
+    keypad_scanner u_keypad(.clk(sys_clk),.rst(sys_rst|alarm_clear_event),.row_n(keypad_row_n),
         .col_n(keypad_col_n),.event_valid(keypad_event),.event_code(keypad_code));
 
     w25q64_password_store u_password_store(
@@ -86,22 +91,52 @@ module password_lock_top (
     assign led[0]=(lock_state==1);
     assign led[1]=(lock_state==2)||(lock_state==5);
     assign led[2]=unlocked;
-    assign led[3]=alarm_active|flash_fault|camera_init_error|capture_error;
-    assign buzzer_n=~alarm_active;
+    alarm_buzzer u_alarm_buzzer(.clk(sys_clk),.rst(sys_rst),.alarm_active(alarm_active),
+        .buzzer_n(buzzer_n),.indicator(alarm_indicator));
+    assign led[3]=alarm_active ? alarm_indicator :
+                  (flash_fault|camera_init_error|capture_error);
 
-    assign camera_xclk=clk24;
-    ov5640_initializer u_camera_init(.clk(sys_clk),.rst(sys_rst),.sccb_scl(camera_scl),
-        .sccb_sda(camera_sda),.camera_pwdn(camera_pwdn),.camera_reset_n(camera_reset_n),
-        .init_done(camera_init_done),.init_error(camera_init_error));
-    capture_manager u_capture_manager(.sys_clk(sys_clk),.sys_rst(sys_rst),
-        .pclk(camera_pclk),.pclk_rst(pclk_rst),.start(capture_start),
-        .camera_init_error(camera_init_error),.vsync(camera_vsync),.href(camera_href),
-        .pixel_data(camera_data),.wr_en(cap_wr_en),.wr_bank(cap_wr_bank),
-        .wr_addr(cap_wr_addr),.wr_data(cap_wr_data),.busy(capture_busy),
-        .frames_valid(frames_valid),.capture_error(capture_error));
-    frame_buffer_4 u_buffers(.wr_clk(camera_pclk),.wr_en(cap_wr_en),.wr_bank(cap_wr_bank),
-        .wr_addr(cap_wr_addr),.wr_data(cap_wr_data),.rd_clk(clk25),.rd_addr(video_rd_addr),
-        .rd_data0(rd0),.rd_data1(rd1),.rd_data2(rd2),.rd_data3(rd3));
+    generate
+        if (ENABLE_CAMERA != 0) begin : g_camera
+            reset_sync u_pclk_reset(.clk(camera_pclk),.arst(sys_rst),.rst(pclk_rst));
+            assign camera_xclk=clk24;
+            ov5640_initializer u_camera_init(.clk(sys_clk),.rst(sys_rst),.sccb_scl(camera_scl),
+                .sccb_sda(camera_sda),.camera_pwdn(camera_pwdn),.camera_reset_n(camera_reset_n),
+                .init_done(camera_init_done),.init_error(camera_init_error));
+            capture_manager u_capture_manager(.sys_clk(sys_clk),.sys_rst(sys_rst),
+                .pclk(camera_pclk),.pclk_rst(pclk_rst),.start(capture_start),
+                .camera_init_error(camera_init_error),.vsync(camera_vsync),.href(camera_href),
+                .pixel_data(camera_data),.wr_en(cap_wr_en),.wr_bank(cap_wr_bank),
+                .wr_addr(cap_wr_addr),.wr_data(cap_wr_data),.busy(capture_busy),
+                .frames_valid(frames_valid),.capture_error(capture_error));
+            frame_buffer_4 u_buffers(.wr_clk(camera_pclk),.wr_en(cap_wr_en),.wr_bank(cap_wr_bank),
+                .wr_addr(cap_wr_addr),.wr_data(cap_wr_data),.rd_clk(clk25),.rd_addr(video_rd_addr),
+                .rd_data0(rd0),.rd_data1(rd1),.rd_data2(rd2),.rd_data3(rd3));
+        end else begin : g_camera_disabled
+            assign pclk_rst          = 1'b1;
+            assign camera_init_done  = 1'b0;
+            assign camera_init_error = 1'b0;
+            assign cap_wr_en         = 1'b0;
+            assign cap_wr_bank       = 2'b00;
+            assign cap_wr_addr       = 15'd0;
+            assign cap_wr_data       = 16'h0000;
+            assign capture_busy      = 1'b0;
+            assign frames_valid      = 1'b0;
+            assign capture_error     = 1'b0;
+            assign rd0               = 16'h0000;
+            assign rd1               = 16'h0000;
+            assign rd2               = 16'h0000;
+            assign rd3               = 16'h0000;
+
+            // OV5640 is held powered down/reset. SDA is released so an
+            // unconnected camera header cannot contend with FPGA logic.
+            assign camera_xclk       = 1'b0;
+            assign camera_pwdn       = 1'b1;
+            assign camera_reset_n    = 1'b0;
+            assign camera_scl        = 1'b1;
+            assign camera_sda        = 1'bz;
+        end
+    endgenerate
 
     video_timing_640x480 u_timing(.pixel_clk(clk25),.rst(pixel_rst),.x(video_x),.y(video_y),
         .active(timing_active),.hsync(timing_hsync),.vsync(timing_vsync));

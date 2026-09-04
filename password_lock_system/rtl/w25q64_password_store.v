@@ -6,6 +6,7 @@
 module w25q64_password_store #(
     parameter integer CLOCK_HZ = 50_000_000,
     parameter integer SPI_HALF_DIV = 2,
+    parameter integer CS_HIGH_CYCLES = 4,
     parameter integer ERASE_TIMEOUT_CYCLES = CLOCK_HZ,
     parameter integer PROGRAM_TIMEOUT_CYCLES = CLOCK_HZ/50
 ) (
@@ -35,6 +36,8 @@ module w25q64_password_store #(
     reg [5:0] state;
     reg [5:0] byte_index;
     reg [31:0] timeout_count;
+    localparam integer CGW = (CS_HIGH_CYCLES <= 2) ? 1 : $clog2(CS_HIGH_CYCLES + 1);
+    reg [CGW-1:0] cs_high_count;
     reg awaiting_byte;
     reg launch_pending;
     reg spi_start;
@@ -161,6 +164,7 @@ module w25q64_password_store #(
             byte_index <= 0;
             awaiting_byte <= 1'b0;
             launch_pending <= 1'b0;
+            cs_high_count <= CS_HIGH_CYCLES;
         end
     endtask
 
@@ -169,6 +173,7 @@ module w25q64_password_store #(
             state <= S_ID;
             byte_index <= 0;
             timeout_count <= 0;
+            cs_high_count <= CS_HIGH_CYCLES;
             awaiting_byte <= 0;
             launch_pending <= 0;
             spi_start <= 0;
@@ -188,6 +193,9 @@ module w25q64_password_store #(
             spi_start <= 1'b0;
             save_done <= 1'b0;
 
+            if (cs_high_count != 0)
+                cs_high_count <= cs_high_count - 1'b1;
+
             if ((state == S_POLL_ERASE && timeout_count < ERASE_TIMEOUT_CYCLES) ||
                 (state == S_POLL_PROGRAM && timeout_count < PROGRAM_TIMEOUT_CYCLES))
                 timeout_count <= timeout_count + 1'b1;
@@ -197,6 +205,7 @@ module w25q64_password_store #(
                 awaiting_byte <= 1'b1;
                 launch_pending <= 1'b0;
             end else if (!awaiting_byte && !launch_pending && !spi_busy &&
+                cs_high_count == 0 &&
                 state != S_SELECT && state != S_IDLE &&
                 state != S_FINISH && state != S_FAIL) begin
                 if (flash_cs_n)

@@ -38,6 +38,7 @@ hc_output/
 
 # Vivado generated files and directories
 .Xil/
+password_lock_system/vivado_test_*/
 *.cache/
 *.hw/
 *.ip_user_files/
@@ -57,6 +58,9 @@ vsim.wlf
 *.fst
 *.ghw
 *.log
+
+# Local verification scratch space
+tmp/
 
 # Python caches used by build/helper scripts
 __pycache__/
