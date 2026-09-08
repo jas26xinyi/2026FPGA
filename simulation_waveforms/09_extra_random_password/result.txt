@@ -1,0 +1,5 @@
+PASS
+testbench=tb_temporary_password_generator
+simulator=Vivado XSim 2023.2
+vcd=E:/26FPGA/simulation_waveforms/09_extra_random_password/tb_temporary_password_generator.vcd
+wdb=E:/26FPGA/simulation_waveforms/09_extra_random_password/tb_temporary_password_generator.wdb

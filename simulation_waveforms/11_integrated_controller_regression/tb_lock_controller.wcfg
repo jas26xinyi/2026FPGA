@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_lock_controller_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_lock_controller" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+   </zoom_setting>
+   <column_width_setting>
+   </column_width_setting>
+   <WVObjectSize size="106" />
+   <wvobject fp_name="/tb_lock_controller/test_pass" type="logic">
+      <obj_property name="ElementShortName">test_pass</obj_property>
+      <obj_property name="ObjectShortName">test_pass</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/rst" type="logic">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/init_done" type="logic">
+      <obj_property name="ElementShortName">init_done</obj_property>
+      <obj_property name="ObjectShortName">init_done</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/flash_fault" type="logic">
+      <obj_property name="ElementShortName">flash_fault</obj_property>
+      <obj_property name="ObjectShortName">flash_fault</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/sw1" type="logic">
+      <obj_property name="ElementShortName">sw1</obj_property>
+      <obj_property name="ObjectShortName">sw1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/admin" type="logic">
+      <obj_property name="ElementShortName">admin</obj_property>
+      <obj_property name="ObjectShortName">admin</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/clear" type="logic">
+      <obj_property name="ElementShortName">clear</obj_property>
+      <obj_property name="ObjectShortName">clear</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/temp_event" type="logic">
+      <obj_property name="ElementShortName">temp_event</obj_property>
+      <obj_property name="ObjectShortName">temp_event</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/key_valid" type="logic">
+      <obj_property name="ElementShortName">key_valid</obj_property>
+      <obj_property name="ObjectShortName">key_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/key_code" type="array">
+      <obj_property name="ElementShortName">key_code[3:0]</obj_property>
+      <obj_property name="ObjectShortName">key_code[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/stored_password" type="array">
+      <obj_property name="ElementShortName">stored_password[15:0]</obj_property>
+      <obj_property name="ObjectShortName">stored_password[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/temporary_password" type="array">
+      <obj_property name="ElementShortName">temporary_password[15:0]</obj_property>
+      <obj_property name="ObjectShortName">temporary_password[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/temporary_valid" type="logic">
+      <obj_property name="ElementShortName">temporary_valid</obj_property>
+      <obj_property name="ObjectShortName">temporary_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/save_done" type="logic">
+      <obj_property name="ElementShortName">save_done</obj_property>
+      <obj_property name="ObjectShortName">save_done</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/save_success" type="logic">
+      <obj_property name="ElementShortName">save_success</obj_property>
+      <obj_property name="ObjectShortName">save_success</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/save_request" type="logic">
+      <obj_property name="ElementShortName">save_request</obj_property>
+      <obj_property name="ObjectShortName">save_request</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/capture_start" type="logic">
+      <obj_property name="ElementShortName">capture_start</obj_property>
+      <obj_property name="ObjectShortName">capture_start</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/unlocked" type="logic">
+      <obj_property name="ElementShortName">unlocked</obj_property>
+      <obj_property name="ObjectShortName">unlocked</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/alarm_active" type="logic">
+      <obj_property name="ElementShortName">alarm_active</obj_property>
+      <obj_property name="ObjectShortName">alarm_active</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/display_fault" type="logic">
+      <obj_property name="ElementShortName">display_fault</obj_property>
+      <obj_property name="ObjectShortName">display_fault</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/save_password" type="array">
+      <obj_property name="ElementShortName">save_password[15:0]</obj_property>
+      <obj_property name="ObjectShortName">save_password[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/entry_digits" type="array">
+      <obj_property name="ElementShortName">entry_digits[15:0]</obj_property>
+      <obj_property name="ObjectShortName">entry_digits[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/state" type="array">
+      <obj_property name="ElementShortName">state[3:0]</obj_property>
+      <obj_property name="ObjectShortName">state[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/entry_count" type="array">
+      <obj_property name="ElementShortName">entry_count[2:0]</obj_property>
+      <obj_property name="ObjectShortName">entry_count[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/error_count" type="array">
+      <obj_property name="ElementShortName">error_count[2:0]</obj_property>
+      <obj_property name="ObjectShortName">error_count[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/n" type="array">
+      <obj_property name="ElementShortName">n[31:0]</obj_property>
+      <obj_property name="ObjectShortName">n[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/rst" type="logic">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/flash_init_done" type="logic">
+      <obj_property name="ElementShortName">flash_init_done</obj_property>
+      <obj_property name="ObjectShortName">flash_init_done</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/stored_password" type="array">
+      <obj_property name="ElementShortName">stored_password[15:0]</obj_property>
+      <obj_property name="ObjectShortName">stored_password[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/flash_fault" type="logic">
+      <obj_property name="ElementShortName">flash_fault</obj_property>
+      <obj_property name="ObjectShortName">flash_fault</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/sw1_event" type="logic">
+      <obj_property name="ElementShortName">sw1_event</obj_property>
+      <obj_property name="ObjectShortName">sw1_event</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/admin_event" type="logic">
+      <obj_property name="ElementShortName">admin_event</obj_property>
+      <obj_property name="ObjectShortName">admin_event</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/alarm_clear_event" type="logic">
+      <obj_property name="ElementShortName">alarm_clear_event</obj_property>
+      <obj_property name="ObjectShortName">alarm_clear_event</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/temporary_event" type="logic">
+      <obj_property name="ElementShortName">temporary_event</obj_property>
+      <obj_property name="ObjectShortName">temporary_event</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/temporary_password" type="array">
+      <obj_property name="ElementShortName">temporary_password[15:0]</obj_property>
+      <obj_property name="ObjectShortName">temporary_password[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/temporary_valid" type="logic">
+      <obj_property name="ElementShortName">temporary_valid</obj_property>
+      <obj_property name="ObjectShortName">temporary_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/key_valid" type="logic">
+      <obj_property name="ElementShortName">key_valid</obj_property>
+      <obj_property name="ObjectShortName">key_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/key_code" type="array">
+      <obj_property name="ElementShortName">key_code[3:0]</obj_property>
+      <obj_property name="ObjectShortName">key_code[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/save_done" type="logic">
+      <obj_property name="ElementShortName">save_done</obj_property>
+      <obj_property name="ObjectShortName">save_done</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/save_success" type="logic">
+      <obj_property name="ElementShortName">save_success</obj_property>
+      <obj_property name="ObjectShortName">save_success</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/save_request" type="logic">
+      <obj_property name="ElementShortName">save_request</obj_property>
+      <obj_property name="ObjectShortName">save_request</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/save_password" type="array">
+      <obj_property name="ElementShortName">save_password[15:0]</obj_property>
+      <obj_property name="ObjectShortName">save_password[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/capture_start" type="logic">
+      <obj_property name="ElementShortName">capture_start</obj_property>
+      <obj_property name="ObjectShortName">capture_start</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/unlocked" type="logic">
+      <obj_property name="ElementShortName">unlocked</obj_property>
+      <obj_property name="ObjectShortName">unlocked</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/alarm_active" type="logic">
+      <obj_property name="ElementShortName">alarm_active</obj_property>
+      <obj_property name="ObjectShortName">alarm_active</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/state" type="array">
+      <obj_property name="ElementShortName">state[3:0]</obj_property>
+      <obj_property name="ObjectShortName">state[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/entry_digits" type="array">
+      <obj_property name="ElementShortName">entry_digits[15:0]</obj_property>
+      <obj_property name="ObjectShortName">entry_digits[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/entry_count" type="array">
+      <obj_property name="ElementShortName">entry_count[2:0]</obj_property>
+      <obj_property name="ObjectShortName">entry_count[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/error_count" type="array">
+      <obj_property name="ElementShortName">error_count[2:0]</obj_property>
+      <obj_property name="ObjectShortName">error_count[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/display_fault" type="logic">
+      <obj_property name="ElementShortName">display_fault</obj_property>
+      <obj_property name="ObjectShortName">display_fault</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/next_state" type="array">
+      <obj_property name="ElementShortName">next_state[3:0]</obj_property>
+      <obj_property name="ObjectShortName">next_state[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/timer_count" type="array">
+      <obj_property name="ElementShortName">timer_count[10:0]</obj_property>
+      <obj_property name="ObjectShortName">timer_count[10:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/is_digit" type="logic">
+      <obj_property name="ElementShortName">is_digit</obj_property>
+      <obj_property name="ObjectShortName">is_digit</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/activity" type="logic">
+      <obj_property name="ElementShortName">activity</obj_property>
+      <obj_property name="ObjectShortName">activity</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/CLOCK_HZ" type="array">
+      <obj_property name="ElementShortName">CLOCK_HZ[31:0]</obj_property>
+      <obj_property name="ObjectShortName">CLOCK_HZ[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/LOCK_TIMEOUT_S" type="array">
+      <obj_property name="ElementShortName">LOCK_TIMEOUT_S[31:0]</obj_property>
+      <obj_property name="ObjectShortName">LOCK_TIMEOUT_S[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/OPEN_TIMEOUT_S" type="array">
+      <obj_property name="ElementShortName">OPEN_TIMEOUT_S[31:0]</obj_property>
+      <obj_property name="ObjectShortName">OPEN_TIMEOUT_S[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/ERROR_DISPLAY_MS" type="array">
+      <obj_property name="ElementShortName">ERROR_DISPLAY_MS[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ERROR_DISPLAY_MS[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/ST_BOOT" type="array">
+      <obj_property name="ElementShortName">ST_BOOT[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_BOOT[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/ST_WAIT" type="array">
+      <obj_property name="ElementShortName">ST_WAIT[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_WAIT[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/ST_USER" type="array">
+      <obj_property name="ElementShortName">ST_USER[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_USER[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/ST_ERROR" type="array">
+      <obj_property name="ElementShortName">ST_ERROR[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_ERROR[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/ST_OPEN" type="array">
+      <obj_property name="ElementShortName">ST_OPEN[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_OPEN[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/ST_ADMIN" type="array">
+      <obj_property name="ElementShortName">ST_ADMIN[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_ADMIN[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/ST_SAVE" type="array">
+      <obj_property name="ElementShortName">ST_SAVE[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_SAVE[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/ST_ALARM" type="array">
+      <obj_property name="ElementShortName">ST_ALARM[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_ALARM[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/ST_TEMP" type="array">
+      <obj_property name="ElementShortName">ST_TEMP[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_TEMP[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/LOCK_TICKS" type="array">
+      <obj_property name="ElementShortName">LOCK_TICKS[31:0]</obj_property>
+      <obj_property name="ObjectShortName">LOCK_TICKS[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/OPEN_TICKS" type="array">
+      <obj_property name="ElementShortName">OPEN_TICKS[31:0]</obj_property>
+      <obj_property name="ObjectShortName">OPEN_TICKS[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/ERROR_TICKS" type="array">
+      <obj_property name="ElementShortName">ERROR_TICKS[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ERROR_TICKS[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/MAX_TICKS" type="array">
+      <obj_property name="ElementShortName">MAX_TICKS[31:0]</obj_property>
+      <obj_property name="ObjectShortName">MAX_TICKS[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/MAX_TICKS2" type="array">
+      <obj_property name="ElementShortName">MAX_TICKS2[31:0]</obj_property>
+      <obj_property name="ObjectShortName">MAX_TICKS2[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/dut/TW" type="array">
+      <obj_property name="ElementShortName">TW[31:0]</obj_property>
+      <obj_property name="ObjectShortName">TW[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/pulse/which" type="array">
+      <obj_property name="ElementShortName">which[31:0]</obj_property>
+      <obj_property name="ObjectShortName">which[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/key/code" type="array">
+      <obj_property name="ElementShortName">code[3:0]</obj_property>
+      <obj_property name="ObjectShortName">code[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/digits/value" type="array">
+      <obj_property name="ElementShortName">value[15:0]</obj_property>
+      <obj_property name="ObjectShortName">value[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/check/condition" type="logic">
+      <obj_property name="ElementShortName">condition</obj_property>
+      <obj_property name="ObjectShortName">condition</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/test_pass" type="logic">
+      <obj_property name="ElementShortName">test_pass</obj_property>
+      <obj_property name="ObjectShortName">test_pass</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/rst" type="logic">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/init_done" type="logic">
+      <obj_property name="ElementShortName">init_done</obj_property>
+      <obj_property name="ObjectShortName">init_done</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/flash_fault" type="logic">
+      <obj_property name="ElementShortName">flash_fault</obj_property>
+      <obj_property name="ObjectShortName">flash_fault</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/sw1" type="logic">
+      <obj_property name="ElementShortName">sw1</obj_property>
+      <obj_property name="ObjectShortName">sw1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/admin" type="logic">
+      <obj_property name="ElementShortName">admin</obj_property>
+      <obj_property name="ObjectShortName">admin</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/clear" type="logic">
+      <obj_property name="ElementShortName">clear</obj_property>
+      <obj_property name="ObjectShortName">clear</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/temp_event" type="logic">
+      <obj_property name="ElementShortName">temp_event</obj_property>
+      <obj_property name="ObjectShortName">temp_event</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/key_valid" type="logic">
+      <obj_property name="ElementShortName">key_valid</obj_property>
+      <obj_property name="ObjectShortName">key_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/key_code" type="array">
+      <obj_property name="ElementShortName">key_code[3:0]</obj_property>
+      <obj_property name="ObjectShortName">key_code[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/stored_password" type="array">
+      <obj_property name="ElementShortName">stored_password[15:0]</obj_property>
+      <obj_property name="ObjectShortName">stored_password[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/temporary_password" type="array">
+      <obj_property name="ElementShortName">temporary_password[15:0]</obj_property>
+      <obj_property name="ObjectShortName">temporary_password[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/temporary_valid" type="logic">
+      <obj_property name="ElementShortName">temporary_valid</obj_property>
+      <obj_property name="ObjectShortName">temporary_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/save_done" type="logic">
+      <obj_property name="ElementShortName">save_done</obj_property>
+      <obj_property name="ObjectShortName">save_done</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/save_success" type="logic">
+      <obj_property name="ElementShortName">save_success</obj_property>
+      <obj_property name="ObjectShortName">save_success</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/save_request" type="logic">
+      <obj_property name="ElementShortName">save_request</obj_property>
+      <obj_property name="ObjectShortName">save_request</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/capture_start" type="logic">
+      <obj_property name="ElementShortName">capture_start</obj_property>
+      <obj_property name="ObjectShortName">capture_start</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/unlocked" type="logic">
+      <obj_property name="ElementShortName">unlocked</obj_property>
+      <obj_property name="ObjectShortName">unlocked</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/alarm_active" type="logic">
+      <obj_property name="ElementShortName">alarm_active</obj_property>
+      <obj_property name="ObjectShortName">alarm_active</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/display_fault" type="logic">
+      <obj_property name="ElementShortName">display_fault</obj_property>
+      <obj_property name="ObjectShortName">display_fault</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/save_password" type="array">
+      <obj_property name="ElementShortName">save_password[15:0]</obj_property>
+      <obj_property name="ObjectShortName">save_password[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/entry_digits" type="array">
+      <obj_property name="ElementShortName">entry_digits[15:0]</obj_property>
+      <obj_property name="ObjectShortName">entry_digits[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/state" type="array">
+      <obj_property name="ElementShortName">state[3:0]</obj_property>
+      <obj_property name="ObjectShortName">state[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/entry_count" type="array">
+      <obj_property name="ElementShortName">entry_count[2:0]</obj_property>
+      <obj_property name="ObjectShortName">entry_count[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/error_count" type="array">
+      <obj_property name="ElementShortName">error_count[2:0]</obj_property>
+      <obj_property name="ObjectShortName">error_count[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_lock_controller/n" type="array">
+      <obj_property name="ElementShortName">n[31:0]</obj_property>
+      <obj_property name="ObjectShortName">n[31:0]</obj_property>
+   </wvobject>
+</wave_config>

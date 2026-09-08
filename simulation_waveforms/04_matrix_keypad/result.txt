@@ -1,0 +1,5 @@
+PASS
+testbench=tb_keypad_scanner
+simulator=Vivado XSim 2023.2
+vcd=E:/26FPGA/simulation_waveforms/04_matrix_keypad/tb_keypad_scanner.vcd
+wdb=E:/26FPGA/simulation_waveforms/04_matrix_keypad/tb_keypad_scanner.wdb

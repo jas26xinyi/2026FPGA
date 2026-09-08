@@ -1,0 +1,1256 @@
+$date
+   Tue Sep  8 16:53:26 2026
+$end
+
+$version
+  2023.2
+$end
+
+$timescale
+  1ps
+$end
+
+$scope module tb_basic_alarm_policy $end
+$var reg 1 R test_pass $end
+$var reg 1 S clk $end
+$var reg 1 T rst $end
+$var reg 1 U init_done $end
+$var reg 1 V sw1 $end
+$var reg 1 W admin $end
+$var reg 1 X clear $end
+$var reg 1 Y key_valid $end
+$var reg 1 Z temp_event $end
+$var reg 4 [ key_code [3:0] $end
+$var reg 8 \ scenario [7:0] $end
+$var wire 1 ] capture_start $end
+$var wire 1 ^ alarm_active $end
+$var wire 4 _ state [3:0] $end
+$var wire 3 ` error_count [2:0] $end
+$var integer 32 a capture_pulses [31:0] $end
+$var integer 32 b n [31:0] $end
+$var parameter 4 c ST_USER [3:0] $end
+$var parameter 4 d ST_ERROR [3:0] $end
+$var parameter 4 e ST_ALARM [3:0] $end
+$scope module dut $end
+$var wire 1 ! clk $end
+$var wire 1 " rst $end
+$var wire 1 # flash_init_done $end
+$var wire 16 $ stored_password [15:0] $end
+$var wire 1 % flash_fault $end
+$var wire 1 & sw1_event $end
+$var wire 1 ' admin_event $end
+$var wire 1 ( alarm_clear_event $end
+$var wire 1 ) temporary_event $end
+$var wire 16 * temporary_password [15:0] $end
+$var wire 1 + temporary_valid $end
+$var wire 1 , key_valid $end
+$var wire 4 - key_code [3:0] $end
+$var wire 1 % save_done $end
+$var wire 1 % save_success $end
+$var reg 1 . save_request $end
+$var reg 16 / save_password [15:0] $end
+$var reg 1 0 capture_start $end
+$var reg 1 1 unlocked $end
+$var reg 1 2 alarm_active $end
+$var reg 4 3 state [3:0] $end
+$var reg 16 4 entry_digits [15:0] $end
+$var reg 3 5 entry_count [2:0] $end
+$var reg 3 6 error_count [2:0] $end
+$var reg 1 7 display_fault $end
+$var reg 4 8 next_state [3:0] $end
+$var reg 11 9 timer_count [10:0] $end
+$var wire 1 : is_digit $end
+$var wire 1 ; activity $end
+$var parameter 0 < CLOCK_HZ [31:0] $end
+$var parameter 0 = LOCK_TIMEOUT_S [31:0] $end
+$var parameter 0 > OPEN_TIMEOUT_S [31:0] $end
+$var parameter 0 ? ERROR_DISPLAY_MS [31:0] $end
+$var parameter 4 @ ST_BOOT [3:0] $end
+$var parameter 4 A ST_WAIT [3:0] $end
+$var parameter 4 B ST_USER [3:0] $end
+$var parameter 4 C ST_ERROR [3:0] $end
+$var parameter 4 D ST_OPEN [3:0] $end
+$var parameter 4 E ST_ADMIN [3:0] $end
+$var parameter 4 F ST_SAVE [3:0] $end
+$var parameter 4 G ST_ALARM [3:0] $end
+$var parameter 4 H ST_TEMP [3:0] $end
+$var parameter 0 I LOCK_TICKS [31:0] $end
+$var parameter 0 J OPEN_TICKS [31:0] $end
+$var parameter 0 K ERROR_TICKS [31:0] $end
+$var parameter 0 L MAX_TICKS [31:0] $end
+$var parameter 0 M MAX_TICKS2 [31:0] $end
+$var parameter 0 N TW [31:0] $end
+$upscope $end
+$scope task pulse $end
+$var integer 32 O which [31:0] $end
+$upscope $end
+$scope task key $end
+$var reg 4 P code [3:0] $end
+$upscope $end
+$scope task check $end
+$var reg 1 Q ok $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+
+#0
+$dumpvars
+0!
+1"
+0#
+b1001000110100 $
+0%
+0&
+0'
+0(
+0)
+b10010001101000 *
+1+
+0,
+b0 -
+x.
+bx /
+x0
+x1
+x2
+bx 3
+bx 4
+bx 5
+bx 6
+x7
+b0 8
+bx 9
+1:
+0;
+b1111101000 <
+b1 =
+b10 >
+b10 ?
+b0 @
+b1 A
+b10 B
+b11 C
+b100 D
+b101 E
+b110 F
+b111 G
+b1000 H
+b1111101000 I
+b11111010000 J
+b10 K
+b11111010000 L
+b11111010000 M
+b1011 N
+bx O
+bx P
+0Q
+0R
+0S
+1T
+0U
+0V
+0W
+0X
+0Y
+0Z
+b0 [
+b1 \
+x]
+x^
+bx _
+bx `
+b0 a
+bx b
+b10 c
+b11 d
+b111 e
+$end
+
+#5000
+1!
+0.
+b1001000110100 /
+00
+01
+02
+b0 3
+b0 4
+b0 5
+b0 6
+07
+b0 9
+1S
+0]
+0^
+b0 _
+b0 `
+
+#10000
+0!
+0S
+
+#15000
+1!
+1S
+
+#20000
+0!
+0S
+
+#25000
+1!
+1S
+
+#30000
+0!
+0S
+
+#35000
+1!
+1S
+
+#40000
+0!
+0"
+1#
+b1 8
+0S
+0T
+1U
+
+#45000
+1!
+b1 3
+1S
+b1 _
+
+#50000
+0!
+0S
+
+#55000
+1!
+1S
+
+#60000
+0!
+b0 O
+0S
+
+#65000
+1!
+1S
+
+#70000
+0!
+1&
+b10 8
+0S
+1V
+
+#75000
+1!
+b10 3
+1S
+b10 _
+
+#80000
+0!
+0&
+b1 P
+0S
+0V
+b10 \
+b1 b
+
+#85000
+1!
+b1 9
+1S
+
+#90000
+0!
+1,
+b1 -
+1;
+0S
+1Y
+b1 [
+
+#95000
+1!
+b1 4
+b1 5
+b0 9
+1S
+
+#100000
+0!
+0,
+0;
+0S
+0Y
+
+#105000
+1!
+b1 9
+1S
+
+#110000
+0!
+1,
+1;
+0S
+1Y
+
+#115000
+1!
+b10001 4
+b10 5
+b0 9
+1S
+
+#120000
+0!
+0,
+0;
+0S
+0Y
+
+#125000
+1!
+b1 9
+1S
+
+#130000
+0!
+1,
+1;
+0S
+1Y
+
+#135000
+1!
+b100010001 4
+b11 5
+b0 9
+1S
+
+#140000
+0!
+0,
+0;
+0S
+0Y
+
+#145000
+1!
+b1 9
+1S
+
+#150000
+0!
+1,
+1;
+0S
+1Y
+
+#155000
+1!
+b1000100010001 4
+b100 5
+b0 9
+1S
+
+#160000
+0!
+0,
+0;
+b1010 P
+0S
+0Y
+
+#165000
+1!
+b1 9
+1S
+
+#170000
+0!
+1,
+b1010 -
+b11 8
+0:
+1;
+0S
+1Y
+b1010 [
+
+#175000
+1!
+b11 3
+b1 6
+b0 9
+1S
+b11 _
+b1 `
+
+#180000
+0!
+0,
+0;
+0S
+0Y
+
+#181000
+1Q
+
+#185000
+1!
+b10 8
+b1 9
+1S
+
+#190000
+0!
+0S
+
+#195000
+1!
+b10 3
+b0 4
+b0 5
+b0 9
+1S
+b10 _
+
+#200000
+0!
+0S
+
+#205000
+1!
+b1 9
+1S
+
+#210000
+0!
+0S
+
+#215000
+1!
+b10 9
+1S
+
+#220000
+0!
+b1 P
+0S
+b11 \
+b10 b
+
+#225000
+1!
+b11 9
+1S
+
+#230000
+0!
+1,
+b1 -
+1:
+1;
+0S
+1Y
+b1 [
+
+#235000
+1!
+b1 4
+b1 5
+b0 9
+1S
+
+#240000
+0!
+0,
+0;
+0S
+0Y
+
+#245000
+1!
+b1 9
+1S
+
+#250000
+0!
+1,
+1;
+0S
+1Y
+
+#255000
+1!
+b10001 4
+b10 5
+b0 9
+1S
+
+#260000
+0!
+0,
+0;
+0S
+0Y
+
+#265000
+1!
+b1 9
+1S
+
+#270000
+0!
+1,
+1;
+0S
+1Y
+
+#275000
+1!
+b100010001 4
+b11 5
+b0 9
+1S
+
+#280000
+0!
+0,
+0;
+0S
+0Y
+
+#285000
+1!
+b1 9
+1S
+
+#290000
+0!
+1,
+1;
+0S
+1Y
+
+#295000
+1!
+b1000100010001 4
+b100 5
+b0 9
+1S
+
+#300000
+0!
+0,
+0;
+b1010 P
+0S
+0Y
+
+#305000
+1!
+b1 9
+1S
+
+#310000
+0!
+1,
+b1010 -
+b11 8
+0:
+1;
+0S
+1Y
+b1010 [
+
+#315000
+1!
+b11 3
+b10 6
+b0 9
+1S
+b11 _
+b10 `
+
+#320000
+0!
+0,
+0;
+0S
+0Y
+
+#325000
+1!
+b10 8
+b1 9
+1S
+
+#330000
+0!
+0S
+
+#335000
+1!
+b10 3
+b0 4
+b0 5
+b0 9
+1S
+b10 _
+
+#340000
+0!
+0S
+
+#345000
+1!
+b1 9
+1S
+
+#350000
+0!
+0S
+
+#355000
+1!
+b10 9
+1S
+
+#360000
+0!
+b1 P
+0S
+b100 \
+b11 b
+
+#365000
+1!
+b11 9
+1S
+
+#370000
+0!
+1,
+b1 -
+1:
+1;
+0S
+1Y
+b1 [
+
+#375000
+1!
+b1 4
+b1 5
+b0 9
+1S
+
+#380000
+0!
+0,
+0;
+0S
+0Y
+
+#385000
+1!
+b1 9
+1S
+
+#390000
+0!
+1,
+1;
+0S
+1Y
+
+#395000
+1!
+b10001 4
+b10 5
+b0 9
+1S
+
+#400000
+0!
+0,
+0;
+0S
+0Y
+
+#405000
+1!
+b1 9
+1S
+
+#410000
+0!
+1,
+1;
+0S
+1Y
+
+#415000
+1!
+b100010001 4
+b11 5
+b0 9
+1S
+
+#420000
+0!
+0,
+0;
+0S
+0Y
+
+#425000
+1!
+b1 9
+1S
+
+#430000
+0!
+1,
+1;
+0S
+1Y
+
+#435000
+1!
+b1000100010001 4
+b100 5
+b0 9
+1S
+
+#440000
+0!
+0,
+0;
+b1010 P
+0S
+0Y
+
+#445000
+1!
+b1 9
+1S
+
+#450000
+0!
+1,
+b1010 -
+b11 8
+0:
+1;
+0S
+1Y
+b1010 [
+
+#455000
+1!
+b11 3
+b11 6
+b0 9
+1S
+b11 _
+b11 `
+
+#460000
+0!
+0,
+0;
+0S
+0Y
+
+#465000
+1!
+b10 8
+b1 9
+1S
+
+#470000
+0!
+0S
+
+#475000
+1!
+b10 3
+b0 4
+b0 5
+b0 9
+1S
+b10 _
+
+#480000
+0!
+0S
+
+#485000
+1!
+b1 9
+1S
+
+#490000
+0!
+0S
+
+#495000
+1!
+b10 9
+1S
+
+#500000
+0!
+b1 P
+0S
+b101 \
+b100 b
+
+#505000
+1!
+b11 9
+1S
+
+#510000
+0!
+1,
+b1 -
+1:
+1;
+0S
+1Y
+b1 [
+
+#515000
+1!
+b1 4
+b1 5
+b0 9
+1S
+
+#520000
+0!
+0,
+0;
+0S
+0Y
+
+#525000
+1!
+b1 9
+1S
+
+#530000
+0!
+1,
+1;
+0S
+1Y
+
+#535000
+1!
+b10001 4
+b10 5
+b0 9
+1S
+
+#540000
+0!
+0,
+0;
+0S
+0Y
+
+#545000
+1!
+b1 9
+1S
+
+#550000
+0!
+1,
+1;
+0S
+1Y
+
+#555000
+1!
+b100010001 4
+b11 5
+b0 9
+1S
+
+#560000
+0!
+0,
+0;
+0S
+0Y
+
+#565000
+1!
+b1 9
+1S
+
+#570000
+0!
+1,
+1;
+0S
+1Y
+
+#575000
+1!
+b1000100010001 4
+b100 5
+b0 9
+1S
+
+#580000
+0!
+0,
+0;
+b1010 P
+0S
+0Y
+
+#585000
+1!
+b1 9
+1S
+
+#590000
+0!
+1,
+b1010 -
+b111 8
+0:
+1;
+0S
+1Y
+b1010 [
+
+#595000
+1!
+10
+12
+b111 3
+b100 6
+b0 9
+1S
+1]
+1^
+b111 _
+b100 `
+
+#600000
+0!
+0,
+0;
+0S
+0Y
+
+#605000
+1!
+00
+1S
+0]
+b1 a
+
+#610000
+0!
+0S
+
+#615000
+1!
+1S
+
+#620000
+0!
+b11 O
+0S
+b110 \
+
+#625000
+1!
+1S
+
+#630000
+0!
+1)
+0S
+1Z
+
+#635000
+1!
+1S
+
+#640000
+0!
+0)
+b1 O
+0S
+0Z
+
+#645000
+1!
+1S
+
+#650000
+0!
+1'
+0S
+1W
+
+#655000
+1!
+1S
+
+#660000
+0!
+0'
+0S
+0W
+
+#665000
+1!
+1S
+
+#670000
+0!
+1,
+1;
+0S
+1Y
+
+#675000
+1!
+1S
+
+#680000
+0!
+0,
+0;
+0S
+0Y
+
+#685000
+1!
+1S
+
+#690000
+0!
+0S
+
+#695000
+1!
+1S
+
+#700000
+0!
+b10 O
+0S
+b111 \
+
+#705000
+1!
+1S
+
+#710000
+0!
+1(
+b10 8
+0S
+1X
+
+#715000
+1!
+02
+b10 3
+b0 4
+b0 5
+b0 6
+1S
+0^
+b10 _
+b0 `
+
+#720000
+0!
+0(
+0S
+0X
+
+#725000
+1!
+b1 9
+1S
+
+#730000
+0!
+0S
+
+#735000
+1!
+b10 9
+1S
+
+#740000
+0!
+b1 P
+0S
+b1000 \
+
+#745000
+1!
+b11 9
+1S
+
+#750000
+0!
+1,
+b1 -
+1:
+1;
+0S
+1Y
+b1 [
+
+#755000
+1!
+b1 4
+b1 5
+b0 9
+1S
+
+#760000
+0!
+0,
+0;
+0S
+0Y
+
+#765000
+1!
+b1 9
+1S
+
+#770000
+0!
+1,
+1;
+0S
+1Y
+
+#775000
+1!
+b10001 4
+b10 5
+b0 9
+1S
+
+#780000
+0!
+0,
+0;
+0S
+0Y
+
+#785000
+1!
+b1 9
+1S
+
+#790000
+0!
+1,
+1;
+0S
+1Y
+
+#795000
+1!
+b100010001 4
+b11 5
+b0 9
+1S
+
+#800000
+0!
+0,
+0;
+0S
+0Y
+
+#805000
+1!
+b1 9
+1S
+
+#810000
+0!
+1,
+1;
+0S
+1Y
+
+#815000
+1!
+b1000100010001 4
+b100 5
+b0 9
+1S
+
+#820000
+0!
+0,
+0;
+b1010 P
+0S
+0Y
+
+#825000
+1!
+b1 9
+1S
+
+#830000
+0!
+1,
+b1010 -
+b11 8
+0:
+1;
+0S
+1Y
+b1010 [
+
+#835000
+1!
+b11 3
+b1 6
+b0 9
+1S
+b11 _
+b1 `
+
+#840000
+0!
+0,
+0;
+0S
+0Y
+
+#841000
+1R

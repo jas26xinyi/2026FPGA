@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_sevenseg_display_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_sevenseg_display" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+   </zoom_setting>
+   <column_width_setting>
+   </column_width_setting>
+   <WVObjectSize size="101" />
+   <wvobject fp_name="/tb_sevenseg_display/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/rst" type="logic">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/state" type="array">
+      <obj_property name="ElementShortName">state[3:0]</obj_property>
+      <obj_property name="ObjectShortName">state[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/entry_digits" type="array">
+      <obj_property name="ElementShortName">entry_digits[15:0]</obj_property>
+      <obj_property name="ObjectShortName">entry_digits[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/entry_count" type="array">
+      <obj_property name="ElementShortName">entry_count[2:0]</obj_property>
+      <obj_property name="ObjectShortName">entry_count[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/error_count" type="array">
+      <obj_property name="ElementShortName">error_count[2:0]</obj_property>
+      <obj_property name="ObjectShortName">error_count[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/display_fault" type="logic">
+      <obj_property name="ElementShortName">display_fault</obj_property>
+      <obj_property name="ObjectShortName">display_fault</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/temporary_password" type="array">
+      <obj_property name="ElementShortName">temporary_password[15:0]</obj_property>
+      <obj_property name="ObjectShortName">temporary_password[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/scenario" type="array">
+      <obj_property name="ElementShortName">scenario[7:0]</obj_property>
+      <obj_property name="ObjectShortName">scenario[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/seg_n" type="array">
+      <obj_property name="ElementShortName">seg_n[7:0]</obj_property>
+      <obj_property name="ObjectShortName">seg_n[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/digit_sel" type="array">
+      <obj_property name="ElementShortName">digit_sel[7:0]</obj_property>
+      <obj_property name="ObjectShortName">digit_sel[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/test_pass" type="logic">
+      <obj_property name="ElementShortName">test_pass</obj_property>
+      <obj_property name="ObjectShortName">test_pass</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/i" type="array">
+      <obj_property name="ElementShortName">i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">i[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/CH_BLANK" type="array">
+      <obj_property name="ElementShortName">CH_BLANK[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_BLANK[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/CH_P" type="array">
+      <obj_property name="ElementShortName">CH_P[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_P[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/CH_A" type="array">
+      <obj_property name="ElementShortName">CH_A[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_A[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/CH_S" type="array">
+      <obj_property name="ElementShortName">CH_S[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_S[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/CH_E" type="array">
+      <obj_property name="ElementShortName">CH_E[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_E[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/CH_T" type="array">
+      <obj_property name="ElementShortName">CH_T[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_T[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/CH_R" type="array">
+      <obj_property name="ElementShortName">CH_R[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_R[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/CH_O" type="array">
+      <obj_property name="ElementShortName">CH_O[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_O[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/CH_N" type="array">
+      <obj_property name="ElementShortName">CH_N[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_N[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/CH_L" type="array">
+      <obj_property name="ElementShortName">CH_L[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_L[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/CH_F" type="array">
+      <obj_property name="ElementShortName">CH_F[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_F[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/CH_I" type="array">
+      <obj_property name="ElementShortName">CH_I[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_I[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/CH_U" type="array">
+      <obj_property name="ElementShortName">CH_U[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_U[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/CH_M" type="array">
+      <obj_property name="ElementShortName">CH_M[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_M[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/encode/encode" type="array">
+      <obj_property name="ElementShortName">encode[7:0]</obj_property>
+      <obj_property name="ObjectShortName">encode[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/encode/ch" type="array">
+      <obj_property name="ElementShortName">ch[4:0]</obj_property>
+      <obj_property name="ObjectShortName">ch[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/rst" type="logic">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/state" type="array">
+      <obj_property name="ElementShortName">state[3:0]</obj_property>
+      <obj_property name="ObjectShortName">state[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/entry_digits" type="array">
+      <obj_property name="ElementShortName">entry_digits[15:0]</obj_property>
+      <obj_property name="ObjectShortName">entry_digits[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/entry_count" type="array">
+      <obj_property name="ElementShortName">entry_count[2:0]</obj_property>
+      <obj_property name="ObjectShortName">entry_count[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/error_count" type="array">
+      <obj_property name="ElementShortName">error_count[2:0]</obj_property>
+      <obj_property name="ObjectShortName">error_count[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/temporary_password" type="array">
+      <obj_property name="ElementShortName">temporary_password[15:0]</obj_property>
+      <obj_property name="ObjectShortName">temporary_password[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/display_fault" type="logic">
+      <obj_property name="ElementShortName">display_fault</obj_property>
+      <obj_property name="ObjectShortName">display_fault</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/seg_n" type="array">
+      <obj_property name="ElementShortName">seg_n[7:0]</obj_property>
+      <obj_property name="ObjectShortName">seg_n[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/digit_sel" type="array">
+      <obj_property name="ElementShortName">digit_sel[7:0]</obj_property>
+      <obj_property name="ObjectShortName">digit_sel[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/refresh_count" type="array">
+      <obj_property name="ElementShortName">refresh_count[18:0]</obj_property>
+      <obj_property name="ObjectShortName">refresh_count[18:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/scan" type="array">
+      <obj_property name="ElementShortName">scan[2:0]</obj_property>
+      <obj_property name="ObjectShortName">scan[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/chars" type="array">
+      <obj_property name="ElementShortName">chars[0:7][4:0]</obj_property>
+      <obj_property name="ObjectShortName">chars[0:7][4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/i" type="array">
+      <obj_property name="ElementShortName">i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">i[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/CLOCK_HZ" type="array">
+      <obj_property name="ElementShortName">CLOCK_HZ[31:0]</obj_property>
+      <obj_property name="ObjectShortName">CLOCK_HZ[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/ST_BOOT" type="array">
+      <obj_property name="ElementShortName">ST_BOOT[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_BOOT[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/ST_WAIT" type="array">
+      <obj_property name="ElementShortName">ST_WAIT[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_WAIT[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/ST_USER" type="array">
+      <obj_property name="ElementShortName">ST_USER[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_USER[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/ST_ERROR" type="array">
+      <obj_property name="ElementShortName">ST_ERROR[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_ERROR[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/ST_OPEN" type="array">
+      <obj_property name="ElementShortName">ST_OPEN[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_OPEN[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/ST_ADMIN" type="array">
+      <obj_property name="ElementShortName">ST_ADMIN[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_ADMIN[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/ST_SAVE" type="array">
+      <obj_property name="ElementShortName">ST_SAVE[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_SAVE[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/ST_ALARM" type="array">
+      <obj_property name="ElementShortName">ST_ALARM[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_ALARM[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/ST_TEMP" type="array">
+      <obj_property name="ElementShortName">ST_TEMP[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_TEMP[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/CH_BLANK" type="array">
+      <obj_property name="ElementShortName">CH_BLANK[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_BLANK[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/CH_P" type="array">
+      <obj_property name="ElementShortName">CH_P[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_P[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/CH_A" type="array">
+      <obj_property name="ElementShortName">CH_A[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_A[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/CH_S" type="array">
+      <obj_property name="ElementShortName">CH_S[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_S[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/CH_E" type="array">
+      <obj_property name="ElementShortName">CH_E[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_E[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/CH_T" type="array">
+      <obj_property name="ElementShortName">CH_T[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_T[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/CH_R" type="array">
+      <obj_property name="ElementShortName">CH_R[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_R[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/CH_O" type="array">
+      <obj_property name="ElementShortName">CH_O[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_O[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/CH_N" type="array">
+      <obj_property name="ElementShortName">CH_N[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_N[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/CH_L" type="array">
+      <obj_property name="ElementShortName">CH_L[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_L[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/CH_F" type="array">
+      <obj_property name="ElementShortName">CH_F[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_F[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/CH_I" type="array">
+      <obj_property name="ElementShortName">CH_I[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_I[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/CH_U" type="array">
+      <obj_property name="ElementShortName">CH_U[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_U[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/dut/CH_M" type="array">
+      <obj_property name="ElementShortName">CH_M[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_M[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/count_zeroes/count_zeroes" type="array">
+      <obj_property name="ElementShortName">count_zeroes[31:0]</obj_property>
+      <obj_property name="ObjectShortName">count_zeroes[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/count_zeroes/value" type="array">
+      <obj_property name="ElementShortName">value[7:0]</obj_property>
+      <obj_property name="ObjectShortName">value[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/count_zeroes/bit_index" type="array">
+      <obj_property name="ElementShortName">bit_index[31:0]</obj_property>
+      <obj_property name="ObjectShortName">bit_index[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/check_word/c7" type="array">
+      <obj_property name="ElementShortName">c7[4:0]</obj_property>
+      <obj_property name="ObjectShortName">c7[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/check_word/c6" type="array">
+      <obj_property name="ElementShortName">c6[4:0]</obj_property>
+      <obj_property name="ObjectShortName">c6[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/check_word/c5" type="array">
+      <obj_property name="ElementShortName">c5[4:0]</obj_property>
+      <obj_property name="ObjectShortName">c5[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/check_word/c4" type="array">
+      <obj_property name="ElementShortName">c4[4:0]</obj_property>
+      <obj_property name="ObjectShortName">c4[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/rst" type="logic">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/state" type="array">
+      <obj_property name="ElementShortName">state[3:0]</obj_property>
+      <obj_property name="ObjectShortName">state[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/entry_digits" type="array">
+      <obj_property name="ElementShortName">entry_digits[15:0]</obj_property>
+      <obj_property name="ObjectShortName">entry_digits[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/entry_count" type="array">
+      <obj_property name="ElementShortName">entry_count[2:0]</obj_property>
+      <obj_property name="ObjectShortName">entry_count[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/error_count" type="array">
+      <obj_property name="ElementShortName">error_count[2:0]</obj_property>
+      <obj_property name="ObjectShortName">error_count[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/display_fault" type="logic">
+      <obj_property name="ElementShortName">display_fault</obj_property>
+      <obj_property name="ObjectShortName">display_fault</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/temporary_password" type="array">
+      <obj_property name="ElementShortName">temporary_password[15:0]</obj_property>
+      <obj_property name="ObjectShortName">temporary_password[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/scenario" type="array">
+      <obj_property name="ElementShortName">scenario[7:0]</obj_property>
+      <obj_property name="ObjectShortName">scenario[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/seg_n" type="array">
+      <obj_property name="ElementShortName">seg_n[7:0]</obj_property>
+      <obj_property name="ObjectShortName">seg_n[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/digit_sel" type="array">
+      <obj_property name="ElementShortName">digit_sel[7:0]</obj_property>
+      <obj_property name="ObjectShortName">digit_sel[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/test_pass" type="logic">
+      <obj_property name="ElementShortName">test_pass</obj_property>
+      <obj_property name="ObjectShortName">test_pass</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/i" type="array">
+      <obj_property name="ElementShortName">i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">i[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/CH_BLANK" type="array">
+      <obj_property name="ElementShortName">CH_BLANK[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_BLANK[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/CH_P" type="array">
+      <obj_property name="ElementShortName">CH_P[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_P[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/CH_A" type="array">
+      <obj_property name="ElementShortName">CH_A[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_A[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/CH_S" type="array">
+      <obj_property name="ElementShortName">CH_S[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_S[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/CH_E" type="array">
+      <obj_property name="ElementShortName">CH_E[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_E[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/CH_T" type="array">
+      <obj_property name="ElementShortName">CH_T[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_T[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/CH_R" type="array">
+      <obj_property name="ElementShortName">CH_R[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_R[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/CH_O" type="array">
+      <obj_property name="ElementShortName">CH_O[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_O[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/CH_N" type="array">
+      <obj_property name="ElementShortName">CH_N[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_N[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/CH_L" type="array">
+      <obj_property name="ElementShortName">CH_L[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_L[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/CH_F" type="array">
+      <obj_property name="ElementShortName">CH_F[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_F[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/CH_I" type="array">
+      <obj_property name="ElementShortName">CH_I[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_I[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/CH_U" type="array">
+      <obj_property name="ElementShortName">CH_U[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_U[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_sevenseg_display/CH_M" type="array">
+      <obj_property name="ElementShortName">CH_M[4:0]</obj_property>
+      <obj_property name="ObjectShortName">CH_M[4:0]</obj_property>
+   </wvobject>
+</wave_config>

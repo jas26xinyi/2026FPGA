@@ -1,9 +1,7 @@
 set project_root [file normalize [file join [file dirname [info script]] ..]]
 source [file join $project_root scripts create_project.tcl]
 open_project [file join $project_dir password_lock_system.xpr]
-add_files -fileset sim_1 -norecurse [glob -directory [file join $project_root sim] *.sv]
-set_property file_type SystemVerilog [get_files -of_objects [get_filesets sim_1] *.sv]
-set tests {tb_lock_controller tb_temporary_password_generator tb_alarm_buzzer tb_rpi_camera_link tb_keypad_scanner tb_sevenseg_display tb_flash_default_fail tb_flash_journal}
+set tests {tb_basic_entry_timeout tb_basic_admin_save tb_basic_alarm_policy tb_lock_controller tb_temporary_password_generator tb_alarm_buzzer tb_rpi_camera_link tb_keypad_scanner tb_sevenseg_display tb_flash_default_fail tb_flash_journal}
 if {$argc > 0} { set tests [list [lindex $argv 0]] }
 foreach tb $tests {
     puts "=== RUNNING $tb ==="

@@ -152,11 +152,15 @@ module lock_controller #(
                         entry_count  <= entry_count - 1'b1;
                     end
                 end
-                if (display_fault && (sw1_event || admin_event || temporary_event))
-                    display_fault <= 1'b0;
-                if (flash_fault)
-                    display_fault <= 1'b1;
             end
+
+            // Starting a new user/admin/temporary-password operation clears a
+            // previous save-error indication even when that same event also
+            // causes a state transition on this clock edge.
+            if (display_fault && (sw1_event || admin_event || temporary_event))
+                display_fault <= 1'b0;
+            if (flash_fault)
+                display_fault <= 1'b1;
         end
     end
 

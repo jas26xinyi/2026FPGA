@@ -1,0 +1,5 @@
+PASS
+testbench=tb_rpi_camera_link
+simulator=Vivado XSim 2023.2
+vcd=E:/26FPGA/simulation_waveforms/10_extra_camera_uart/tb_rpi_camera_link.vcd
+wdb=E:/26FPGA/simulation_waveforms/10_extra_camera_uart/tb_rpi_camera_link.wdb

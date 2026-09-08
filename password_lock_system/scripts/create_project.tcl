@@ -20,8 +20,12 @@ if {$enable_rpi_camera ni {0 1}} {
 
 add_files -norecurse [glob -directory [file join $project_root rtl] *.v]
 add_files -fileset constrs_1 -norecurse [file join $project_root constraints password_lock_system.xdc]
+add_files -fileset sim_1 -norecurse [glob -directory [file join $project_root sim] *.sv]
+set_property file_type SystemVerilog [get_files -of_objects [get_filesets sim_1] *.sv]
 set_property top password_lock_top [get_filesets sources_1]
 set_property generic "ENABLE_RPI_CAMERA=$enable_rpi_camera" [get_filesets sources_1]
+set_property xsim.simulate.runtime 0ns [get_filesets sim_1]
 update_compile_order -fileset sources_1
+update_compile_order -fileset sim_1
 close_project
 puts "Created [file join $project_dir password_lock_system.xpr] (ENABLE_RPI_CAMERA=$enable_rpi_camera)"

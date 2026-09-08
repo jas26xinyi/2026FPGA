@@ -1,0 +1,5 @@
+PASS
+testbench=tb_flash_journal
+simulator=Vivado XSim 2023.2
+vcd=E:/26FPGA/simulation_waveforms/08_flash_dual_journal/tb_flash_journal.vcd
+wdb=E:/26FPGA/simulation_waveforms/08_flash_dual_journal/tb_flash_journal.wdb

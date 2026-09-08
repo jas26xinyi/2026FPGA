@@ -25,13 +25,13 @@ CSI 摄像头 ----------> Raspberry Pi 5 ----------> HDMI 显示器
 | 密码输入、退格、取消、开锁及自动上锁 | 已通过 RTL 仿真和实机验证 |
 | 连续四次错误报警、KEY2 专用解除 | 已通过 RTL 仿真和实机验证 |
 | 管理员改密及 W25Q64 掉电保存 | 已通过 RTL 仿真和实机验证 |
-| KEY3 易失性临时密码 | 已通过 RTL 仿真，待新版位流实机复测 |
-| FPGA 与树莓派 UART 报警协议 | RTL 仿真已通过，待板间联调 |
-| 树莓派 CSI 四帧抓拍与 HDMI 四宫格 | 软件单元测试及模拟抓拍已通过，待实物联调 |
+| KEY3 易失性临时密码 | 已通过 RTL 与集成仿真，待实机按键复测 |
+| FPGA 与树莓派 UART 报警协议 | RTL 仿真与板间联调均已通过 |
+| 树莓派 CSI 四帧抓拍与 HDMI 四宫格 | 软件测试和两轮实物报警抓拍均已通过 |
 
-实测边界见[实机验证报告](password_lock_system/实机验证报告.md)。未完成板间联调前，不把树莓派拍照路径描述为整机实测通过。
+完整波形、原生 WDB/VCD、日志和逐项对应关系见[仿真波形总览](simulation_waveforms/00_仿真波形总览.md)，实测边界见[实机验证报告](password_lock_system/实机验证报告.md)。
 
-当前默认参数构建已成功生成位流：综合、实现和 DRC 均为 0 error，WNS 为 `11.046 ns`，WHS 为 `0.086 ns`，所有用户时序约束满足；删除四帧缓存后 Block RAM 使用量为 0。
+当前默认参数构建已成功生成位流：综合、实现和 DRC 均为 0 error，WNS 为 `11.318 ns`，WHS 为 `0.060 ns`，所有用户时序约束满足；删除四帧缓存后 Block RAM 使用量为 0。
 
 ## FPGA 快速使用
 
@@ -75,6 +75,12 @@ TX/RX 必须交叉并连接公共地。两块板各自供电，严禁互接 3.3V
 .\password_lock_system\scripts\run_all.ps1
 ```
 
+生成带编号的 11 组 Vivado 原生波形与报告预览图：
+
+```powershell
+.\password_lock_system\scripts\generate_waveforms.ps1
+```
+
 只运行 RTL 仿真：
 
 ```powershell
@@ -112,6 +118,7 @@ FPGA 顶层参数 `ENABLE_RPI_CAMERA` 默认值为 1。关闭后 UART 模块会�
 │  ├─ 矩阵键盘接线说明.md
 │  └─ 实机验证报告.md
 ├─ raspberry_pi5_camera/    # CSI 相机、四帧保存和 HDMI 四宫格程序
+├─ simulation_waveforms/    # 11 组编号波形、日志与总览报告
 ├─ 技术文档及例程/           # 开发板资料与原始参考工程
 ├─ 课件/                     # 课程资料
 ├─ 计划.txt                  # 当前树莓派相机方案实施计划

@@ -1,23 +1,74 @@
 `timescale 1ns/1ps
 module tb_keypad_scanner;
     reg test_pass=0;
-    reg clk=0,rst=1,pressed=0;
+    reg clk=0,rst=1;
+    reg [15:0] pressed_keys=0;
+    reg [3:0] expected_code=0;
+    reg [7:0] scenario=0;
+    reg [3:0] row_n;
     wire [3:0] col_n;
-    wire [3:0] row_n=(pressed && col_n==4'b0111)?4'b1110:4'b1111;
-    wire event_valid; wire [3:0] event_code;
+    wire event_valid;
+    wire [3:0] event_code;
     integer events=0;
+    integer i;
+
     always #5 clk=~clk;
-    keypad_scanner #(.CLOCK_HZ(4000),.COLUMN_TICK_HZ(1000),.DEBOUNCE_SCANS(2)) dut(
-       .clk(clk),.rst(rst),.row_n(row_n),.col_n(col_n),.event_valid(event_valid),.event_code(event_code));
-    always @(posedge clk) if(event_valid) begin
-      if(event_code!==4'hA) $fatal(1,"wrong key code %h",event_code);
-      events=events+1;
+    always @(*) begin
+        case(col_n)
+            4'b1110: row_n=~pressed_keys[3:0];
+            4'b1101: row_n=~pressed_keys[7:4];
+            4'b1011: row_n=~pressed_keys[11:8];
+            4'b0111: row_n=~pressed_keys[15:12];
+            default: row_n=4'b1111;
+        endcase
     end
+
+    keypad_scanner #(.CLOCK_HZ(4000),.COLUMN_TICK_HZ(1000),.DEBOUNCE_SCANS(2)) dut(
+       .clk(clk),.rst(rst),.row_n(row_n),.col_n(col_n),
+       .event_valid(event_valid),.event_code(event_code));
+
+    always @(posedge clk) if(event_valid) begin
+        if(event_code!==expected_code)
+            $fatal(1,"wrong key code expected=%h actual=%h scenario=%0d",expected_code,event_code,scenario);
+        events=events+1;
+    end
+
+    function [3:0] expected_for_bit(input integer bit_index);
+        case(bit_index)
+             0:expected_for_bit=4'h1;  1:expected_for_bit=4'h4;
+             2:expected_for_bit=4'h7;  3:expected_for_bit=4'hE;
+             4:expected_for_bit=4'h2;  5:expected_for_bit=4'h5;
+             6:expected_for_bit=4'h8;  7:expected_for_bit=4'h0;
+             8:expected_for_bit=4'h3;  9:expected_for_bit=4'h6;
+            10:expected_for_bit=4'h9; 11:expected_for_bit=4'hF;
+            12:expected_for_bit=4'hA; 13:expected_for_bit=4'hB;
+            14:expected_for_bit=4'hC; default:expected_for_bit=4'hD;
+        endcase
+    endfunction
+
+    task release_all; begin pressed_keys=0;repeat(80)@(negedge clk);end endtask
+
     initial begin
-      repeat(4)@(negedge clk);rst=0;pressed=1;
-      repeat(100)@(negedge clk);if(events!=1)$fatal(1,"long press generated %0d events",events);
-      pressed=0;repeat(80)@(negedge clk);pressed=1;repeat(80)@(negedge clk);
-      if(events!=2)$fatal(1,"second press not armed events=%0d",events);
-      test_pass=1;$display("PASS tb_keypad_scanner");$finish;
+        repeat(4)@(negedge clk);rst=0;
+
+        scenario=1;expected_code=4'hA;pressed_keys=16'h1000;
+        repeat(200)@(negedge clk);
+        if(events!=1)$fatal(1,"long press generated %0d events",events);
+        release_all();
+
+        scenario=2;pressed_keys=16'h0021;
+        repeat(120)@(negedge clk);
+        if(events!=1)$fatal(1,"multi-key sample generated an event");
+        release_all();
+
+        for(i=0;i<16;i=i+1) begin
+            scenario=8'd16+i;
+            expected_code=expected_for_bit(i);
+            pressed_keys=16'h0001<<i;
+            repeat(80)@(negedge clk);
+            release_all();
+            if(events!=i+2)$fatal(1,"key %0d event missing events=%0d",i,events);
+        end
+        test_pass=1;$display("PASS tb_keypad_scanner");$finish;
     end
 endmodule

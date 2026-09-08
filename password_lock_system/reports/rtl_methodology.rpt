@@ -1,0 +1,40 @@
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
+| Date         : Sat Sep  5 02:44:13 2026
+| Host         : LAPTOP-15UHF74E running 64-bit major release  (build 9200)
+| Command      : report_methodology -file E:/26FPGA/password_lock_system/reports/rtl_methodology.rpt
+| Design       : password_lock_top
+| Device       : xc7a75tfgg484-2
+| Speed File   : -2
+| Design State : Synthesized
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+Report Methodology
+
+Table of Contents
+-----------------
+1. REPORT SUMMARY
+2. REPORT DETAILS
+
+1. REPORT SUMMARY
+-----------------
+            Netlist: rtl-elabpassword_lock_top
+          Floorplan: rtl_check
+      Design limits: <entire design considered>
+             Max violations: <unlimited>
+             Violations found: 1
++--------+----------+------------------------------------+------------+
+| Rule   | Severity | Description                        | Violations |
++--------+----------+------------------------------------+------------+
+| RFFH-1 | Advisory | The register driving a high fanout | 1          |
++--------+----------+------------------------------------+------------+
+
+2. REPORT DETAILS
+-----------------
+RFFH-1#1 Advisory
+The register driving a high fanout  
+A register 'u_sys_reset/sync_ff_reg[2]' is driving a high fanout. Consider replicating.
+Related violations: <none>
+
+

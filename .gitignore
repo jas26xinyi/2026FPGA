@@ -70,3 +70,9 @@ __pycache__/
 # Raspberry Pi local configuration and captured evidence
 raspberry_pi5_camera/config.json
 raspberry_pi5_camera/captures/
+
+# Deliberate final verification artifacts (override generic simulator/report ignores)
+!simulation_waveforms/
+!simulation_waveforms/**
+!password_lock_system/reports/
+!password_lock_system/reports/*.rpt

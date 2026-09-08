@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_basic_entry_timeout_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_basic_entry_timeout" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+   </zoom_setting>
+   <column_width_setting>
+   </column_width_setting>
+   <WVObjectSize size="85" />
+   <wvobject fp_name="/tb_basic_entry_timeout/test_pass" type="logic">
+      <obj_property name="ElementShortName">test_pass</obj_property>
+      <obj_property name="ObjectShortName">test_pass</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/rst" type="logic">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/init_done" type="logic">
+      <obj_property name="ElementShortName">init_done</obj_property>
+      <obj_property name="ObjectShortName">init_done</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/sw1" type="logic">
+      <obj_property name="ElementShortName">sw1</obj_property>
+      <obj_property name="ObjectShortName">sw1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/key_valid" type="logic">
+      <obj_property name="ElementShortName">key_valid</obj_property>
+      <obj_property name="ObjectShortName">key_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/key_code" type="array">
+      <obj_property name="ElementShortName">key_code[3:0]</obj_property>
+      <obj_property name="ObjectShortName">key_code[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/scenario" type="array">
+      <obj_property name="ElementShortName">scenario[7:0]</obj_property>
+      <obj_property name="ObjectShortName">scenario[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/unlocked" type="logic">
+      <obj_property name="ElementShortName">unlocked</obj_property>
+      <obj_property name="ObjectShortName">unlocked</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/alarm_active" type="logic">
+      <obj_property name="ElementShortName">alarm_active</obj_property>
+      <obj_property name="ObjectShortName">alarm_active</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/state" type="array">
+      <obj_property name="ElementShortName">state[3:0]</obj_property>
+      <obj_property name="ObjectShortName">state[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/entry_digits" type="array">
+      <obj_property name="ElementShortName">entry_digits[15:0]</obj_property>
+      <obj_property name="ObjectShortName">entry_digits[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/entry_count" type="array">
+      <obj_property name="ElementShortName">entry_count[2:0]</obj_property>
+      <obj_property name="ObjectShortName">entry_count[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/error_count" type="array">
+      <obj_property name="ElementShortName">error_count[2:0]</obj_property>
+      <obj_property name="ObjectShortName">error_count[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/ST_WAIT" type="array">
+      <obj_property name="ElementShortName">ST_WAIT[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_WAIT[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/ST_USER" type="array">
+      <obj_property name="ElementShortName">ST_USER[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_USER[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/ST_OPEN" type="array">
+      <obj_property name="ElementShortName">ST_OPEN[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_OPEN[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/rst" type="logic">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/flash_init_done" type="logic">
+      <obj_property name="ElementShortName">flash_init_done</obj_property>
+      <obj_property name="ObjectShortName">flash_init_done</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/stored_password" type="array">
+      <obj_property name="ElementShortName">stored_password[15:0]</obj_property>
+      <obj_property name="ObjectShortName">stored_password[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/flash_fault" type="logic">
+      <obj_property name="ElementShortName">flash_fault</obj_property>
+      <obj_property name="ObjectShortName">flash_fault</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/sw1_event" type="logic">
+      <obj_property name="ElementShortName">sw1_event</obj_property>
+      <obj_property name="ObjectShortName">sw1_event</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/admin_event" type="logic">
+      <obj_property name="ElementShortName">admin_event</obj_property>
+      <obj_property name="ObjectShortName">admin_event</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/alarm_clear_event" type="logic">
+      <obj_property name="ElementShortName">alarm_clear_event</obj_property>
+      <obj_property name="ObjectShortName">alarm_clear_event</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/temporary_event" type="logic">
+      <obj_property name="ElementShortName">temporary_event</obj_property>
+      <obj_property name="ObjectShortName">temporary_event</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/temporary_password" type="array">
+      <obj_property name="ElementShortName">temporary_password[15:0]</obj_property>
+      <obj_property name="ObjectShortName">temporary_password[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/temporary_valid" type="logic">
+      <obj_property name="ElementShortName">temporary_valid</obj_property>
+      <obj_property name="ObjectShortName">temporary_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/key_valid" type="logic">
+      <obj_property name="ElementShortName">key_valid</obj_property>
+      <obj_property name="ObjectShortName">key_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/key_code" type="array">
+      <obj_property name="ElementShortName">key_code[3:0]</obj_property>
+      <obj_property name="ObjectShortName">key_code[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/save_done" type="logic">
+      <obj_property name="ElementShortName">save_done</obj_property>
+      <obj_property name="ObjectShortName">save_done</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/save_success" type="logic">
+      <obj_property name="ElementShortName">save_success</obj_property>
+      <obj_property name="ObjectShortName">save_success</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/save_request" type="logic">
+      <obj_property name="ElementShortName">save_request</obj_property>
+      <obj_property name="ObjectShortName">save_request</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/save_password" type="array">
+      <obj_property name="ElementShortName">save_password[15:0]</obj_property>
+      <obj_property name="ObjectShortName">save_password[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/capture_start" type="logic">
+      <obj_property name="ElementShortName">capture_start</obj_property>
+      <obj_property name="ObjectShortName">capture_start</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/unlocked" type="logic">
+      <obj_property name="ElementShortName">unlocked</obj_property>
+      <obj_property name="ObjectShortName">unlocked</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/alarm_active" type="logic">
+      <obj_property name="ElementShortName">alarm_active</obj_property>
+      <obj_property name="ObjectShortName">alarm_active</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/state" type="array">
+      <obj_property name="ElementShortName">state[3:0]</obj_property>
+      <obj_property name="ObjectShortName">state[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/entry_digits" type="array">
+      <obj_property name="ElementShortName">entry_digits[15:0]</obj_property>
+      <obj_property name="ObjectShortName">entry_digits[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/entry_count" type="array">
+      <obj_property name="ElementShortName">entry_count[2:0]</obj_property>
+      <obj_property name="ObjectShortName">entry_count[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/error_count" type="array">
+      <obj_property name="ElementShortName">error_count[2:0]</obj_property>
+      <obj_property name="ObjectShortName">error_count[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/display_fault" type="logic">
+      <obj_property name="ElementShortName">display_fault</obj_property>
+      <obj_property name="ObjectShortName">display_fault</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/next_state" type="array">
+      <obj_property name="ElementShortName">next_state[3:0]</obj_property>
+      <obj_property name="ObjectShortName">next_state[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/timer_count" type="array">
+      <obj_property name="ElementShortName">timer_count[10:0]</obj_property>
+      <obj_property name="ObjectShortName">timer_count[10:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/is_digit" type="logic">
+      <obj_property name="ElementShortName">is_digit</obj_property>
+      <obj_property name="ObjectShortName">is_digit</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/activity" type="logic">
+      <obj_property name="ElementShortName">activity</obj_property>
+      <obj_property name="ObjectShortName">activity</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/CLOCK_HZ" type="array">
+      <obj_property name="ElementShortName">CLOCK_HZ[31:0]</obj_property>
+      <obj_property name="ObjectShortName">CLOCK_HZ[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/LOCK_TIMEOUT_S" type="array">
+      <obj_property name="ElementShortName">LOCK_TIMEOUT_S[31:0]</obj_property>
+      <obj_property name="ObjectShortName">LOCK_TIMEOUT_S[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/OPEN_TIMEOUT_S" type="array">
+      <obj_property name="ElementShortName">OPEN_TIMEOUT_S[31:0]</obj_property>
+      <obj_property name="ObjectShortName">OPEN_TIMEOUT_S[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/ERROR_DISPLAY_MS" type="array">
+      <obj_property name="ElementShortName">ERROR_DISPLAY_MS[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ERROR_DISPLAY_MS[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/ST_BOOT" type="array">
+      <obj_property name="ElementShortName">ST_BOOT[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_BOOT[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/ST_WAIT" type="array">
+      <obj_property name="ElementShortName">ST_WAIT[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_WAIT[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/ST_USER" type="array">
+      <obj_property name="ElementShortName">ST_USER[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_USER[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/ST_ERROR" type="array">
+      <obj_property name="ElementShortName">ST_ERROR[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_ERROR[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/ST_OPEN" type="array">
+      <obj_property name="ElementShortName">ST_OPEN[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_OPEN[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/ST_ADMIN" type="array">
+      <obj_property name="ElementShortName">ST_ADMIN[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_ADMIN[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/ST_SAVE" type="array">
+      <obj_property name="ElementShortName">ST_SAVE[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_SAVE[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/ST_ALARM" type="array">
+      <obj_property name="ElementShortName">ST_ALARM[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_ALARM[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/ST_TEMP" type="array">
+      <obj_property name="ElementShortName">ST_TEMP[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_TEMP[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/LOCK_TICKS" type="array">
+      <obj_property name="ElementShortName">LOCK_TICKS[31:0]</obj_property>
+      <obj_property name="ObjectShortName">LOCK_TICKS[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/OPEN_TICKS" type="array">
+      <obj_property name="ElementShortName">OPEN_TICKS[31:0]</obj_property>
+      <obj_property name="ObjectShortName">OPEN_TICKS[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/ERROR_TICKS" type="array">
+      <obj_property name="ElementShortName">ERROR_TICKS[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ERROR_TICKS[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/MAX_TICKS" type="array">
+      <obj_property name="ElementShortName">MAX_TICKS[31:0]</obj_property>
+      <obj_property name="ObjectShortName">MAX_TICKS[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/MAX_TICKS2" type="array">
+      <obj_property name="ElementShortName">MAX_TICKS2[31:0]</obj_property>
+      <obj_property name="ObjectShortName">MAX_TICKS2[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/dut/TW" type="array">
+      <obj_property name="ElementShortName">TW[31:0]</obj_property>
+      <obj_property name="ObjectShortName">TW[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/key/code" type="array">
+      <obj_property name="ElementShortName">code[3:0]</obj_property>
+      <obj_property name="ObjectShortName">code[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/digits/value" type="array">
+      <obj_property name="ElementShortName">value[15:0]</obj_property>
+      <obj_property name="ObjectShortName">value[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/check/ok" type="logic">
+      <obj_property name="ElementShortName">ok</obj_property>
+      <obj_property name="ObjectShortName">ok</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/test_pass" type="logic">
+      <obj_property name="ElementShortName">test_pass</obj_property>
+      <obj_property name="ObjectShortName">test_pass</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/rst" type="logic">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/init_done" type="logic">
+      <obj_property name="ElementShortName">init_done</obj_property>
+      <obj_property name="ObjectShortName">init_done</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/sw1" type="logic">
+      <obj_property name="ElementShortName">sw1</obj_property>
+      <obj_property name="ObjectShortName">sw1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/key_valid" type="logic">
+      <obj_property name="ElementShortName">key_valid</obj_property>
+      <obj_property name="ObjectShortName">key_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/key_code" type="array">
+      <obj_property name="ElementShortName">key_code[3:0]</obj_property>
+      <obj_property name="ObjectShortName">key_code[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/scenario" type="array">
+      <obj_property name="ElementShortName">scenario[7:0]</obj_property>
+      <obj_property name="ObjectShortName">scenario[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/unlocked" type="logic">
+      <obj_property name="ElementShortName">unlocked</obj_property>
+      <obj_property name="ObjectShortName">unlocked</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/alarm_active" type="logic">
+      <obj_property name="ElementShortName">alarm_active</obj_property>
+      <obj_property name="ObjectShortName">alarm_active</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/state" type="array">
+      <obj_property name="ElementShortName">state[3:0]</obj_property>
+      <obj_property name="ObjectShortName">state[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/entry_digits" type="array">
+      <obj_property name="ElementShortName">entry_digits[15:0]</obj_property>
+      <obj_property name="ObjectShortName">entry_digits[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/entry_count" type="array">
+      <obj_property name="ElementShortName">entry_count[2:0]</obj_property>
+      <obj_property name="ObjectShortName">entry_count[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/error_count" type="array">
+      <obj_property name="ElementShortName">error_count[2:0]</obj_property>
+      <obj_property name="ObjectShortName">error_count[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/ST_WAIT" type="array">
+      <obj_property name="ElementShortName">ST_WAIT[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_WAIT[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/ST_USER" type="array">
+      <obj_property name="ElementShortName">ST_USER[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_USER[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_basic_entry_timeout/ST_OPEN" type="array">
+      <obj_property name="ElementShortName">ST_OPEN[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ST_OPEN[3:0]</obj_property>
+   </wvobject>
+</wave_config>

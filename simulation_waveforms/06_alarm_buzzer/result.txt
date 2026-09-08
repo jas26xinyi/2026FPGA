@@ -1,0 +1,5 @@
+PASS
+testbench=tb_alarm_buzzer
+simulator=Vivado XSim 2023.2
+vcd=E:/26FPGA/simulation_waveforms/06_alarm_buzzer/tb_alarm_buzzer.vcd
+wdb=E:/26FPGA/simulation_waveforms/06_alarm_buzzer/tb_alarm_buzzer.wdb

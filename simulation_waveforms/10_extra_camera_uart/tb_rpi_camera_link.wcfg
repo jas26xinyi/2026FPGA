@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_rpi_camera_link_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_rpi_camera_link" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+   </zoom_setting>
+   <column_width_setting>
+   </column_width_setting>
+   <WVObjectSize size="80" />
+   <wvobject fp_name="/tb_rpi_camera_link/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/rst" type="logic">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/photo_trigger" type="logic">
+      <obj_property name="ElementShortName">photo_trigger</obj_property>
+      <obj_property name="ObjectShortName">photo_trigger</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/uart_rx" type="logic">
+      <obj_property name="ElementShortName">uart_rx</obj_property>
+      <obj_property name="ObjectShortName">uart_rx</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/uart_tx" type="logic">
+      <obj_property name="ElementShortName">uart_tx</obj_property>
+      <obj_property name="ObjectShortName">uart_tx</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/link_waiting" type="logic">
+      <obj_property name="ElementShortName">link_waiting</obj_property>
+      <obj_property name="ObjectShortName">link_waiting</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/tx_starts" type="array">
+      <obj_property name="ElementShortName">tx_starts[31:0]</obj_property>
+      <obj_property name="ObjectShortName">tx_starts[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/test_pass" type="logic">
+      <obj_property name="ElementShortName">test_pass</obj_property>
+      <obj_property name="ObjectShortName">test_pass</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/CLOCK_HZ" type="array">
+      <obj_property name="ElementShortName">CLOCK_HZ[31:0]</obj_property>
+      <obj_property name="ObjectShortName">CLOCK_HZ[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/BAUD" type="array">
+      <obj_property name="ElementShortName">BAUD[31:0]</obj_property>
+      <obj_property name="ObjectShortName">BAUD[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/CLKS_PER_BIT" type="array">
+      <obj_property name="ElementShortName">CLKS_PER_BIT[31:0]</obj_property>
+      <obj_property name="ObjectShortName">CLKS_PER_BIT[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/u_tx/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/u_tx/rst" type="logic">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/u_tx/send" type="logic">
+      <obj_property name="ElementShortName">send</obj_property>
+      <obj_property name="ObjectShortName">send</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/u_tx/data" type="array">
+      <obj_property name="ElementShortName">data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">data[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/u_tx/tx" type="logic">
+      <obj_property name="ElementShortName">tx</obj_property>
+      <obj_property name="ObjectShortName">tx</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/u_tx/busy" type="logic">
+      <obj_property name="ElementShortName">busy</obj_property>
+      <obj_property name="ObjectShortName">busy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/u_tx/done" type="logic">
+      <obj_property name="ElementShortName">done</obj_property>
+      <obj_property name="ObjectShortName">done</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/u_tx/clock_count" type="array">
+      <obj_property name="ElementShortName">clock_count[2:0]</obj_property>
+      <obj_property name="ObjectShortName">clock_count[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/u_tx/bit_index" type="array">
+      <obj_property name="ElementShortName">bit_index[3:0]</obj_property>
+      <obj_property name="ObjectShortName">bit_index[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/u_tx/frame" type="array">
+      <obj_property name="ElementShortName">frame[9:0]</obj_property>
+      <obj_property name="ObjectShortName">frame[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/u_tx/CLOCK_HZ" type="array">
+      <obj_property name="ElementShortName">CLOCK_HZ[31:0]</obj_property>
+      <obj_property name="ObjectShortName">CLOCK_HZ[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/u_tx/BAUD" type="array">
+      <obj_property name="ElementShortName">BAUD[31:0]</obj_property>
+      <obj_property name="ObjectShortName">BAUD[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/u_tx/CLKS_PER_BIT" type="array">
+      <obj_property name="ElementShortName">CLKS_PER_BIT[31:0]</obj_property>
+      <obj_property name="ObjectShortName">CLKS_PER_BIT[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/u_tx/CW" type="array">
+      <obj_property name="ElementShortName">CW[31:0]</obj_property>
+      <obj_property name="ObjectShortName">CW[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/u_rx/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/u_rx/rst" type="logic">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/u_rx/rx" type="logic">
+      <obj_property name="ElementShortName">rx</obj_property>
+      <obj_property name="ObjectShortName">rx</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/u_rx/data" type="array">
+      <obj_property name="ElementShortName">data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">data[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/u_rx/valid" type="logic">
+      <obj_property name="ElementShortName">valid</obj_property>
+      <obj_property name="ObjectShortName">valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/u_rx/rx_meta" type="logic">
+      <obj_property name="ElementShortName">rx_meta</obj_property>
+      <obj_property name="ObjectShortName">rx_meta</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/u_rx/rx_sync" type="logic">
+      <obj_property name="ElementShortName">rx_sync</obj_property>
+      <obj_property name="ObjectShortName">rx_sync</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/u_rx/state" type="array">
+      <obj_property name="ElementShortName">state[1:0]</obj_property>
+      <obj_property name="ObjectShortName">state[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/u_rx/clock_count" type="array">
+      <obj_property name="ElementShortName">clock_count[2:0]</obj_property>
+      <obj_property name="ObjectShortName">clock_count[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/u_rx/bit_index" type="array">
+      <obj_property name="ElementShortName">bit_index[2:0]</obj_property>
+      <obj_property name="ObjectShortName">bit_index[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/u_rx/shift" type="array">
+      <obj_property name="ElementShortName">shift[7:0]</obj_property>
+      <obj_property name="ObjectShortName">shift[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/u_rx/CLOCK_HZ" type="array">
+      <obj_property name="ElementShortName">CLOCK_HZ[31:0]</obj_property>
+      <obj_property name="ObjectShortName">CLOCK_HZ[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/u_rx/BAUD" type="array">
+      <obj_property name="ElementShortName">BAUD[31:0]</obj_property>
+      <obj_property name="ObjectShortName">BAUD[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/u_rx/CLKS_PER_BIT" type="array">
+      <obj_property name="ElementShortName">CLKS_PER_BIT[31:0]</obj_property>
+      <obj_property name="ObjectShortName">CLKS_PER_BIT[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/u_rx/HALF_BIT" type="array">
+      <obj_property name="ElementShortName">HALF_BIT[31:0]</obj_property>
+      <obj_property name="ObjectShortName">HALF_BIT[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/u_rx/CW" type="array">
+      <obj_property name="ElementShortName">CW[31:0]</obj_property>
+      <obj_property name="ObjectShortName">CW[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/u_rx/RX_IDLE" type="array">
+      <obj_property name="ElementShortName">RX_IDLE[1:0]</obj_property>
+      <obj_property name="ObjectShortName">RX_IDLE[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/u_rx/RX_START" type="array">
+      <obj_property name="ElementShortName">RX_START[1:0]</obj_property>
+      <obj_property name="ObjectShortName">RX_START[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/u_rx/RX_DATA" type="array">
+      <obj_property name="ElementShortName">RX_DATA[1:0]</obj_property>
+      <obj_property name="ObjectShortName">RX_DATA[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/u_rx/RX_STOP" type="array">
+      <obj_property name="ElementShortName">RX_STOP[1:0]</obj_property>
+      <obj_property name="ObjectShortName">RX_STOP[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/alarm_byte/alarm_byte" type="array">
+      <obj_property name="ElementShortName">alarm_byte[7:0]</obj_property>
+      <obj_property name="ObjectShortName">alarm_byte[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/alarm_byte/index" type="array">
+      <obj_property name="ElementShortName">index[2:0]</obj_property>
+      <obj_property name="ObjectShortName">index[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/rst" type="logic">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/photo_trigger" type="logic">
+      <obj_property name="ElementShortName">photo_trigger</obj_property>
+      <obj_property name="ObjectShortName">photo_trigger</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/uart_rx" type="logic">
+      <obj_property name="ElementShortName">uart_rx</obj_property>
+      <obj_property name="ObjectShortName">uart_rx</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/uart_tx" type="logic">
+      <obj_property name="ElementShortName">uart_tx</obj_property>
+      <obj_property name="ObjectShortName">uart_tx</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/link_waiting" type="logic">
+      <obj_property name="ElementShortName">link_waiting</obj_property>
+      <obj_property name="ObjectShortName">link_waiting</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/tx_send" type="logic">
+      <obj_property name="ElementShortName">tx_send</obj_property>
+      <obj_property name="ObjectShortName">tx_send</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/tx_data" type="array">
+      <obj_property name="ElementShortName">tx_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">tx_data[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/tx_busy" type="logic">
+      <obj_property name="ElementShortName">tx_busy</obj_property>
+      <obj_property name="ObjectShortName">tx_busy</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/tx_done" type="logic">
+      <obj_property name="ElementShortName">tx_done</obj_property>
+      <obj_property name="ObjectShortName">tx_done</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/rx_data" type="array">
+      <obj_property name="ElementShortName">rx_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">rx_data[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/rx_valid" type="logic">
+      <obj_property name="ElementShortName">rx_valid</obj_property>
+      <obj_property name="ObjectShortName">rx_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/message_index" type="array">
+      <obj_property name="ElementShortName">message_index[2:0]</obj_property>
+      <obj_property name="ObjectShortName">message_index[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/message_active" type="logic">
+      <obj_property name="ElementShortName">message_active</obj_property>
+      <obj_property name="ObjectShortName">message_active</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/byte_issued" type="logic">
+      <obj_property name="ElementShortName">byte_issued</obj_property>
+      <obj_property name="ObjectShortName">byte_issued</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/retry_count" type="array">
+      <obj_property name="ElementShortName">retry_count[31:0]</obj_property>
+      <obj_property name="ObjectShortName">retry_count[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/ack_state" type="array">
+      <obj_property name="ElementShortName">ack_state[2:0]</obj_property>
+      <obj_property name="ObjectShortName">ack_state[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/CLOCK_HZ" type="array">
+      <obj_property name="ElementShortName">CLOCK_HZ[31:0]</obj_property>
+      <obj_property name="ObjectShortName">CLOCK_HZ[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/BAUD" type="array">
+      <obj_property name="ElementShortName">BAUD[31:0]</obj_property>
+      <obj_property name="ObjectShortName">BAUD[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/dut/RETRY_CYCLES" type="array">
+      <obj_property name="ElementShortName">RETRY_CYCLES[31:0]</obj_property>
+      <obj_property name="ObjectShortName">RETRY_CYCLES[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/send_uart_byte/value" type="array">
+      <obj_property name="ElementShortName">value[7:0]</obj_property>
+      <obj_property name="ObjectShortName">value[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/send_uart_byte/i" type="array">
+      <obj_property name="ElementShortName">i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">i[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/rst" type="logic">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/photo_trigger" type="logic">
+      <obj_property name="ElementShortName">photo_trigger</obj_property>
+      <obj_property name="ObjectShortName">photo_trigger</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/uart_rx" type="logic">
+      <obj_property name="ElementShortName">uart_rx</obj_property>
+      <obj_property name="ObjectShortName">uart_rx</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/uart_tx" type="logic">
+      <obj_property name="ElementShortName">uart_tx</obj_property>
+      <obj_property name="ObjectShortName">uart_tx</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/link_waiting" type="logic">
+      <obj_property name="ElementShortName">link_waiting</obj_property>
+      <obj_property name="ObjectShortName">link_waiting</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/tx_starts" type="array">
+      <obj_property name="ElementShortName">tx_starts[31:0]</obj_property>
+      <obj_property name="ObjectShortName">tx_starts[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/test_pass" type="logic">
+      <obj_property name="ElementShortName">test_pass</obj_property>
+      <obj_property name="ObjectShortName">test_pass</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/CLOCK_HZ" type="array">
+      <obj_property name="ElementShortName">CLOCK_HZ[31:0]</obj_property>
+      <obj_property name="ObjectShortName">CLOCK_HZ[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/BAUD" type="array">
+      <obj_property name="ElementShortName">BAUD[31:0]</obj_property>
+      <obj_property name="ObjectShortName">BAUD[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_rpi_camera_link/CLKS_PER_BIT" type="array">
+      <obj_property name="ElementShortName">CLKS_PER_BIT[31:0]</obj_property>
+      <obj_property name="ObjectShortName">CLKS_PER_BIT[31:0]</obj_property>
+   </wvobject>
+</wave_config>

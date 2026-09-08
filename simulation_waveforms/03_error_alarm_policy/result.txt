@@ -1,0 +1,5 @@
+PASS
+testbench=tb_basic_alarm_policy
+simulator=Vivado XSim 2023.2
+vcd=E:/26FPGA/simulation_waveforms/03_error_alarm_policy/tb_basic_alarm_policy.vcd
+wdb=E:/26FPGA/simulation_waveforms/03_error_alarm_policy/tb_basic_alarm_policy.wdb

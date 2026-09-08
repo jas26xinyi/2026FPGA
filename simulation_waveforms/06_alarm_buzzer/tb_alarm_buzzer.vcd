@@ -1,0 +1,316 @@
+$date
+   Tue Sep  8 20:49:40 2026
+$end
+
+$version
+  2023.2
+$end
+
+$timescale
+  1ps
+$end
+
+$scope module tb_alarm_buzzer $end
+$var reg 1 2 test_pass $end
+$var reg 1 3 clk $end
+$var reg 1 4 rst $end
+$var reg 1 5 alarm_active $end
+$var wire 1 $ buzzer_n $end
+$var wire 1 % indicator $end
+$scope module dut $end
+$var wire 1 ! clk $end
+$var wire 1 " rst $end
+$var wire 1 # alarm_active $end
+$var wire 1 $ buzzer_n $end
+$var wire 1 % indicator $end
+$var reg 4 & beep_count [3:0] $end
+$var reg 2 ' tone_count [1:0] $end
+$var reg 1 ( beep_on $end
+$var reg 1 ) tone_phase $end
+$var parameter 0 * CLOCK_HZ [31:0] $end
+$var parameter 0 + BEEP_HZ [31:0] $end
+$var parameter 0 , TONE_HZ [31:0] $end
+$var parameter 0 - BEEP_HALF_TICKS [31:0] $end
+$var parameter 0 . TONE_HALF_TICKS [31:0] $end
+$var parameter 0 / BW [31:0] $end
+$var parameter 0 0 TW [31:0] $end
+$upscope $end
+$scope task check $end
+$var reg 1 1 condition $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+
+#0
+$dumpvars
+0!
+1"
+0#
+0$
+0%
+bx &
+bx '
+x(
+x)
+b101000 *
+b10 +
+b101 ,
+b1010 -
+b100 .
+b100 /
+b10 0
+01
+02
+03
+14
+05
+$end
+
+#5000
+1!
+b0 &
+b0 '
+1(
+1)
+13
+
+#10000
+0!
+03
+
+#15000
+1!
+13
+
+#20000
+0!
+0"
+03
+04
+
+#25000
+1!
+13
+
+#30000
+0!
+03
+
+#35000
+1!
+13
+
+#40000
+0!
+1#
+1$
+1%
+11
+03
+15
+
+#45000
+1!
+b1 &
+b1 '
+13
+
+#50000
+0!
+03
+
+#55000
+1!
+b10 &
+b10 '
+13
+
+#60000
+0!
+03
+
+#65000
+1!
+b11 &
+b11 '
+13
+
+#70000
+0!
+03
+
+#75000
+1!
+0$
+b100 &
+b0 '
+0)
+13
+
+#80000
+0!
+03
+
+#85000
+1!
+b101 &
+b1 '
+13
+
+#90000
+0!
+03
+
+#95000
+1!
+b110 &
+b10 '
+13
+
+#100000
+0!
+03
+
+#105000
+1!
+b111 &
+b11 '
+13
+
+#110000
+0!
+03
+
+#115000
+1!
+1$
+b1000 &
+b0 '
+1)
+13
+
+#120000
+0!
+03
+
+#125000
+1!
+b1001 &
+b1 '
+13
+
+#130000
+0!
+03
+
+#135000
+1!
+0$
+0%
+b0 &
+b10 '
+0(
+13
+
+#140000
+0!
+03
+
+#145000
+1!
+b1 &
+b0 '
+13
+
+#150000
+0!
+03
+
+#155000
+1!
+b10 &
+13
+
+#160000
+0!
+03
+
+#165000
+1!
+b11 &
+13
+
+#170000
+0!
+03
+
+#175000
+1!
+b100 &
+13
+
+#180000
+0!
+03
+
+#185000
+1!
+b101 &
+13
+
+#190000
+0!
+03
+
+#195000
+1!
+b110 &
+13
+
+#200000
+0!
+03
+
+#205000
+1!
+b111 &
+13
+
+#210000
+0!
+03
+
+#215000
+1!
+b1000 &
+13
+
+#220000
+0!
+03
+
+#225000
+1!
+b1001 &
+13
+
+#230000
+0!
+03
+
+#235000
+1!
+1$
+1%
+b0 &
+1(
+13
+
+#236000
+0#
+0$
+0%
+05
+
+#237000
+12

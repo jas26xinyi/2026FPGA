@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_keypad_scanner_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_keypad_scanner" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+   </zoom_setting>
+   <column_width_setting>
+   </column_width_setting>
+   <WVObjectSize size="55" />
+   <wvobject fp_name="/tb_keypad_scanner/test_pass" type="logic">
+      <obj_property name="ElementShortName">test_pass</obj_property>
+      <obj_property name="ObjectShortName">test_pass</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/rst" type="logic">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/pressed_keys" type="array">
+      <obj_property name="ElementShortName">pressed_keys[15:0]</obj_property>
+      <obj_property name="ObjectShortName">pressed_keys[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/expected_code" type="array">
+      <obj_property name="ElementShortName">expected_code[3:0]</obj_property>
+      <obj_property name="ObjectShortName">expected_code[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/scenario" type="array">
+      <obj_property name="ElementShortName">scenario[7:0]</obj_property>
+      <obj_property name="ObjectShortName">scenario[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/row_n" type="array">
+      <obj_property name="ElementShortName">row_n[3:0]</obj_property>
+      <obj_property name="ObjectShortName">row_n[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/col_n" type="array">
+      <obj_property name="ElementShortName">col_n[3:0]</obj_property>
+      <obj_property name="ObjectShortName">col_n[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/event_valid" type="logic">
+      <obj_property name="ElementShortName">event_valid</obj_property>
+      <obj_property name="ObjectShortName">event_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/event_code" type="array">
+      <obj_property name="ElementShortName">event_code[3:0]</obj_property>
+      <obj_property name="ObjectShortName">event_code[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/events" type="array">
+      <obj_property name="ElementShortName">events[31:0]</obj_property>
+      <obj_property name="ObjectShortName">events[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/i" type="array">
+      <obj_property name="ElementShortName">i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">i[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/dut/u_tick/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/dut/u_tick/rst" type="logic">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/dut/u_tick/tick" type="logic">
+      <obj_property name="ElementShortName">tick</obj_property>
+      <obj_property name="ObjectShortName">tick</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/dut/u_tick/count" type="array">
+      <obj_property name="ElementShortName">count[1:0]</obj_property>
+      <obj_property name="ObjectShortName">count[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/dut/u_tick/CLOCK_HZ" type="array">
+      <obj_property name="ElementShortName">CLOCK_HZ[31:0]</obj_property>
+      <obj_property name="ObjectShortName">CLOCK_HZ[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/dut/u_tick/TICK_HZ" type="array">
+      <obj_property name="ElementShortName">TICK_HZ[31:0]</obj_property>
+      <obj_property name="ObjectShortName">TICK_HZ[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/dut/u_tick/DIVISOR" type="array">
+      <obj_property name="ElementShortName">DIVISOR[31:0]</obj_property>
+      <obj_property name="ObjectShortName">DIVISOR[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/dut/u_tick/WIDTH" type="array">
+      <obj_property name="ElementShortName">WIDTH[31:0]</obj_property>
+      <obj_property name="ObjectShortName">WIDTH[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/dut/decode_key/decode_key" type="array">
+      <obj_property name="ElementShortName">decode_key[3:0]</obj_property>
+      <obj_property name="ObjectShortName">decode_key[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/dut/decode_key/onehot" type="array">
+      <obj_property name="ElementShortName">onehot[15:0]</obj_property>
+      <obj_property name="ObjectShortName">onehot[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/dut/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/dut/rst" type="logic">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/dut/row_n" type="array">
+      <obj_property name="ElementShortName">row_n[3:0]</obj_property>
+      <obj_property name="ObjectShortName">row_n[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/dut/col_n" type="array">
+      <obj_property name="ElementShortName">col_n[3:0]</obj_property>
+      <obj_property name="ObjectShortName">col_n[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/dut/event_valid" type="logic">
+      <obj_property name="ElementShortName">event_valid</obj_property>
+      <obj_property name="ObjectShortName">event_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/dut/event_code" type="array">
+      <obj_property name="ElementShortName">event_code[3:0]</obj_property>
+      <obj_property name="ObjectShortName">event_code[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/dut/column_tick" type="logic">
+      <obj_property name="ElementShortName">column_tick</obj_property>
+      <obj_property name="ObjectShortName">column_tick</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/dut/column_index" type="array">
+      <obj_property name="ElementShortName">column_index[1:0]</obj_property>
+      <obj_property name="ObjectShortName">column_index[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/dut/sampled_keys" type="array">
+      <obj_property name="ElementShortName">sampled_keys[15:0]</obj_property>
+      <obj_property name="ObjectShortName">sampled_keys[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/dut/candidate" type="array">
+      <obj_property name="ElementShortName">candidate[15:0]</obj_property>
+      <obj_property name="ObjectShortName">candidate[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/dut/stable_scans" type="array">
+      <obj_property name="ElementShortName">stable_scans[3:0]</obj_property>
+      <obj_property name="ObjectShortName">stable_scans[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/dut/armed" type="logic">
+      <obj_property name="ElementShortName">armed</obj_property>
+      <obj_property name="ObjectShortName">armed</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/dut/blocked_multi" type="logic">
+      <obj_property name="ElementShortName">blocked_multi</obj_property>
+      <obj_property name="ObjectShortName">blocked_multi</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/dut/complete_sample" type="array">
+      <obj_property name="ElementShortName">complete_sample[15:0]</obj_property>
+      <obj_property name="ObjectShortName">complete_sample[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/dut/i" type="array">
+      <obj_property name="ElementShortName">i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">i[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/dut/key_count" type="array">
+      <obj_property name="ElementShortName">key_count[31:0]</obj_property>
+      <obj_property name="ObjectShortName">key_count[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/dut/CLOCK_HZ" type="array">
+      <obj_property name="ElementShortName">CLOCK_HZ[31:0]</obj_property>
+      <obj_property name="ObjectShortName">CLOCK_HZ[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/dut/COLUMN_TICK_HZ" type="array">
+      <obj_property name="ElementShortName">COLUMN_TICK_HZ[31:0]</obj_property>
+      <obj_property name="ObjectShortName">COLUMN_TICK_HZ[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/dut/DEBOUNCE_SCANS" type="array">
+      <obj_property name="ElementShortName">DEBOUNCE_SCANS[31:0]</obj_property>
+      <obj_property name="ObjectShortName">DEBOUNCE_SCANS[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/expected_for_bit/expected_for_bit" type="array">
+      <obj_property name="ElementShortName">expected_for_bit[3:0]</obj_property>
+      <obj_property name="ObjectShortName">expected_for_bit[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/expected_for_bit/bit_index" type="array">
+      <obj_property name="ElementShortName">bit_index[31:0]</obj_property>
+      <obj_property name="ObjectShortName">bit_index[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/test_pass" type="logic">
+      <obj_property name="ElementShortName">test_pass</obj_property>
+      <obj_property name="ObjectShortName">test_pass</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/rst" type="logic">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/pressed_keys" type="array">
+      <obj_property name="ElementShortName">pressed_keys[15:0]</obj_property>
+      <obj_property name="ObjectShortName">pressed_keys[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/expected_code" type="array">
+      <obj_property name="ElementShortName">expected_code[3:0]</obj_property>
+      <obj_property name="ObjectShortName">expected_code[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/scenario" type="array">
+      <obj_property name="ElementShortName">scenario[7:0]</obj_property>
+      <obj_property name="ObjectShortName">scenario[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/row_n" type="array">
+      <obj_property name="ElementShortName">row_n[3:0]</obj_property>
+      <obj_property name="ObjectShortName">row_n[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/col_n" type="array">
+      <obj_property name="ElementShortName">col_n[3:0]</obj_property>
+      <obj_property name="ObjectShortName">col_n[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/event_valid" type="logic">
+      <obj_property name="ElementShortName">event_valid</obj_property>
+      <obj_property name="ObjectShortName">event_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/event_code" type="array">
+      <obj_property name="ElementShortName">event_code[3:0]</obj_property>
+      <obj_property name="ObjectShortName">event_code[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/events" type="array">
+      <obj_property name="ElementShortName">events[31:0]</obj_property>
+      <obj_property name="ObjectShortName">events[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_keypad_scanner/i" type="array">
+      <obj_property name="ElementShortName">i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">i[31:0]</obj_property>
+   </wvobject>
+</wave_config>

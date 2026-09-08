@@ -10,7 +10,7 @@ Push-Location $root
 try {
     $previousCameraSetting = $env:ENABLE_RPI_CAMERA
     $env:ENABLE_RPI_CAMERA = if ($DisableRaspberryPiCamera) { '0' } else { '1' }
-    $tests = @('tb_lock_controller','tb_temporary_password_generator','tb_alarm_buzzer','tb_rpi_camera_link','tb_keypad_scanner','tb_sevenseg_display','tb_flash_default_fail','tb_flash_journal')
+    $tests = @('tb_basic_entry_timeout','tb_basic_admin_save','tb_basic_alarm_policy','tb_lock_controller','tb_temporary_password_generator','tb_alarm_buzzer','tb_rpi_camera_link','tb_keypad_scanner','tb_sevenseg_display','tb_flash_default_fail','tb_flash_journal')
     foreach ($test in $tests) {
         & $vivado -mode batch -nolog -nojournal -source scripts/run_tests.tcl -tclargs $test
         if ($LASTEXITCODE -ne 0) { throw "Simulation failed: $test" }

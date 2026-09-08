@@ -1,0 +1,5 @@
+PASS
+testbench=tb_basic_entry_timeout
+simulator=Vivado XSim 2023.2
+vcd=E:/26FPGA/simulation_waveforms/01_basic_entry_timeout/tb_basic_entry_timeout.vcd
+wdb=E:/26FPGA/simulation_waveforms/01_basic_entry_timeout/tb_basic_entry_timeout.wdb

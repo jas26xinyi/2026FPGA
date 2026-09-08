@@ -1,0 +1,5 @@
+PASS
+testbench=tb_lock_controller
+simulator=Vivado XSim 2023.2
+vcd=E:/26FPGA/simulation_waveforms/11_integrated_controller_regression/tb_lock_controller.vcd
+wdb=E:/26FPGA/simulation_waveforms/11_integrated_controller_regression/tb_lock_controller.wdb

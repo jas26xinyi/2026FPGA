@@ -1,0 +1,5 @@
+PASS
+testbench=tb_basic_admin_save
+simulator=Vivado XSim 2023.2
+vcd=E:/26FPGA/simulation_waveforms/02_admin_password_save/tb_basic_admin_save.vcd
+wdb=E:/26FPGA/simulation_waveforms/02_admin_password_save/tb_basic_admin_save.wdb

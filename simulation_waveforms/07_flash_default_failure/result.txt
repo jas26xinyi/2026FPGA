@@ -1,0 +1,5 @@
+PASS
+testbench=tb_flash_default_fail
+simulator=Vivado XSim 2023.2
+vcd=E:/26FPGA/simulation_waveforms/07_flash_default_failure/tb_flash_default_fail.vcd
+wdb=E:/26FPGA/simulation_waveforms/07_flash_default_failure/tb_flash_default_fail.wdb

@@ -10,6 +10,8 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from PIL import Image
+
 from fpga_camera.camera import MockCamera, RaspberryPiCamera
 from fpga_camera.display import HdmiDisplay, HeadlessDisplay
 from fpga_camera.mosaic import build_mosaic, error_screen, test_pattern
@@ -77,6 +79,31 @@ def make_camera(config: dict[str, Any], mock: bool) -> Any:
     return MockCamera(size) if mock else RaspberryPiCamera(size)
 
 
+def load_latest_mosaic(config: dict[str, Any]) -> Image.Image | None:
+    """Load the newest completed incident image, if one is available."""
+    root = Path(config["output_directory"]).expanduser().resolve()
+    if not root.is_dir():
+        return None
+    candidates = [
+        incident / "mosaic.jpg"
+        for incident in root.iterdir()
+        if incident.is_dir() and not incident.name.startswith(".")
+    ]
+    candidates = [path for path in candidates if path.is_file()]
+    if not candidates:
+        return None
+    newest = max(candidates, key=lambda path: path.stat().st_mtime_ns)
+    try:
+        with Image.open(newest) as image:
+            mosaic = image.convert("RGB")
+            mosaic.load()
+        LOG.info("restored latest mosaic from %s", newest)
+        return mosaic
+    except Exception:
+        LOG.exception("could not restore latest mosaic from %s", newest)
+        return None
+
+
 def run_capture(camera: Any, display: Any, config: dict[str, Any]) -> bool:
     try:
         incident, mosaic = capture_incident(camera, config)
@@ -108,7 +135,12 @@ def main() -> int:
     display = HeadlessDisplay() if args.headless else HdmiDisplay(
         fullscreen=bool(config["fullscreen"]) and not args.windowed
     )
-    display.show(test_pattern((int(config["mosaic_width"]), int(config["mosaic_height"]))))
+    startup_image = load_latest_mosaic(config)
+    if startup_image is None:
+        startup_image = test_pattern(
+            (int(config["mosaic_width"]), int(config["mosaic_height"]))
+        )
+    display.show(startup_image)
 
     camera = None
     try:

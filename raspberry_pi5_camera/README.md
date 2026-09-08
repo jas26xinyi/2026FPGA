@@ -121,6 +121,18 @@ FPGA 顶层参数 `ENABLE_RPI_CAMERA` 默认是 1。若只需要密码锁、不�
 
 关闭后 UART 协议逻辑从综合结果中移除，TX 保持空闲高电平；密码锁、Flash、键盘、数码管、LED 和蜂鸣器均不受影响。
 
-## 自动启动建议
+## HDMI 全屏与自动启动
 
-整机联调通过后，可把 `scripts/run.sh` 添加到 Raspberry Pi 桌面环境的自动启动项。由于全屏 OpenCV 窗口需要图形会话，本工程没有默认安装系统级后台服务，以免程序在没有 `DISPLAY`/Wayland 会话时启动失败。
+程序启动时优先恢复 `captures/` 中最新一次成功保存的 `mosaic.jpg`；尚无抓拍记录时才显示测试色条。收到新的报警并完成四帧抓拍后，全屏画面会切换到新的四宫格，解除 FPGA 报警不会清除画面。
+
+在 Raspberry Pi 桌面会话中安装登录自启动：
+
+```bash
+./scripts/install_autostart.sh
+```
+
+此配置通过 `scripts/run_gui.sh` 连接当前 HDMI 图形会话，不使用无显示能力的系统级后台服务。下次进入桌面时，程序会自动全屏启动并监听 FPGA。移除自启动配置：
+
+```bash
+./scripts/remove_autostart.sh
+```

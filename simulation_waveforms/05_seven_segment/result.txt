@@ -1,0 +1,5 @@
+PASS
+testbench=tb_sevenseg_display
+simulator=Vivado XSim 2023.2
+vcd=E:/26FPGA/simulation_waveforms/05_seven_segment/tb_sevenseg_display.vcd
+wdb=E:/26FPGA/simulation_waveforms/05_seven_segment/tb_sevenseg_display.wdb
