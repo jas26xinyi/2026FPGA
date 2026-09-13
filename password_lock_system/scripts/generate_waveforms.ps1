@@ -6,12 +6,10 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $vivado = 'D:\Xilinx\Vivado\2023.2\bin\vivado.bat'
-$python = 'D:\anaconda\python.exe'
 $projectRoot = Split-Path -Parent $PSScriptRoot
 $repoRoot = Split-Path -Parent $projectRoot
 
 if (-not (Test-Path -LiteralPath $vivado)) { throw "Vivado not found: $vivado" }
-if (-not (Test-Path -LiteralPath $python)) { throw "Python not found: $python" }
 
 $cases = @(
     @{ Id='01'; Dir='01_basic_entry_timeout'; Test='tb_basic_entry_timeout'; Title='01 基础功能：输入、退格、开锁与超时'; Signals='scenario,rst,init_done,sw1,key_valid,key_code,state,entry_digits,entry_count,unlocked,error_count' },
@@ -47,14 +45,10 @@ try {
         $caseLog = Join-Path $caseDir ($case.Test + '.log')
         $env:VIVADO_PROJECT_DIR = Join-Path $repoRoot ("tmp\waveform_projects\" + $case.Test)
         "=== $($case.Id) $($case.Test) ===" | Tee-Object -FilePath $summaryLog -Append
-        & $vivado -mode batch -nolog -nojournal -source scripts/run_waveform.tcl -tclargs $case.Test $caseDir 2>&1 |
+        & $vivado -mode batch -nolog -nojournal -source scripts/run_waveform.tcl -tclargs $case.Test $caseDir $case.Signals 2>&1 |
             Tee-Object -FilePath $caseLog |
             Tee-Object -FilePath $summaryLog -Append
         if ($LASTEXITCODE -ne 0) { throw "Vivado waveform simulation failed: $($case.Test)" }
-        $vcd = Join-Path $caseDir ($case.Test + '.vcd')
-        $png = Join-Path $caseDir ($case.Test + '.png')
-        & $python scripts/render_vcd.py $vcd $png --title $case.Title --signals $case.Signals
-        if ($LASTEXITCODE -ne 0) { throw "VCD rendering failed: $($case.Test)" }
         Start-Sleep -Milliseconds 500
     }
 } finally {

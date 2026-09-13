@@ -9,11 +9,12 @@ ECHO is off.
     ** Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 
 source scripts/run_waveform.tcl
-# if {$argc < 2} {
-#     error "usage: run_waveform.tcl <testbench> <output-directory>"
+# if {$argc < 3} {
+#     error "usage: run_waveform.tcl <testbench> <output-directory> <comma-separated-signals>"
 # }
 # set tb [lindex $argv 0]
 # set output_dir [file normalize [lindex $argv 1]]
+# set requested_signals [split [join [lrange $argv 2 end] ","] ","]
 # file mkdir $output_dir
 # set project_root [file normalize [file join [file dirname [info script]] ..]]
 # source [file join $project_root scripts create_project.tcl]
@@ -24,6 +25,7 @@ source scripts/run_waveform.tcl
 ## }
 ## file mkdir $project_dir
 ## create_project -force password_lock_system $project_dir -part xc7a75tfgg484-2
+create_project: Time (s): cpu = 00:00:04 ; elapsed = 00:00:06 . Memory (MB): peak = 485.844 ; gain = 179.855
 ## set_property target_language Verilog [current_project]
 ## set_property simulator_language Mixed [current_project]
 ## set enable_rpi_camera 1
@@ -35,18 +37,20 @@ source scripts/run_waveform.tcl
 ## }
 ## add_files -norecurse [glob -directory [file join $project_root rtl] *.v]
 ## add_files -fileset constrs_1 -norecurse [file join $project_root constraints password_lock_system.xdc]
+## add_files -fileset sim_1 -norecurse [glob -directory [file join $project_root sim] *.sv]
+## set_property file_type SystemVerilog [get_files -of_objects [get_filesets sim_1] *.sv]
 ## set_property top password_lock_top [get_filesets sources_1]
 ## set_property generic "ENABLE_RPI_CAMERA=$enable_rpi_camera" [get_filesets sources_1]
+## set_property xsim.simulate.runtime 0ns [get_filesets sim_1]
 ## update_compile_order -fileset sources_1
+## update_compile_order -fileset sim_1
 ## close_project
 ## puts "Created [file join $project_dir password_lock_system.xpr] (ENABLE_RPI_CAMERA=$enable_rpi_camera)"
-Created E:/26FPGA/password_lock_system/vivado/password_lock_system.xpr (ENABLE_RPI_CAMERA=1)
+Created E:/26FPGA/tmp/waveform_projects/tb_sevenseg_display/password_lock_system.xpr (ENABLE_RPI_CAMERA=1)
 # open_project [file join $project_dir password_lock_system.xpr]
-INFO: [filemgmt 56-3] Default IP Output Path : Could not find the directory 'E:/26FPGA/password_lock_system/vivado/password_lock_system.gen/sources_1'.
+INFO: [filemgmt 56-3] Default IP Output Path : Could not find the directory 'E:/26FPGA/tmp/waveform_projects/tb_sevenseg_display/password_lock_system.gen/sources_1'.
 Scanning sources...
 Finished scanning sources
-# add_files -fileset sim_1 -norecurse [glob -directory [file join $project_root sim] *.sv]
-# set_property file_type SystemVerilog [get_files -of_objects [get_filesets sim_1] *.sv]
 # set_property top $tb [get_filesets sim_1]
 # set_property xsim.simulate.runtime 0ns [get_filesets sim_1]
 # update_compile_order -fileset sim_1
@@ -56,14 +60,14 @@ Finished scanning sources
 Command: launch_simulation  -simset sim_1 -mode behavioral
 INFO: [Vivado 12-12493] Simulation top is 'tb_sevenseg_display'
 WARNING: [Vivado 12-13340] Unable to auto find GCC executables from simulator install path! (path not set)
-INFO: [Vivado 12-5682] Launching behavioral simulation in 'E:/26FPGA/password_lock_system/vivado/password_lock_system.sim/sim_1/behav/xsim'
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'E:/26FPGA/tmp/waveform_projects/tb_sevenseg_display/password_lock_system.sim/sim_1/behav/xsim'
 INFO: [SIM-utils-51] Simulation object is 'sim_1'
 INFO: [SIM-utils-72] Using boost library from 'D:/Xilinx/Vivado/2023.2/tps/boost_1_72_0'
 INFO: [SIM-utils-54] Inspecting design source files for 'tb_sevenseg_display' in fileset 'sim_1'...
 INFO: [USF-XSim-97] Finding global include files...
 INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
 INFO: [USF-XSim-2] XSim::Compile design
-INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'E:/26FPGA/password_lock_system/vivado/password_lock_system.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'E:/26FPGA/tmp/waveform_projects/tb_sevenseg_display/password_lock_system.sim/sim_1/behav/xsim'
 "xvlog --incr --relax -L uvm -prj tb_sevenseg_display_vlog.prj"
 
 ECHO is off.
@@ -78,13 +82,13 @@ INFO: [VRFC 10-2263] Analyzing SystemVerilog file "E:/26FPGA/password_lock_syste
 
 INFO: [VRFC 10-311] analyzing module tb_sevenseg_display
 
-INFO: [VRFC 10-2263] Analyzing Verilog file "E:/26FPGA/password_lock_system/vivado/password_lock_system.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-2263] Analyzing Verilog file "E:/26FPGA/tmp/waveform_projects/tb_sevenseg_display/password_lock_system.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
 
 INFO: [VRFC 10-311] analyzing module glbl
 
-INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-69] 'compile' step finished in '2' seconds
 INFO: [USF-XSim-3] XSim::Elaborate design
-INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'E:/26FPGA/password_lock_system/vivado/password_lock_system.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'E:/26FPGA/tmp/waveform_projects/tb_sevenseg_display/password_lock_system.sim/sim_1/behav/xsim'
 "xelab --incr --debug typical --relax --mt 2 -L xil_defaultlib -L uvm -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_sevenseg_display_behav xil_defaultlib.tb_sevenseg_display xil_defaultlib.glbl -log elaborate.log"
 
 ECHO is off.
@@ -123,7 +127,7 @@ Built simulation snapshot tb_sevenseg_display_behav
 
 INFO: [USF-XSim-69] 'elaborate' step finished in '3' seconds
 INFO: [USF-XSim-4] XSim::Simulate design
-INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'E:/26FPGA/password_lock_system/vivado/password_lock_system.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'E:/26FPGA/tmp/waveform_projects/tb_sevenseg_display/password_lock_system.sim/sim_1/behav/xsim'
 INFO: [USF-XSim-98] *** Running xsim
    with args "tb_sevenseg_display_behav -key {Behavioral:sim_1:Functional:tb_sevenseg_display} -tclbatch {tb_sevenseg_display.tcl} -log {simulate.log}"
 INFO: [USF-XSim-8] Loading simulator feature
@@ -132,7 +136,7 @@ source tb_sevenseg_display.tcl
 ## current_wave_config
 INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_sevenseg_display_behav' loaded.
 INFO: [USF-XSim-97] XSim simulation ran for 0ns
-launch_simulation: Time (s): cpu = 00:00:01 ; elapsed = 00:00:08 . Memory (MB): peak = 507.289 ; gain = 17.523
+launch_simulation: Time (s): cpu = 00:00:00 ; elapsed = 00:00:09 . Memory (MB): peak = 507.125 ; gain = 17.281
 # set sim_objects [get_objects -r /$tb/*]
 # log_wave -quiet $sim_objects
 # open_vcd [file join $output_dir "$tb.vcd"]
@@ -140,7 +144,21 @@ launch_simulation: Time (s): cpu = 00:00:01 ; elapsed = 00:00:08 . Memory (MB): 
 # if {[llength [get_wave_configs]] == 0} {
 #     create_wave_config
 # }
-# add_wave -quiet $sim_objects
+# set existing_waves [get_waves -quiet -of [current_wave_config] *]
+# if {[llength $existing_waves] > 0} {
+#     remove_wave -quiet $existing_waves
+# }
+# set display_signals {}
+# foreach signal [concat {test_pass clk} $requested_signals] {
+#     set object [get_objects -quiet "/$tb/$signal"]
+#     if {[llength $object] > 0 && [lsearch -exact $display_signals $object] < 0} {
+#         lappend display_signals $object
+#     }
+# }
+# if {[llength $display_signals] == 0} {
+#     error "No requested display signals were found for $tb"
+# }
+# add_wave -quiet $display_signals
 # save_wave_config [file join $output_dir "$tb.wcfg"]
 # run all
 PASS tb_sevenseg_display
@@ -150,12 +168,14 @@ $finish called at time : 180 ns : File "E:/26FPGA/password_lock_system/sim/tb_se
 # if {[get_value /$tb/test_pass] ne "1"} {
 #     error "$tb failed"
 # }
+# close_sim
+INFO: [Simtcl 6-16] Simulation closed
 # set xsim_dir [file join $project_dir password_lock_system.sim sim_1 behav xsim]
-# set wdb_files [glob -nocomplain -directory $xsim_dir *.wdb]
-# if {[llength $wdb_files] == 0} {
-#     error "Vivado did not create a WDB for $tb"
+# set behavior_wdb [file join $xsim_dir "${tb}_behav.wdb"]
+# if {![file exists $behavior_wdb]} {
+#     error "Vivado did not create the behavioral WDB for $tb: $behavior_wdb"
 # }
-# file copy -force [lindex $wdb_files 0] [file join $output_dir "$tb.wdb"]
+# file copy -force $behavior_wdb [file join $output_dir "$tb.wdb"]
 # set result [open [file join $output_dir result.txt] w]
 # puts $result "PASS"
 # puts $result "testbench=$tb"
@@ -166,4 +186,4 @@ $finish called at time : 180 ns : File "E:/26FPGA/password_lock_system/sim/tb_se
 # puts "PASS WAVEFORM $tb"
 PASS WAVEFORM tb_sevenseg_display
 # exit 0
-INFO: [Common 17-206] Exiting Vivado at Tue Sep  8 16:54:09 2026...
+INFO: [Common 17-206] Exiting Vivado at Sun Sep 13 16:27:30 2026...

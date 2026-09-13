@@ -76,3 +76,7 @@ raspberry_pi5_camera/captures/
 !simulation_waveforms/**
 !password_lock_system/reports/
 !password_lock_system/reports/*.rpt
+
+# Transient files created while opening saved Vivado waveform databases
+simulation_waveforms/**/xsim.dir/
+simulation_waveforms/vivado_waveform_run.log

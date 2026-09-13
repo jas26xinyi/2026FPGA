@@ -14,7 +14,7 @@
    </zoom_setting>
    <column_width_setting>
    </column_width_setting>
-   <WVObjectSize size="29" />
+   <WVObjectSize size="6" />
    <wvobject fp_name="/tb_alarm_buzzer/test_pass" type="logic">
       <obj_property name="ElementShortName">test_pass</obj_property>
       <obj_property name="ObjectShortName">test_pass</obj_property>
@@ -31,104 +31,12 @@
       <obj_property name="ElementShortName">alarm_active</obj_property>
       <obj_property name="ObjectShortName">alarm_active</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb_alarm_buzzer/buzzer_n" type="logic">
-      <obj_property name="ElementShortName">buzzer_n</obj_property>
-      <obj_property name="ObjectShortName">buzzer_n</obj_property>
-   </wvobject>
    <wvobject fp_name="/tb_alarm_buzzer/indicator" type="logic">
       <obj_property name="ElementShortName">indicator</obj_property>
       <obj_property name="ObjectShortName">indicator</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb_alarm_buzzer/dut/clk" type="logic">
-      <obj_property name="ElementShortName">clk</obj_property>
-      <obj_property name="ObjectShortName">clk</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_alarm_buzzer/dut/rst" type="logic">
-      <obj_property name="ElementShortName">rst</obj_property>
-      <obj_property name="ObjectShortName">rst</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_alarm_buzzer/dut/alarm_active" type="logic">
-      <obj_property name="ElementShortName">alarm_active</obj_property>
-      <obj_property name="ObjectShortName">alarm_active</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_alarm_buzzer/dut/buzzer_n" type="logic">
-      <obj_property name="ElementShortName">buzzer_n</obj_property>
-      <obj_property name="ObjectShortName">buzzer_n</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_alarm_buzzer/dut/indicator" type="logic">
-      <obj_property name="ElementShortName">indicator</obj_property>
-      <obj_property name="ObjectShortName">indicator</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_alarm_buzzer/dut/beep_count" type="array">
-      <obj_property name="ElementShortName">beep_count[3:0]</obj_property>
-      <obj_property name="ObjectShortName">beep_count[3:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_alarm_buzzer/dut/tone_count" type="array">
-      <obj_property name="ElementShortName">tone_count[1:0]</obj_property>
-      <obj_property name="ObjectShortName">tone_count[1:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_alarm_buzzer/dut/beep_on" type="logic">
-      <obj_property name="ElementShortName">beep_on</obj_property>
-      <obj_property name="ObjectShortName">beep_on</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_alarm_buzzer/dut/tone_phase" type="logic">
-      <obj_property name="ElementShortName">tone_phase</obj_property>
-      <obj_property name="ObjectShortName">tone_phase</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_alarm_buzzer/dut/CLOCK_HZ" type="array">
-      <obj_property name="ElementShortName">CLOCK_HZ[31:0]</obj_property>
-      <obj_property name="ObjectShortName">CLOCK_HZ[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_alarm_buzzer/dut/BEEP_HZ" type="array">
-      <obj_property name="ElementShortName">BEEP_HZ[31:0]</obj_property>
-      <obj_property name="ObjectShortName">BEEP_HZ[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_alarm_buzzer/dut/TONE_HZ" type="array">
-      <obj_property name="ElementShortName">TONE_HZ[31:0]</obj_property>
-      <obj_property name="ObjectShortName">TONE_HZ[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_alarm_buzzer/dut/BEEP_HALF_TICKS" type="array">
-      <obj_property name="ElementShortName">BEEP_HALF_TICKS[31:0]</obj_property>
-      <obj_property name="ObjectShortName">BEEP_HALF_TICKS[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_alarm_buzzer/dut/TONE_HALF_TICKS" type="array">
-      <obj_property name="ElementShortName">TONE_HALF_TICKS[31:0]</obj_property>
-      <obj_property name="ObjectShortName">TONE_HALF_TICKS[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_alarm_buzzer/dut/BW" type="array">
-      <obj_property name="ElementShortName">BW[31:0]</obj_property>
-      <obj_property name="ObjectShortName">BW[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_alarm_buzzer/dut/TW" type="array">
-      <obj_property name="ElementShortName">TW[31:0]</obj_property>
-      <obj_property name="ObjectShortName">TW[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_alarm_buzzer/check/condition" type="logic">
-      <obj_property name="ElementShortName">condition</obj_property>
-      <obj_property name="ObjectShortName">condition</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_alarm_buzzer/test_pass" type="logic">
-      <obj_property name="ElementShortName">test_pass</obj_property>
-      <obj_property name="ObjectShortName">test_pass</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_alarm_buzzer/clk" type="logic">
-      <obj_property name="ElementShortName">clk</obj_property>
-      <obj_property name="ObjectShortName">clk</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_alarm_buzzer/rst" type="logic">
-      <obj_property name="ElementShortName">rst</obj_property>
-      <obj_property name="ObjectShortName">rst</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_alarm_buzzer/alarm_active" type="logic">
-      <obj_property name="ElementShortName">alarm_active</obj_property>
-      <obj_property name="ObjectShortName">alarm_active</obj_property>
-   </wvobject>
    <wvobject fp_name="/tb_alarm_buzzer/buzzer_n" type="logic">
       <obj_property name="ElementShortName">buzzer_n</obj_property>
       <obj_property name="ObjectShortName">buzzer_n</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_alarm_buzzer/indicator" type="logic">
-      <obj_property name="ElementShortName">indicator</obj_property>
-      <obj_property name="ObjectShortName">indicator</obj_property>
    </wvobject>
 </wave_config>
