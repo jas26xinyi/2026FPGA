@@ -1,4 +1,5 @@
 `timescale 1ns/1ps
+// Flash 异常场景：MISO 永远为 1，模拟芯片缺失/总线断开，验证默认密码与写失败保护。
 module tb_flash_default_fail;
  reg test_pass=0;
  reg clk=0,rst=1,save=0;wire sclk,mosi,cs,wp,hold,init_done,save_done,save_ok,fault;wire[15:0]password;
@@ -7,6 +8,7 @@ module tb_flash_default_fail;
   .clk(clk),.rst(rst),.save_request(save),.save_password(16'h5678),.flash_miso(1'b1),
   .flash_sclk(sclk),.flash_mosi(mosi),.flash_cs_n(cs),.flash_wp_n(wp),.flash_hold_n(hold),
   .init_done(init_done),.current_password(password),.save_done(save_done),.save_success(save_ok),.flash_fault(fault));
+ // 关键断言：空/不可读 Flash 使用 1234；失败的保存绝不能改变 current_password。
  initial begin repeat(4)@(negedge clk);rst=0;wait(init_done);@(negedge clk);
    if(password!==16'h1234)$fatal(1,"empty flash default %h",password);
    save=1;@(negedge clk);save=0;wait(save_done);@(negedge clk);

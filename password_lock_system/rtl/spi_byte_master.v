@@ -1,7 +1,7 @@
 `timescale 1ns/1ps
 
-// SPI mode-0 byte engine. With HALF_DIV=2 and a 50 MHz input the SCLK is
-// 12.5 MHz. Chip-select is intentionally controlled by the transaction FSM.
+// SPI Mode 0 单字节主机：空闲时 SCLK=0，上升沿采 MISO，下降沿更新 MOSI，MSB 先传。
+// HALF_DIV=2、输入 50 MHz 时 SCLK=12.5 MHz；CS# 由上层 Flash 事务状态机控制。
 module spi_byte_master #(
     parameter integer HALF_DIV = 2
 ) (
@@ -20,6 +20,7 @@ module spi_byte_master #(
     reg [DW-1:0] div_count;
     reg [7:0] tx_shift;
     reg [7:0] rx_shift;
+    // edge_count 统计已经完成的上升沿采样次数，达到 8 表示一个字节接收完毕。
     reg [3:0] edge_count;
 
     always @(posedge clk) begin
@@ -47,6 +48,7 @@ module spi_byte_master #(
                 end
             end else if (div_count == HALF_DIV-1) begin
                 div_count <= {DW{1'b0}};
+                // 上升沿采样返回位；下降沿移出下一位，符合 Mode 0 时序。
                 if (!sclk) begin
                     sclk <= 1'b1;
                     rx_shift <= {rx_shift[6:0], miso};

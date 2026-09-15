@@ -1,8 +1,7 @@
 `timescale 1ns/1ps
 
-// Volatile four-digit temporary password generator. The free-running LFSR is
-// sampled only when KEY3 is pressed; no generated password is written to
-// flash, so validity ends on reset or power loss.
+// 易失性 4 位临时密码发生器。LFSR 始终运行，按 KEY3 时才取样生成结果。
+// 临时密码不会写入 Flash，复位或断电后 temporary_valid 清零，旧临时密码立即失效。
 module temporary_password_generator (
     input  wire        clk,
     input  wire        rst,
@@ -17,6 +16,7 @@ module temporary_password_generator (
     reg [15:0] alternate1;
     reg [15:0] alternate2;
 
+    // 按十进制 BCD 规则加 1（9999 后回到 0000），用于避开不能使用的候选值。
     function [15:0] next_decimal_password;
         input [15:0] value;
         reg [3:0] d3, d2, d1, d0;
@@ -56,16 +56,14 @@ module temporary_password_generator (
             temporary_password <= 16'h0000;
             temporary_valid    <= 1'b0;
         end else begin
-            // x^16 + x^14 + x^13 + x^11 + 1, with a non-zero seed.
+            // 16 位非零种子的 LFSR：反馈多项式 x^16+x^14+x^13+x^11+1。
             lfsr <= {lfsr[14:0], lfsr[15] ^ lfsr[13] ^ lfsr[12] ^ lfsr[10]};
-            // Rejection sampling keeps all four displayed digits in BCD and
-            // avoids the distribution bias of reducing each nibble modulo 10.
+            // 拒绝采样：仅接受 4 个半字节都在 0~9 的值，保证显示的是合法 BCD 且分布不受模运算偏置。
             if (lfsr[15:12] <= 9 && lfsr[11:8] <= 9 &&
                 lfsr[7:4] <= 9 && lfsr[3:0] <= 9)
                 random_bcd_candidate <= lfsr;
             if (generate_event) begin
-                // At most two values are forbidden. Three consecutive BCD
-                // candidates therefore guarantee a different usable result.
+                // 固定密码和上一次临时密码最多排除两个值，三个连续 BCD 候选必有一个可用。
                 if (candidate != stored_password &&
                     (!temporary_valid || candidate != temporary_password))
                     temporary_password <= candidate;

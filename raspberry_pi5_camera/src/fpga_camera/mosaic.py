@@ -8,6 +8,7 @@ from PIL import Image, ImageDraw, ImageOps
 def build_mosaic(
     frames: Sequence[Image.Image], output_size: tuple[int, int] = (640, 480)
 ) -> Image.Image:
+    """按拍摄顺序把四帧放到左上、右上、左下、右下，输出指定大小的 RGB 图。"""
     if len(frames) != 4:
         raise ValueError("exactly four frames are required")
     width, height = output_size
@@ -15,6 +16,7 @@ def build_mosaic(
         raise ValueError("output size is too small")
     left_width = width // 2
     top_height = height // 2
+    # 奇数宽高时把多出的 1 像素分给右列/下行，保证四格严密覆盖整张画布。
     cell_sizes = (
         (left_width, top_height),
         (width - left_width, top_height),
@@ -29,12 +31,14 @@ def build_mosaic(
     )
     canvas = Image.new("RGB", output_size, "black")
     for frame, size, position in zip(frames, cell_sizes, positions, strict=True):
+        # fit 等比例缩放后居中裁剪，填满格子而不拉伸；LANCZOS 保证缩放质量。
         fitted = ImageOps.fit(frame.convert("RGB"), size, method=Image.Resampling.LANCZOS)
         canvas.paste(fitted, position)
     return canvas
 
 
 def test_pattern(output_size: tuple[int, int] = (640, 480)) -> Image.Image:
+    """无历史报警图片时显示的彩条与 READY 字样，也用于检查 HDMI 色彩和分辨率。"""
     colours = (
         "white",
         "#f4d03f",
@@ -58,6 +62,7 @@ def test_pattern(output_size: tuple[int, int] = (640, 480)) -> Image.Image:
 
 
 def error_screen(message: str, output_size: tuple[int, int] = (640, 480)) -> Image.Image:
+    """摄像头或保存失败时生成红色错误画面，最多显示异常文本前 80 个字符。"""
     image = Image.new("RGB", output_size, "#8b0000")
     draw = ImageDraw.Draw(image)
     draw.text((24, 24), "CAMERA ERROR", fill="white")

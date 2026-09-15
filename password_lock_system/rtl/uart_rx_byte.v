@@ -1,5 +1,7 @@
 `timescale 1ns/1ps
 
+// UART 8N1 单字节接收器：两级同步 RX，在每一数据位中点采样，数据按 LSB-first 装入。
+// 只有停止位为高时才拉高 valid；起始位或停止位错误的帧会被丢弃。
 module uart_rx_byte #(
     parameter integer CLOCK_HZ = 50_000_000,
     parameter integer BAUD     = 115_200
@@ -15,6 +17,7 @@ module uart_rx_byte #(
     localparam integer CW = (CLKS_PER_BIT <= 2) ? 1 : $clog2(CLKS_PER_BIT);
     localparam [1:0] RX_IDLE=2'd0,RX_START=2'd1,RX_DATA=2'd2,RX_STOP=2'd3;
 
+    // rx_meta/rx_sync 是跨时钟域同步链；state 控制起始确认、8 位采样和停止位检查。
     reg rx_meta,rx_sync;
     reg [1:0] state;
     reg [CW-1:0] clock_count;
@@ -36,6 +39,7 @@ module uart_rx_byte #(
         end else begin
             valid <= 1'b0;
             case (state)
+                // 检测下降沿后等待半个比特，在起始位中心再次确认仍为低，过滤短毛刺。
                 RX_IDLE: if (!rx_sync) begin
                     clock_count <= HALF_BIT;
                     state <= RX_START;
@@ -47,6 +51,7 @@ module uart_rx_byte #(
                     bit_index <= 3'd0;
                     state <= RX_DATA;
                 end else state <= RX_IDLE;
+                // 之后每隔一个完整比特周期在中心采样一次，共采 8 位。
                 RX_DATA: if (clock_count != 0)
                     clock_count <= clock_count - 1'b1;
                 else begin

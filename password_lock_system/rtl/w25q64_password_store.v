@@ -1,8 +1,8 @@
 `timescale 1ns/1ps
 
-// Two-sector, power-loss-tolerant password journal for the board's user W25Q64.
-// Record bytes: magic[4], generation[4], password[2], inverse[2], CRC16[2],
-// commit marker[2]. Password only changes after a verified readback.
+// W25Q64 双扇区掉电安全密码日志：A=0x000000，B=0x001000，每次写入非活动扇区。
+// 16 字节记录格式：魔数[4]、代数[4]、密码[2]、密码反码[2]、CRC16[2]、提交标记[2]。
+// 只有写后回读校验完全通过，current_password 才更新；断电时旧扇区仍保留有效副本。
 module w25q64_password_store #(
     parameter integer CLOCK_HZ = 50_000_000,
     parameter integer SPI_HALF_DIV = 2,
@@ -26,6 +26,7 @@ module w25q64_password_store #(
     output reg         save_success,
     output reg         flash_fault
 );
+    // MAGIC="PLK1"，COMMIT 表示该条记录已完整写成；代数较大的有效记录为最新记录。
     localparam [31:0] MAGIC = 32'h504C4B31;
     localparam [15:0] COMMIT = 16'hA55A;
     localparam [5:0] S_ID=0, S_READ_A=1, S_READ_B=2, S_SELECT=3, S_IDLE=4,
@@ -51,11 +52,13 @@ module w25q64_password_store #(
     reg id_valid;
     reg [23:0] jedec_id;
     reg [15:0] requested_password;
+    // record_valid 同时检查格式、BCD、反码、CRC 和提交标记，任一不符即视为无效记录。
     wire valid_a = record_valid(record_a);
     wire valid_b = record_valid(record_b);
     wire valid_verify = record_valid(verify_record);
     wire [23:0] target_address = target_bank ? 24'h001000 : 24'h000000;
 
+    // WP# 与 HOLD# 始终拉高，表示不启用硬件写保护和总线暂停。
     assign flash_wp_n   = 1'b1;
     assign flash_hold_n = 1'b1;
 
@@ -65,6 +68,7 @@ module w25q64_password_store #(
         .rx_data(spi_rx), .busy(spi_busy), .done(spi_done)
     );
 
+    // 对记录前 12 字节计算 CRC-16/CCITT，多项式 0x1021，初值 0xFFFF。
     function [15:0] crc16_96;
         input [95:0] data;
         integer i;
@@ -117,6 +121,7 @@ module w25q64_password_store #(
         end
     endfunction
 
+    // 按状态和字节下标产生 SPI 命令流：9F/03/06/20/02/05 分别为读 ID、读、写使能、擦除、页编程、读状态。
     function [7:0] transaction_byte;
         input [5:0] st;
         input [5:0] index;
@@ -158,6 +163,7 @@ module w25q64_password_store #(
         end
     endfunction
 
+    // 一条 SPI 命令结束：释放 CS#，并保证下一条命令前有足够的片选高电平间隔。
     task finish_transaction;
         begin
             flash_cs_n <= 1'b1;
@@ -200,6 +206,7 @@ module w25q64_password_store #(
                 (state == S_POLL_PROGRAM && timeout_count < PROGRAM_TIMEOUT_CYCLES))
                 timeout_count <= timeout_count + 1'b1;
 
+            // 两级启动握手避免在 SPI 主机仍 busy 时重复触发同一字节。
             if (launch_pending && !spi_busy) begin
                 spi_start <= 1'b1;
                 awaiting_byte <= 1'b1;
@@ -214,6 +221,7 @@ module w25q64_password_store #(
                 launch_pending <= 1'b1;
             end
 
+            // 字节完成后按当前事务收集返回值或推进状态；读记录时前 4 字节是命令和地址。
             if (spi_done && awaiting_byte) begin
                 awaiting_byte <= 1'b0;
                 case (state)
@@ -275,8 +283,10 @@ module w25q64_password_store #(
                 endcase
             end
 
+            // 非逐字节状态：上电选择最新记录、等待保存请求、校验提交或报告失败。
             case (state)
                 S_SELECT: begin
+                    // 上电时从两个扇区中选择有效且 generation 最大者；均无效则回退默认密码 1234。
                     flash_cs_n <= 1'b1;
                     flash_fault <= ~id_valid;
                     if (valid_a && valid_b) begin
@@ -296,6 +306,7 @@ module w25q64_password_store #(
                     state <= S_IDLE;
                 end
                 S_IDLE: begin
+                    // 锁存管理员新密码，目标切换到另一扇区，然后执行擦除→编程→轮询→回读。
                     flash_cs_n <= 1'b1;
                     if (save_request) begin
                         requested_password <= save_password;
@@ -311,6 +322,7 @@ module w25q64_password_store #(
                     end
                 end
                 S_FINISH: begin
+                    // 回读记录必须既“格式有效”又逐位等于 new_record，才对外宣布保存成功。
                     flash_cs_n <= 1'b1;
                     if (valid_verify && verify_record == new_record) begin
                         current_password <= requested_password;

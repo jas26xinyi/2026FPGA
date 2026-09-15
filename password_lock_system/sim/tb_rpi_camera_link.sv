@@ -1,8 +1,10 @@
 `timescale 1ns/1ps
 
+// FPGA↔树莓派 UART 协议测试：触发 ALARM\n、接收 ACK\n 清请求、无 ACK 时自动重发。
 module tb_rpi_camera_link;
     localparam integer CLOCK_HZ = 800;
     localparam integer BAUD = 100;
+    // 800 Hz/100 baud=每比特 8 个时钟，便于测试任务精确构造 8N1 波形。
     localparam integer CLKS_PER_BIT = 8;
     reg clk=0,rst=1,photo_trigger=0,uart_rx=1;
     wire uart_tx,link_waiting;
@@ -16,6 +18,7 @@ module tb_rpi_camera_link;
         .clk(clk),.rst(rst),.photo_trigger(photo_trigger),.uart_rx(uart_rx),
         .uart_tx(uart_tx),.link_waiting(link_waiting));
 
+    // 在 uart_rx 上人工发送 1 起始+8 数据+1 停止位，数据按 LSB-first。
     task send_uart_byte(input [7:0] value);
         integer i;
         begin
@@ -27,6 +30,7 @@ module tb_rpi_camera_link;
         end
     endtask
 
+    // tx_starts 统计 TX 下降沿，未确认一段时间后应看到新的消息起始沿。
     initial begin
         repeat(5) @(posedge clk); rst=0;
         @(posedge clk); photo_trigger=1;

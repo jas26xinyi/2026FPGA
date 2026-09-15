@@ -1,3 +1,5 @@
+# 打开每个 WDB/WCFG 的 Vivado GUI，并截取波形区域保存为 PNG。
+# CropLeft/Top/Width/Height 是相对 Vivado 主窗口的裁剪参数，可按显示器缩放调整。
 param(
     [string]$OutputRoot = (Join-Path (Split-Path -Parent (Split-Path -Parent $PSScriptRoot)) 'simulation_waveforms'),
     [string[]]$CaseIds = @(),
@@ -13,6 +15,7 @@ $openScript = Join-Path $PSScriptRoot 'open_waveform_gui.tcl'
 
 if (-not (Test-Path -LiteralPath $vivado)) { throw "Vivado not found: $vivado" }
 
+# 条目必须与 generate_waveforms.ps1 的目录和 testbench 名称一致。
 $cases = @(
     @{ Id='01'; Dir='01_basic_entry_timeout'; Test='tb_basic_entry_timeout' },
     @{ Id='02'; Dir='02_admin_password_save'; Test='tb_basic_admin_save' },
@@ -62,6 +65,7 @@ public static class VivadoWaveCapture {
 
 [VivadoWaveCapture]::SetProcessDPIAware() | Out-Null
 
+# 等待本次启动的新 Vivado GUI 主窗口，排除运行前已经存在的进程 ID。
 function Get-NewVivadoWindow {
     param([int[]]$ExistingIds)
 
@@ -77,6 +81,7 @@ function Get-NewVivadoWindow {
     throw 'Timed out waiting for the Vivado GUI window'
 }
 
+# 最大化、置前并读取窗口坐标，然后只截取波形面板区域。
 function Save-WindowCrop {
     param(
         [System.Diagnostics.Process]$Process,
@@ -115,6 +120,7 @@ function Save-WindowCrop {
     }
 }
 
+# 每项最多尝试两次；无论成功失败都关闭本次启动的 Vivado，避免后台积累窗口。
 foreach ($case in $cases) {
     $base = Join-Path (Join-Path $OutputRoot $case.Dir) $case.Test
     $wdb = "$base.wdb"

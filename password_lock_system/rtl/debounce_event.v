@@ -1,5 +1,7 @@
 `timescale 1ns/1ps
 
+// 异步机械输入同步、消抖及边沿事件发生器。
+// level 是稳定后的有效电平；rise_event 只在 level 从无效变有效时保持一个 clk 周期。
 module debounce_event #(
     parameter integer CLOCK_HZ    = 50_000_000,
     parameter integer DEBOUNCE_MS = 20,
@@ -13,6 +15,7 @@ module debounce_event #(
 );
     localparam integer COUNT_MAX = (CLOCK_HZ / 1000) * DEBOUNCE_MS;
     localparam integer CW = (COUNT_MAX <= 2) ? 1 : $clog2(COUNT_MAX);
+    // 两级触发器降低异步输入带来的亚稳态传播风险，属性提示综合器按同步链处理。
     (* ASYNC_REG = "TRUE" *) reg sync0, sync1;
     reg [CW-1:0] stable_count;
     wire active_sample = ACTIVE_LOW ? ~sync1 : sync1;
@@ -28,6 +31,7 @@ module debounce_event #(
             sync0      <= async_in;
             sync1      <= sync0;
             rise_event <= 1'b0;
+            // 新采样必须连续保持 DEBOUNCE_MS 才被接受；中途返回原值则重新计数。
             if (active_sample == level) begin
                 stable_count <= {CW{1'b0}};
             end else if (stable_count == COUNT_MAX-1) begin

@@ -1,4 +1,5 @@
 `timescale 1ns/1ps
+// 矩阵键盘测试：验证长按只触发一次、多键抑制，以及 16 个物理位置到键码的完整映射。
 module tb_keypad_scanner;
     reg test_pass=0;
     reg clk=0,rst=1;
@@ -13,6 +14,7 @@ module tb_keypad_scanner;
     integer i;
 
     always #5 clk=~clk;
+    // 根据 DUT 当前拉低的列，从 pressed_keys 模型生成低有效行输入，等效于真实按键闭合。
     always @(*) begin
         case(col_n)
             4'b1110: row_n=~pressed_keys[3:0];
@@ -23,6 +25,7 @@ module tb_keypad_scanner;
         endcase
     end
 
+    // 缩短消抖到 2 个完整扫描周期以加速仿真，不改变扫描算法。
     keypad_scanner #(.CLOCK_HZ(4000),.COLUMN_TICK_HZ(1000),.DEBOUNCE_SCANS(2)) dut(
        .clk(clk),.rst(rst),.row_n(row_n),.col_n(col_n),
        .event_valid(event_valid),.event_code(event_code));
@@ -48,6 +51,7 @@ module tb_keypad_scanner;
 
     task release_all; begin pressed_keys=0;repeat(80)@(negedge clk);end endtask
 
+    // events 是累计事件数：多键阶段前后不应增加，逐键测试时每个位置恰好增加一次。
     initial begin
         repeat(4)@(negedge clk);rst=0;
 

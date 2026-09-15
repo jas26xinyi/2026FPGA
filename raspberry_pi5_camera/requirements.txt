@@ -1,5 +1,5 @@
-# Raspberry Pi OS should install these with apt; this list is for mock-mode
-# development on another computer. Picamera2 itself must not be installed by pip.
+# 树莓派 OS 实机优先用 apt 安装这些依赖；本文件主要供其他电脑运行 mock 模式。
+# Picamera2 与系统相机栈绑定，不能通过 pip 安装，参见 scripts/install.sh。
 pyserial>=3.5,<4
 Pillow>=9
 numpy>=1.24

@@ -6,11 +6,14 @@ import unittest
 
 from PIL import Image
 
+# 测试启动恢复逻辑，不初始化真实串口、摄像头或 HDMI 窗口。
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from app import load_latest_mosaic  # noqa: E402
 
 
 class StartupImageTests(unittest.TestCase):
+    """验证只恢复最新完整事件，并忽略 .partial 临时目录及不存在的目录。"""
+
     def test_latest_completed_mosaic_is_restored(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

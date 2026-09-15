@@ -1,11 +1,13 @@
 `timescale 1ns/1ps
 
+// 管理员保存基本场景：进入 SET、保存成功、保存失败显示 FErr，以及管理员输入超时。
 module tb_basic_admin_save;
     localparam [3:0] ST_WAIT=4'd1, ST_ADMIN=4'd5, ST_SAVE=4'd6;
     reg test_pass=0;
     reg clk=0,rst=1,init_done=0,admin=0,sw1=0,key_valid=0;
     reg save_done=0,save_success=0;
     reg [3:0] key_code=0;
+    // scenario 仅用于给波形分段，不参与 DUT 功能。
     reg [7:0] scenario=0;
     wire save_request,display_fault;
     wire [15:0] save_password,entry_digits;
@@ -13,6 +15,7 @@ module tb_basic_admin_save;
     wire [2:0] entry_count;
 
     always #5 clk=~clk;
+    // 降低 CLOCK_HZ/超时参数以加快仿真，状态转移逻辑与实机一致。
     lock_controller #(.CLOCK_HZ(1000),.LOCK_TIMEOUT_S(1),.OPEN_TIMEOUT_S(2),.ERROR_DISPLAY_MS(2)) dut(
         .clk(clk),.rst(rst),.flash_init_done(init_done),.stored_password(16'h1234),
         .flash_fault(1'b0),.sw1_event(sw1),.admin_event(admin),.alarm_clear_event(1'b0),
@@ -22,12 +25,14 @@ module tb_basic_admin_save;
         .alarm_active(),.state(state),.entry_digits(entry_digits),.entry_count(entry_count),
         .error_count(),.display_fault(display_fault));
 
+    // 测试任务在时钟下降沿改变输入，保证下一个上升沿前信号稳定。
     task pulse_admin; begin @(negedge clk);admin=1;@(negedge clk);admin=0;end endtask
     task pulse_sw1; begin @(negedge clk);sw1=1;@(negedge clk);sw1=0;end endtask
     task key(input [3:0] code); begin @(negedge clk);key_code=code;key_valid=1;@(negedge clk);key_valid=0;end endtask
     task digits(input [15:0] value); begin key(value[15:12]);key(value[11:8]);key(value[7:4]);key(value[3:0]);end endtask
     task check(input bit ok,input string message); if(!ok)$fatal(1,"FAIL: %s",message); endtask
 
+    // 依次验证正常写入、写失败故障保持/清除，以及无操作自动返回等待态。
     initial begin
         scenario=1;repeat(4)@(negedge clk);rst=0;init_done=1;repeat(2)@(negedge clk);
         scenario=2;pulse_admin();check(state==ST_ADMIN,"KEY1 did not enter SET");

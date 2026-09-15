@@ -1,9 +1,9 @@
 `timescale 1ns/1ps
 
-// Reliable, human-readable UART event link to a Raspberry Pi camera service.
-// The message ALARM\n is repeated until the Pi replies ACK\n. The request is
-// latched independently of alarm_active, so KEY2 cannot cancel an in-flight
-// photo request.
+// FPGA 到树莓派的可靠、可读 UART 事件链路。
+// 协议：FPGA 发送 ASCII "ALARM\n"，树莓派收到完整命令后立即回复 "ACK\n"。
+// 未收到 ACK 时每 RETRY_CYCLES 个系统时钟重发一次；默认 50 MHz 下约为 500 ms。
+// 拍照请求被 link_waiting 独立锁存，因此解除蜂鸣报警不会取消尚未确认的拍照请求。
 module rpi_camera_link #(
     parameter integer CLOCK_HZ     = 50_000_000,
     parameter integer BAUD         = 115_200,
@@ -16,6 +16,7 @@ module rpi_camera_link #(
     output wire uart_tx,
     output reg  link_waiting
 );
+    // message_index 指向 ALARM\n 的当前字节；ack_state 用于逐字节匹配 ACK\n。
     reg tx_send;
     reg [7:0] tx_data;
     wire tx_busy,tx_done;
@@ -33,6 +34,7 @@ module rpi_camera_link #(
     uart_rx_byte #(.CLOCK_HZ(CLOCK_HZ),.BAUD(BAUD)) u_rx(
         .clk(clk),.rst(rst),.rx(uart_rx),.data(rx_data),.valid(rx_valid));
 
+    // 将消息下标映射为待发送的 ASCII 字节，下标 5 对应换行符 0x0A。
     function [7:0] alarm_byte;
         input [2:0] index;
         begin
@@ -60,6 +62,7 @@ module rpi_camera_link #(
         end else begin
             tx_send <= 1'b0;
 
+            // photo_trigger 来自第 4 次密码错误进入报警态时产生的单周期脉冲。
             if (photo_trigger) begin
                 link_waiting   <= 1'b1;
                 message_active <= 1'b1;
@@ -69,6 +72,7 @@ module rpi_camera_link #(
                 ack_state      <= 3'd0;
             end
 
+            // 接收端允许从任意字节重新寻找 'A'，避免噪声或错位导致永久失步。
             if (rx_valid) begin
                 case (ack_state)
                     3'd0: ack_state <= (rx_data == "A") ? 3'd1 : 3'd0;
@@ -88,6 +92,7 @@ module rpi_camera_link #(
                 endcase
             end
 
+            // 每个字节只向 UART 发送器发一次 send 脉冲，等待 tx_done 后再发下一字节。
             if (message_active) begin
                 if (!byte_issued && !tx_busy) begin
                     tx_data     <= alarm_byte(message_index);
@@ -104,6 +109,7 @@ module rpi_camera_link #(
                         message_index <= message_index + 1'b1;
                     end
                 end
+            // 一帧发完后等待 ACK；超时则从 'A' 开始重发完整命令。
             end else if (link_waiting) begin
                 if (retry_count >= RETRY_CYCLES-1) begin
                     retry_count    <= 32'd0;

@@ -1,10 +1,12 @@
 `timescale 1ns/1ps
 
+// 报警策略场景：Err1~Err3 后返回输入，第 4 次错误报警并只触发一次拍照，KEY2 才能解除。
 module tb_basic_alarm_policy;
     localparam [3:0] ST_USER=4'd2, ST_ERROR=4'd3, ST_ALARM=4'd7;
     reg test_pass=0;
     reg clk=0,rst=1,init_done=0,sw1=0,admin=0,clear=0,key_valid=0,temp_event=0;
     reg [3:0] key_code=0;
+    // scenario 是波形阅读标签；capture_pulses 统计拍照触发脉冲数量。
     reg [7:0] scenario=0;
     wire capture_start,alarm_active;
     wire [3:0] state;
@@ -31,6 +33,7 @@ module tb_basic_alarm_policy;
     task check(input bit ok,input string message); if(!ok)$fatal(1,"FAIL: %s",message); endtask
     integer n;
 
+    // pulse(0/1/2/3) 分别模拟 SW1/KEY1/KEY2/KEY3 的单周期事件。
     initial begin
         scenario=1;repeat(4)@(negedge clk);rst=0;init_done=1;repeat(2)@(negedge clk);pulse(0);
         for(n=1;n<=3;n=n+1)begin

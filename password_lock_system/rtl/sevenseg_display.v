@@ -1,5 +1,7 @@
 `timescale 1ns/1ps
 
+// 8 位共阳数码管显示控制：先按系统状态组合出 8 个字符，再以 8 kHz 总扫描率轮流点亮。
+// seg_n 和 digit_sel 都是低有效；人眼利用视觉暂留看到 8 位同时显示。
 module sevenseg_display #(
     parameter integer CLOCK_HZ = 50_000_000
 ) (
@@ -14,6 +16,7 @@ module sevenseg_display #(
     output reg  [7:0]  seg_n,
     output reg  [7:0]  digit_sel
 );
+    // 状态编码必须与 lock_controller 一致；字符编码 0~9 直接表示数字，0x10 以上表示字母/空白。
     localparam [3:0] ST_BOOT=0, ST_WAIT=1, ST_USER=2, ST_ERROR=3,
                      ST_OPEN=4, ST_ADMIN=5, ST_SAVE=6, ST_ALARM=7,
                      ST_TEMP=8;
@@ -26,6 +29,7 @@ module sevenseg_display #(
     reg [4:0] chars [0:7];
     integer i;
 
+    // 字符到 a~g、dp 八段低有效码的查找表；默认全 1 表示熄灭。
     function [7:0] encode;
         input [4:0] ch;
         begin
@@ -48,6 +52,7 @@ module sevenseg_display #(
         end
     endfunction
 
+    // 显示优先级：Flash 故障 FErr 最高，其次按状态显示；非 TEMP 状态再覆盖右侧输入数字。
     always @(*) begin
         for (i=0; i<8; i=i+1) chars[i]=CH_BLANK;
         if (display_fault) begin
@@ -78,6 +83,7 @@ module sevenseg_display #(
         end
     end
 
+    // 每 CLOCK_HZ/8000 个系统时钟切换一位，因此每位刷新约 1 kHz。
     always @(posedge clk) begin
         if (rst) begin
             refresh_count <= 0;
@@ -89,8 +95,7 @@ module sevenseg_display #(
     end
 
     always @(*) begin
-        // HX7A75A digit enables are active low: exactly one digit is enabled
-        // during each multiplexing slot.
+        // 位选低有效：每个扫描时隙只有一位为 0，段码对应当前 chars[scan]。
         digit_sel = ~(8'b00000001 << scan);
         seg_n = encode(chars[scan]);
     end

@@ -1,8 +1,8 @@
 `timescale 1ns/1ps
 
-// 4x4 keypad scanner. Columns are driven low one at a time. A key event is
-// emitted once after five identical complete scans (20 ms at 1 ms/column).
-// Any multi-key sample suppresses events until every key has been released.
+// 4×4 矩阵键盘扫描器：四列依次拉低，通过 row_n 读取当前列的四个按键。
+// 默认每列 1 ms，完整扫描需 4 ms；连续 5 次完整扫描相同后才确认，约等于 20 ms 消抖。
+// 长按只产生一次 event_valid；检测到多键同时按下后，必须全部释放才重新允许触发。
 module keypad_scanner #(
     parameter integer CLOCK_HZ       = 50_000_000,
     parameter integer COLUMN_TICK_HZ = 1_000,
@@ -26,10 +26,12 @@ module keypad_scanner #(
     integer i;
     integer key_count;
 
+    // column_tick 是时钟使能脉冲，不是新时钟，所有寄存器仍由 sys_clk 驱动。
     tick_enable #(.CLOCK_HZ(CLOCK_HZ), .TICK_HZ(COLUMN_TICK_HZ)) u_tick (
         .clk(clk), .rst(rst), .tick(column_tick)
     );
 
+    // 16 位 one-hot 位置到键值的接线映射；A/B/C/D/E/F 保留为功能键编码。
     function [3:0] decode_key;
         input [15:0] onehot;
         begin
@@ -55,6 +57,7 @@ module keypad_scanner #(
         end
     endfunction
 
+    // 列输出低有效，每个扫描时隙只允许一列为 0。
     always @(*) begin
         col_n = 4'b1111;
         case (column_index)
@@ -83,6 +86,7 @@ module keypad_scanner #(
                 sampled_keys[column_index*4 + 1] <= ~row_n[1];
                 sampled_keys[column_index*4 + 2] <= ~row_n[2];
                 sampled_keys[column_index*4 + 3] <= ~row_n[3];
+                // 第 4 列采完后拼成一次完整的 16 键快照，再统一做消抖和按键数判断。
                 if (column_index == 2'd3) begin
                     complete_sample = sampled_keys;
                     complete_sample[12] = ~row_n[0];
@@ -101,6 +105,7 @@ module keypad_scanner #(
                         stable_scans <= 4'd1;
                     end
 
+                    // 稳定释放时重新 armed；多键时锁死；单键且已 armed 时输出一次事件。
                     if ((stable_scans == DEBOUNCE_SCANS-1) &&
                         (complete_sample == candidate)) begin
                         if (key_count == 0) begin

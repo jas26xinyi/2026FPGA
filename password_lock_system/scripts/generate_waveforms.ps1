@@ -1,3 +1,5 @@
+# 批量执行 11 个 testbench，并为每项输出 VCD、WDB、WCFG、日志和结果文件。
+# CaseIds 可只选择指定编号；Signals 决定 Vivado 波形窗口默认显示的信号及顺序。
 param(
     [string]$OutputRoot = (Join-Path (Split-Path -Parent (Split-Path -Parent $PSScriptRoot)) 'simulation_waveforms'),
     [string[]]$CaseIds = @(),
@@ -11,6 +13,7 @@ $repoRoot = Split-Path -Parent $projectRoot
 
 if (-not (Test-Path -LiteralPath $vivado)) { throw "Vivado not found: $vivado" }
 
+# 每个条目把“测试主题—testbench—关键波形信号”绑定在一起，便于课程报告复现。
 $cases = @(
     @{ Id='01'; Dir='01_basic_entry_timeout'; Test='tb_basic_entry_timeout'; Title='01 基础功能：输入、退格、开锁与超时'; Signals='scenario,rst,init_done,sw1,key_valid,key_code,state,entry_digits,entry_count,unlocked,error_count' },
     @{ Id='02'; Dir='02_admin_password_save'; Test='tb_basic_admin_save'; Title='02 基础功能：管理员改密与保存结果'; Signals='scenario,rst,admin,key_valid,key_code,state,entry_digits,save_request,save_password,save_done,save_success,display_fault' },
@@ -39,6 +42,7 @@ if (-not $AppendLog) {
 Push-Location $projectRoot
 try {
     $previousVivadoProjectDir = $env:VIVADO_PROJECT_DIR
+    # 每项使用独立临时 Vivado 工程，避免并发/残留仿真数据互相污染。
     foreach ($case in $cases) {
         $caseDir = Join-Path $OutputRoot $case.Dir
         New-Item -ItemType Directory -Force -Path $caseDir | Out-Null

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render selected signals from a Vivado XSim VCD as a review-friendly PNG."""
+"""把 Vivado XSim 的 VCD 关键信号渲染为便于报告阅读的 PNG 波形图。"""
 
 from __future__ import annotations
 
@@ -11,6 +11,7 @@ from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
 
+# 状态值的文字标签必须与 lock_controller.v 的编码保持一致。
 STATE_NAMES = {
     0: "BOOT",
     1: "WAIT/PASS",
@@ -25,6 +26,7 @@ STATE_NAMES = {
 
 
 def load_font(size: int, bold: bool = False) -> ImageFont.ImageFont:
+    """优先加载微软雅黑/等宽字体；非 Windows 环境回退到 DejaVu 或 PIL 默认字体。"""
     candidates = [
         Path("C:/Windows/Fonts/msyhbd.ttc" if bold else "C:/Windows/Fonts/msyh.ttc"),
         Path("C:/Windows/Fonts/consolab.ttf" if bold else "C:/Windows/Fonts/consola.ttf"),
@@ -37,6 +39,7 @@ def load_font(size: int, bold: bool = False) -> ImageFont.ImageFont:
 
 
 def parse_vcd(path: Path):
+    """解析 VCD 作用域、信号代码、跳变时刻和 timescale，不依赖第三方 VCD 库。"""
     scopes: list[str] = []
     by_code: dict[str, list[tuple[str, int]]] = {}
     transitions: dict[str, list[tuple[int, str]]] = {}
@@ -105,6 +108,7 @@ def parse_vcd(path: Path):
 
 
 def choose_signals(by_code, requested: list[str]):
+    """按完整名、层级后缀或基础名匹配调用者要求的信号，优先最浅层级。"""
     result = []
     for wanted in requested:
         candidates = []
@@ -121,6 +125,7 @@ def choose_signals(by_code, requested: list[str]):
 
 
 def value_text(name: str, value: str, width: int) -> str:
+    """把二进制值格式化为状态名、单个十六进制数或定宽十六进制总线。"""
     if any(ch not in "01" for ch in value):
         return value.upper()
     number = int(value, 2)
@@ -133,6 +138,7 @@ def value_text(name: str, value: str, width: int) -> str:
 
 
 def time_label(value: int, timescale: str) -> str:
+    """根据 VCD 时间单位自动把较大时间换算为 ns/us/ms 标签。"""
     compact = timescale.replace(" ", "") or "1ps"
     match = re.fullmatch(r"(\d+)([a-zA-Z]+)", compact)
     if not match:
@@ -147,6 +153,7 @@ def time_label(value: int, timescale: str) -> str:
 
 
 def render(vcd: Path, output: Path, title: str, requested: list[str]) -> None:
+    """绘制标题、时间网格和各路标量/总线波形，并把图片保存到 output。"""
     by_code, transitions, max_time, timescale = parse_vcd(vcd)
     signals = choose_signals(by_code, requested)
     width = 1900
@@ -220,6 +227,7 @@ def render(vcd: Path, output: Path, title: str, requested: list[str]) -> None:
 
 
 def main() -> None:
+    """命令行入口：接收 VCD、输出 PNG、标题和逗号分隔的信号名称。"""
     parser = argparse.ArgumentParser()
     parser.add_argument("vcd", type=Path)
     parser.add_argument("output", type=Path)

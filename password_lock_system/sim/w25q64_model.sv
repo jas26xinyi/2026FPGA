@@ -1,4 +1,6 @@
 `timescale 1ns/1ps
+// 仅供仿真的简化 W25Q64 模型，支持工程使用的 9F/05/06/03/20/02 指令。
+// mem[0:8191] 模拟两个 4 KiB 扇区；不建模真实擦写延时，状态寄存器始终立即就绪。
 module w25q64_model(
  input wire cs_n,input wire sclk,input wire mosi,output reg miso
 );
@@ -8,6 +10,7 @@ module w25q64_model(
  integer address;
  reg write_enable;
  reg [1:0] id_index;
+ // Flash 擦除态为全 1；写入只能执行 1→0，所以页编程使用按位与。
  initial begin for(i=0;i<8192;i=i+1)mem[i]=8'hFF; miso=1;write_enable=0;end
  always @(negedge cs_n) begin
    bit_count=0;byte_count=0;in_shift=0;out_shift=8'hFF;command=0;address=0;id_index=0;miso=1;
@@ -15,9 +18,11 @@ module w25q64_model(
  always @(posedge cs_n) begin
    if(command==8'h02)write_enable=0;
  end
+ // Mode 0：模型在下降沿更新 MISO，主机将在随后的上升沿采样。
  always @(negedge sclk) if(!cs_n) begin
    miso=out_shift[7];out_shift={out_shift[6:0],1'b1};
  end
+ // 上升沿采 MOSI，每收满 8 位后解析命令、地址或数据。
  always @(posedge sclk) if(!cs_n) begin : sample
    reg [7:0] received;
    in_shift={in_shift[6:0],mosi};

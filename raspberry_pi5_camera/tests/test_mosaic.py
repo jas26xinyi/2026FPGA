@@ -4,11 +4,14 @@ import unittest
 
 from PIL import Image
 
+# 测试直接引用 src 中当前代码，避免误测到系统里旧版本的软件包。
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from fpga_camera.mosaic import build_mosaic  # noqa: E402
 
 
 class MosaicTests(unittest.TestCase):
+    """验证四帧顺序、输出尺寸和必须恰好四帧的输入约束。"""
+
     def test_quadrants_keep_frame_order(self) -> None:
         colours = ((255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 0))
         frames = [Image.new("RGB", (32, 24), colour) for colour in colours]

@@ -1,1 +1,1 @@
-"""Raspberry Pi 5 camera bridge for the FPGA password lock."""
+"""FPGA 密码锁的树莓派 5 UART 报警拍照、拼图与 HDMI 显示软件包。"""

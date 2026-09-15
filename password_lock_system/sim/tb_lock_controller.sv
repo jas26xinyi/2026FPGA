@@ -1,4 +1,5 @@
 `timescale 1ns/1ps
+// 主状态机综合回归：覆盖固定/临时密码、替换优先级、管理员保存、四次错误报警和超时。
 module tb_lock_controller;
     reg test_pass=0;
     reg clk=0,rst=1,init_done=0,flash_fault=0,sw1=0,admin=0,clear=0,temp_event=0,key_valid=0;
@@ -20,6 +21,7 @@ module tb_lock_controller;
         .save_request(save_request),.save_password(save_password),.capture_start(capture_start),
         .unlocked(unlocked),.alarm_active(alarm_active),.state(state),.entry_digits(entry_digits),
         .entry_count(entry_count),.error_count(error_count),.display_fault(display_fault));
+    // pulse(0/1/2/3)=SW1/管理员/解除报警/临时密码；key 模拟键盘单周期有效码。
     task pulse(input integer which);
       begin @(negedge clk); if(which==0)sw1=1; if(which==1)admin=1; if(which==2)clear=1;
             if(which==3)temp_event=1;
@@ -35,6 +37,7 @@ module tb_lock_controller;
       if(!condition) $fatal(1,"FAIL: %s state=%0d",message,state);
     endtask
     integer n;
+    // 此测试串行走完主要状态路径，任一 check 失败都会报告当时的 state 编码。
     initial begin
       repeat(4) @(negedge clk); rst=0; init_done=1; repeat(2) @(negedge clk);
       check(state==1,"boot to wait");

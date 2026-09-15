@@ -1,10 +1,12 @@
 `timescale 1ns/1ps
 
+// 普通开锁场景：不满 4 位确认、退格、四位上限、正确开锁、输入/开锁超时和主动关锁。
 module tb_basic_entry_timeout;
     localparam [3:0] ST_WAIT=4'd1, ST_USER=4'd2, ST_OPEN=4'd4;
     reg test_pass=0;
     reg clk=0,rst=1,init_done=0,sw1=0,key_valid=0;
     reg [3:0] key_code=0;
+    // scenario 仅标识当前测试段，方便截图时把波形与现实操作对应起来。
     reg [7:0] scenario=0;
     wire unlocked,alarm_active;
     wire [3:0] state;
@@ -12,6 +14,7 @@ module tb_basic_entry_timeout;
     wire [2:0] entry_count,error_count;
 
     always #5 clk=~clk;
+    // 将 50 MHz 缩小为 1 kHz，故 1000/2000 个仿真时钟分别代表实机的 8 s/16 s 逻辑阶段。
     lock_controller #(.CLOCK_HZ(1000),.LOCK_TIMEOUT_S(1),.OPEN_TIMEOUT_S(2),.ERROR_DISPLAY_MS(2)) dut(
         .clk(clk),.rst(rst),.flash_init_done(init_done),.stored_password(16'h1234),
         .flash_fault(1'b0),.sw1_event(sw1),.admin_event(1'b0),.alarm_clear_event(1'b0),
@@ -31,6 +34,7 @@ module tb_basic_entry_timeout;
     end endtask
     task check(input bit ok,input string message); if(!ok)$fatal(1,"FAIL: %s",message); endtask
 
+    // 每个 check 对应一个用户可见现象：PASS、输入数字、OPEN、超时回到 PASS。
     initial begin
         scenario=1; repeat(4)@(negedge clk);rst=0;init_done=1;repeat(2)@(negedge clk);
         check(state==ST_WAIT,"boot/init did not reach PASS wait state");
