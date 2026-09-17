@@ -1,0 +1,27 @@
+STATE 0 cycles=114 resets=1
+EDGE 0 -> 1 count=21
+STATE 1 cycles=281 resets=12
+EDGE 1 -> 2 count=17
+EDGE 1 -> 5 count=7
+EDGE 1 -> 8 count=7
+STATE 2 cycles=2282 resets=1
+EDGE 2 -> 1 count=5
+EDGE 2 -> 3 count=11
+EDGE 2 -> 4 count=11
+EDGE 2 -> 7 count=2
+STATE 3 cycles=205 resets=1
+EDGE 3 -> 2 count=10
+STATE 4 cycles=4028 resets=1
+EDGE 4 -> 1 count=9
+EDGE 4 -> 5 count=1
+STATE 5 cycles=1061 resets=1
+EDGE 5 -> 1 count=3
+EDGE 5 -> 6 count=4
+STATE 6 cycles=21 resets=1
+EDGE 6 -> 1 count=3
+STATE 7 cycles=31 resets=1
+EDGE 7 -> 2 count=1
+STATE 8 cycles=1027 resets=1
+EDGE 8 -> 1 count=4
+EDGE 8 -> 2 count=2
+PASS checks=27126 save_pulses=4 capture_pulses=2 legal_edges=17/17 states=9/9 resets=9/9

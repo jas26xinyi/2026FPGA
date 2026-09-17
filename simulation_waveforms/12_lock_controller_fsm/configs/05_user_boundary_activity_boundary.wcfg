@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+<wave_state/>
+<db_ref_list><db_ref path="../tb_lock_controller_fsm.wdb" id="1"><top_modules><top_module name="tb_lock_controller_fsm"/><top_module name="glbl"/></top_modules></db_ref></db_ref_list>
+<zoom_setting><ZoomStartTime time="20,995,000 ps"></ZoomStartTime><ZoomEndTime time="21,185,000 ps"></ZoomEndTime><Cursor1Time time="20,995,000 ps"></Cursor1Time></zoom_setting>
+<column_width_setting><NameColumnWidth column_width="220"/><ValueColumnWidth column_width="90"/></column_width_setting>
+<WVObjectSize size="11"/>
+<wvobject fp_name="/tb_lock_controller_fsm/scenario" type="array">
+<obj_property name="ElementShortName">scenario[7:0]</obj_property>
+<obj_property name="ObjectShortName">scenario[7:0]</obj_property>
+<obj_property name="Radix">UNSIGNED</obj_property>
+</wvobject>
+<wvobject fp_name="/tb_lock_controller_fsm/clk" type="logic">
+<obj_property name="ElementShortName">clk</obj_property>
+<obj_property name="ObjectShortName">clk</obj_property>
+<obj_property name="Radix">HEX</obj_property>
+</wvobject>
+<wvobject fp_name="/tb_lock_controller_fsm/state" type="array">
+<obj_property name="ElementShortName">state[3:0]</obj_property>
+<obj_property name="ObjectShortName">state[3:0]</obj_property>
+<obj_property name="Radix">UNSIGNED</obj_property>
+</wvobject>
+<wvobject fp_name="/tb_lock_controller_fsm/next_state" type="array">
+<obj_property name="ElementShortName">next_state[3:0]</obj_property>
+<obj_property name="ObjectShortName">next_state[3:0]</obj_property>
+<obj_property name="Radix">UNSIGNED</obj_property>
+</wvobject>
+<wvobject fp_name="/tb_lock_controller_fsm/timer_count" type="array">
+<obj_property name="ElementShortName">timer_count[10:0]</obj_property>
+<obj_property name="ObjectShortName">timer_count[10:0]</obj_property>
+<obj_property name="Radix">UNSIGNED</obj_property>
+</wvobject>
+<wvobject fp_name="/tb_lock_controller_fsm/sw1_event" type="logic">
+<obj_property name="ElementShortName">sw1_event</obj_property>
+<obj_property name="ObjectShortName">sw1_event</obj_property>
+<obj_property name="Radix">HEX</obj_property>
+</wvobject>
+<wvobject fp_name="/tb_lock_controller_fsm/key_valid" type="logic">
+<obj_property name="ElementShortName">key_valid</obj_property>
+<obj_property name="ObjectShortName">key_valid</obj_property>
+<obj_property name="Radix">HEX</obj_property>
+</wvobject>
+<wvobject fp_name="/tb_lock_controller_fsm/key_code" type="array">
+<obj_property name="ElementShortName">key_code[3:0]</obj_property>
+<obj_property name="ObjectShortName">key_code[3:0]</obj_property>
+<obj_property name="Radix">HEX</obj_property>
+</wvobject>
+<wvobject fp_name="/tb_lock_controller_fsm/entry_digits" type="array">
+<obj_property name="ElementShortName">entry_digits[15:0]</obj_property>
+<obj_property name="ObjectShortName">entry_digits[15:0]</obj_property>
+<obj_property name="Radix">HEX</obj_property>
+</wvobject>
+<wvobject fp_name="/tb_lock_controller_fsm/entry_count" type="array">
+<obj_property name="ElementShortName">entry_count[2:0]</obj_property>
+<obj_property name="ObjectShortName">entry_count[2:0]</obj_property>
+<obj_property name="Radix">UNSIGNED</obj_property>
+</wvobject>
+<wvobject fp_name="/tb_lock_controller_fsm/activity" type="logic">
+<obj_property name="ElementShortName">activity</obj_property>
+<obj_property name="ObjectShortName">activity</obj_property>
+<obj_property name="Radix">HEX</obj_property>
+</wvobject>
+</wave_config>
