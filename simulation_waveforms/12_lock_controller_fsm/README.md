@@ -1,6 +1,6 @@
 # Lock Controller 主状态机原生 Vivado 波形
 
-本目录是 `lock_controller` 专用仿真包。所有 38 张图片均为 **Vivado 2023.2 Wave 面板直接截图**（黑底绿线、Name/Value、时间刻度、黄色游标），没有使用 Python 或其他程序重画波形。每张图来自同一份通过断言的 XSim WDB/VCD，按功能和可能场景分段；长超时另有期限放大图。
+本目录是 `lock_controller` 专用仿真包。所有 38 张图片均裁自 **Vivado 2023.2 Wave 面板的原生截图**，只保留 Name/Value、时间刻度和黑底绿线波形，已去除工程树、Objects、Tcl Console 与其他 Vivado 界面。图片仅做统一裁切、放大和轻度文字锐化，没有重绘波形。每张图来自同一份通过断言的 XSim WDB/VCD，按功能和可能场景分段；长超时另有期限放大图。
 
 ## 结果摘要
 
