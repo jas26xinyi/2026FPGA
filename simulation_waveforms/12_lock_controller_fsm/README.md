@@ -1,6 +1,6 @@
 # Lock Controller 主状态机原生 Vivado 波形
 
-本目录是 `lock_controller` 专用仿真包。所有 38 张图片均裁自 **Vivado 2023.2 Wave 面板的原生截图**，只保留 Name/Value、时间刻度和黑底绿线波形，已去除工程树、Objects、Tcl Console 与其他 Vivado 界面。图片仅做统一裁切、放大和轻度文字锐化，没有重绘波形。每张图来自同一份通过断言的 XSim WDB/VCD，按功能和可能场景分段；长超时另有期限放大图。
+本目录是 `lock_controller` 专用仿真包。所有 38 张图片均于 2026-09-17 从 **Vivado 2023.2 Wave 面板重新截取**，只保留 Name/Value、时间刻度和黑底绿线波形，已去除工程树、Objects、Tcl Console 与其他 Vivado 界面。每张图保留截图中的原始像素，仅裁去界面边框；没有放大、缩小、插值、锐化或重绘波形。每张图来自同一份通过断言的 XSim WDB/VCD，按功能和可能场景分段；长超时另有期限放大图。
 
 ## 结果摘要
 
@@ -89,7 +89,7 @@
 - `run.ps1` / `run_fsm.tcl`：重新运行 XSim，输出 WDB、VCD、覆盖率、转移表。
 - `configs/*.wcfg`：每张主状态机图片的信号集合与绝对时间窗口。
 - `notes/*.md`：每张图的端口跳变、上升沿和实际功能说明。
-- `native_screenshot_sha256.txt`：38 张原生截图的完整性哈希。
+- `native_screenshot_sha256.txt`：38 张重新截取的原生像素截图及 11 张 Wave-only 总览图的完整性哈希。
 - `provenance.json`：仿真器、Git HEAD、RTL/TB/VCD 哈希和图数。
 
 运行：
